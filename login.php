@@ -103,8 +103,8 @@ body{
     <input type="checkbox" id="check">
     <div class="login form">
       <header>Login</header>
-      <form action="#">
-        <input type="text" placeholder="Enter your email">
+      <form action="" method="post">
+        <input name="userEmail" type="text" placeholder="Enter your email">
         <input type="password" placeholder="Enter your password">
         <a href="#">Forgot password?</a>
         <input type="button" class="button" value="Login">
