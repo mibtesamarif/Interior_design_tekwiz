@@ -1,3 +1,6 @@
+<?php
+include('php/query.php');
+?>
 <!DOCTYPE html>
 <!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
@@ -8,6 +11,7 @@
   <title>Registration Form</title>
   <!---Custom CSS File--->
   <style>
+
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
   * {
@@ -25,7 +29,7 @@
 
   .container {
     margin: 50px auto;
-    max-width: 700px;
+    max-width: 600px;
     width: 100%;
     background: #fff;
     border-radius: 7px;
@@ -45,6 +49,7 @@
     display: flex;
     justify-content: space-between;
     gap: 10px; /* Space between the input fields */
+    margin-top: 20px;
   }
 
   .row input {
@@ -94,6 +99,12 @@
     background: #000000;
   }
 
+  small {
+    display: block;
+    margin-top: -20px;
+    color: red;
+  }
+
   /* Styling the radio buttons and labels */
   .user-type {
     display: flex;
@@ -117,7 +128,7 @@
     text-align: center;
   }
 
-  /* Media queries for responsiveness */
+  /* Enhanced responsiveness for different screen sizes */
   @media (max-width: 768px) {
     .container {
       padding: 1rem;
@@ -156,6 +167,31 @@
     }
   }
 
+  @media (max-width: 400px) {
+    .form header {
+      font-size: 1.2rem;
+    }
+
+    .form input {
+      height: 45px;
+      font-size: 14px;
+    }
+
+    .form .button {
+      font-size: small;
+      padding: 8px 0;
+    }
+
+    .user-type label {
+      font-size: 15px;
+    }
+
+    small {
+      font-size: 12px;
+    }
+  }
+
+
 </style>
 
 </head>
@@ -163,18 +199,35 @@
   <div class="container">
     <div class="registration form">
   <header>Signup</header>
-  <form action="#">
+  <form action="" method="post">
   <div class="row">
-    <input type="text" placeholder="Enter your name">
-    <input type="text" placeholder="Enter your email">
+  <div>
+    <input name="userName" value="<?php echo $userName?>"  type="text" placeholder="Enter your name">
+    <small class="text-danger"><?php echo $nameErr?></small></div>
+<div>    <input name="userEmail" value="<?php echo $userEmail?>" type="email" placeholder="Enter your email">
+    <small class="text-danger"><?php echo $emailErr?></small></div>
+
+
   </div>
   <div class="row">
-    <input type="number" placeholder="Enter your number">
-    <input type="text" placeholder="Enter your username">
+    <div>
+    <input name="userPhone" value="<?php echo $userPhone?>"  type="number" placeholder="Enter your number">
+    <small class="text-danger"><?php echo $PhoneErr?></small></div>
+
+    <div>
+    <input name="useruName"  value="<?php echo $useruName?>"  type="text" placeholder="Enter your username">
+    <small class="text-danger"><?php echo $userErr?></small></div>
+
   </div>
   <div class="row">
-    <input type="password" placeholder="Create a password">
-    <input type="password" placeholder="Confirm your password">
+    <div>
+    <input name="userPassword" value="<?php echo $userPassword?>" type="password" placeholder="Create a password">
+    <small class="text-danger"><?php echo $passErr?></small></div>
+     
+    <div>
+    <input  name="userConfirmPassword" value="<?php echo $userConfirmPassword?>" type="password" placeholder="Confirm your password">
+    <small class="text-danger"><?php echo $cpassErr?></small></div>
+
   </div>
 
   <!-- Radio buttons for User and Designer -->
@@ -187,8 +240,9 @@
     </label>
   </div>
   
-  
-  <button class="button">Signup</button>
+
+  <button type="submit" name="signUp" class="button">Signup</button>
+
 </form>
 
 
