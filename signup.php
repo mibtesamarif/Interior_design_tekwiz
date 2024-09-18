@@ -20,12 +20,12 @@
   body {
     min-height: 100vh;
     width: 100%;
-    background: #101b19;
+    background: #111;
   }
 
   .container {
     margin: 50px auto;
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     background: #fff;
     border-radius: 7px;
@@ -77,6 +77,7 @@
   }
 
   .form .button {
+    margin-top: 10px;
     color: #fff;
     background: #101b19;
     width: 100%;
@@ -85,6 +86,8 @@
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
+    border: none;
+    transition: 0.6s ease-out;
   }
 
   .form .button:hover {
@@ -173,7 +176,7 @@
     <input type="password" placeholder="Create a password">
     <input type="password" placeholder="Confirm your password">
   </div>
-  
+
   <!-- Radio buttons for User and Designer -->
   <div class="user-type">
     <label>
@@ -183,6 +186,7 @@
       <input type="radio" name="role" value="designer"> Designer
     </label>
   </div>
+  
   
   <button class="button">Signup</button>
 </form>
