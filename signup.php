@@ -1,3 +1,6 @@
+<?php
+include('php/query.php');
+?>
 <!DOCTYPE html>
 <!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
@@ -91,6 +94,13 @@
     background: #000000;
   }
 
+  small{
+    display:block;
+    margin-top: -10px;
+    color: red;
+  }
+
+
   /* Styling the radio buttons and labels */
   .user-type {
     display: flex;
@@ -112,7 +122,9 @@
 
   .signup {
     text-align: center;
+  
   }
+
 
   /* Media queries for responsiveness */
   @media (max-width: 768px) {
@@ -160,18 +172,35 @@
   <div class="container">
     <div class="registration form">
   <header>Signup</header>
-  <form action="#">
+  <form action="" method="post">
   <div class="row">
-    <input type="text" placeholder="Enter your name">
-    <input type="text" placeholder="Enter your email">
+  <div>
+    <input name="userName" value="<?php echo $userName?>"  type="text" placeholder="Enter your name">
+    <small class="text-danger"><?php echo $nameErr?></small></div>
+<div>    <input name="userEmail" value="<?php echo $userEmail?>" type="email" placeholder="Enter your email">
+    <small class="text-danger"><?php echo $emailErr?></small></div>
+
+
   </div>
   <div class="row">
-    <input type="number" placeholder="Enter your number">
-    <input type="text" placeholder="Enter your username">
+    <div>
+    <input name="userPhone" value="<?php echo $userPhone?>"  type="number" placeholder="Enter your number">
+    <small class="text-danger"><?php echo $PhoneErr?></small></div>
+
+    <div>
+    <input name="useruName"  value="<?php echo $useruName?>"  type="text" placeholder="Enter your username">
+    <small class="text-danger"><?php echo $userErr?></small></div>
+
   </div>
   <div class="row">
-    <input type="password" placeholder="Create a password">
-    <input type="password" placeholder="Confirm your password">
+    <div>
+    <input name="userPassword" value="<?php echo $userPassword?>" type="password" placeholder="Create a password">
+    <small class="text-danger"><?php echo $passErr?></small></div>
+     
+    <div>
+    <input  name="userConfirmPassword" value="<?php echo $userConfirmPassword?>" type="password" placeholder="Confirm your password">
+    <small class="text-danger"><?php echo $cpassErr?></small></div>
+
   </div>
   
   <!-- Radio buttons for User and Designer -->
@@ -184,7 +213,7 @@
     </label>
   </div>
   
-  <button class="button">Signup</button>
+  <button type="submit" name="signUp" class="button">Signup</button>
 </form>
 
 
