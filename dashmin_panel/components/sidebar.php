@@ -295,6 +295,18 @@
                 <ion-icon name="ellipse-outline"></ion-icon>view Product
               </a>
             </li>
+            <li> <a href="viewNotification.php">
+                <ion-icon name="ellipse-outline"></ion-icon>View Notification
+              </a>
+            </li>
+            <li> <a href="viewActivities.php">
+                <ion-icon name="ellipse-outline"></ion-icon>View Activities
+              </a>
+            </li>
+            <li> <a href="viewDesign.php">
+                <ion-icon name="ellipse-outline"></ion-icon>View Design
+              </a>
+            </li>
             <li> <a href="table-datatable.html">
                 <ion-icon name="ellipse-outline"></ion-icon>Data Table
               </a>

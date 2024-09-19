@@ -1,5 +1,5 @@
 <?php
-include('adminPanel/php/dbcon.php');
+include('dashmin_panel/php/dbcon.php');
 $nameErr = "";
 $emailErr = "";
 $PhoneErr="";
