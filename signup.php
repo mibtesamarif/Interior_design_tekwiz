@@ -11,6 +11,7 @@ include('php/query.php');
   <title>Registration Form</title>
   <!---Custom CSS File--->
   <style>
+
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
   * {
@@ -23,7 +24,7 @@ include('php/query.php');
   body {
     min-height: 100vh;
     width: 100%;
-    background: #101b19;
+    background: #111;
   }
 
   .container {
@@ -48,6 +49,7 @@ include('php/query.php');
     display: flex;
     justify-content: space-between;
     gap: 10px; /* Space between the input fields */
+    margin-top: 20px;
   }
 
   .row input {
@@ -80,6 +82,7 @@ include('php/query.php');
   }
 
   .form .button {
+    margin-top: 10px;
     color: #fff;
     background: #101b19;
     width: 100%;
@@ -88,18 +91,19 @@ include('php/query.php');
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
+    border: none;
+    transition: 0.6s ease-out;
   }
 
   .form .button:hover {
     background: #000000;
   }
 
-  small{
-    display:block;
-    margin-top: -10px;
+  small {
+    display: block;
+    margin-top: -20px;
     color: red;
   }
-
 
   /* Styling the radio buttons and labels */
   .user-type {
@@ -122,11 +126,9 @@ include('php/query.php');
 
   .signup {
     text-align: center;
-  
   }
 
-
-  /* Media queries for responsiveness */
+  /* Enhanced responsiveness for different screen sizes */
   @media (max-width: 768px) {
     .container {
       padding: 1rem;
@@ -165,6 +167,31 @@ include('php/query.php');
     }
   }
 
+  @media (max-width: 400px) {
+    .form header {
+      font-size: 1.2rem;
+    }
+
+    .form input {
+      height: 45px;
+      font-size: 14px;
+    }
+
+    .form .button {
+      font-size: small;
+      padding: 8px 0;
+    }
+
+    .user-type label {
+      font-size: 15px;
+    }
+
+    small {
+      font-size: 12px;
+    }
+  }
+
+
 </style>
 
 </head>
@@ -202,7 +229,7 @@ include('php/query.php');
     <small class="text-danger"><?php echo $cpassErr?></small></div>
 
   </div>
-  
+
   <!-- Radio buttons for User and Designer -->
   <div class="user-type">
     <label>
@@ -213,7 +240,9 @@ include('php/query.php');
     </label>
   </div>
   
+
   <button type="submit" name="signUp" class="button">Signup</button>
+
 </form>
 
 

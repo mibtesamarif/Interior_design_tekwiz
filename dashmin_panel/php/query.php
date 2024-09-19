@@ -214,7 +214,7 @@ if (isset($_POST['addProduct'])) {
         // Move the uploaded file
         if (move_uploaded_file($pImageTmpName, $destination)) {
             // Prepare the query
-            $query = $pdo->prepare("INSERT INTO products (name, des, price, qty, image, pr_barcode, c_id) 
+            $query = $pdo->prepare("INSERT INTO products (product_name, category, price, qty,dscription, image_url, pr_barcode, c_id) 
                                     VALUES (:pName, :pDes, :pPrz, :pQty, :pImage, :pBarcode, :cid)");
             
             // Bind the parameters
