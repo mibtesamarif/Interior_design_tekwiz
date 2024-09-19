@@ -1,3 +1,7 @@
+<?php
+include('php/query.php');
+?>
+
 <!DOCTYPE html>
 <!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
@@ -15,10 +19,17 @@
     <div class="login form">
       <header>Login</header>
       <form action="" method="post">
-        <input name="userEmail" type="text" placeholder="Enter your email">
-        <input type="password" placeholder="Enter your password">
+        <div>
+        <input name="userEmail" value="<?php echo $userEmail?>" type="text" placeholder="Enter your email">
+        <small class="text-danger"><?php echo $emailErr?></small>
+      </div>
+      <div>
+        <input type="text" name="userPassword" value="<?php echo $userPassword?>" placeholder="Enter your password">
+        <small class="text-danger"><?php echo $passErr?></small>
+      </div>
+<br>
         <a href="#">Forgot password?</a>
-        <input type="button" class="button" value="Login">
+        <input name="signIn" type="submit" class="button" value="Login">
       </form>
       <div class="signup">
         <span class="signup">Don't have an account?

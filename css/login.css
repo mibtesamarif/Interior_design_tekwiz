@@ -28,6 +28,12 @@ body{
 #check:checked ~ .login{
   display: none;
 }
+
+small{
+  display:block;
+  margin-top: -10px;
+  color: red;
+}
 #check{
   display: none;
 }

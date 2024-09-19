@@ -67,38 +67,38 @@ if(isset($_POST['signUp'])){
 }
 // unset($user);
 }
+//login
 
+if(isset($_POST['signIn'])){
+    $userEmail = $_POST['userEmail'];
+    $userPassword = $_POST['userPassword'];
+    if(empty($_POST['userEmail'])){
+        $emailErr = "Enter your email";
 
-// if(isset($_POST['signIn'])){
-//     $userEmail = $_POST['userEmail'];
-//     $userPassword = $_POST['userPassword'];
-//     if(empty($_POST['userEmail'])){
-//         $emailErr = "Enter your email";
-
-//     }
-//     if(empty($_POST['userPassword'])){
-//         $passErr = "Enter your password";
-//     }
-//     if(empty($emailErr) && empty($passErr)){
-//     $query = $pdo->prepare("select * from users where email = :email");
-//     $query->bindParam('email',$userEmail);
-//     $query->execute();
-//    $user =  $query->fetch(PDO::FETCH_ASSOC);
-//    if($user){
-// //    print_r($user);
-//    if(sha1($userPassword) == $user['password']){
-//     echo "<script>alert('login successfully')</script>";
-//    }
-//    else{
+    }
+    if(empty($_POST['userPassword'])){
+        $passErr = "Enter your password";
+    }
+    if(empty($emailErr) && empty($passErr)){
+    $query = $pdo->prepare("select * from users where email = :email");
+    $query->bindParam('email',$userEmail);
+    $query->execute();
+   $user =  $query->fetch(PDO::FETCH_ASSOC);
+   if($user){
+//    print_r($user);
+   if(sha1($userPassword) == $user['password']){
+    echo "<script>alert('login successfully')</script>";
+   }
+   else{
    
-//     echo "<script>location.assign('login.php?error=invalid credentials')</script>";
-// }
-// }
-// else{
-//     echo "<script>location.assign('login.php?error=user not found')</script>";
-// }
-// }
-// unset($user);
-// }
+    echo "<script>location.assign('login.php?error=invalid credentials')</script>";
+}
+}
+else{
+    echo "<script>location.assign('login.php?error=user not found')</script>";
+}
+}
+unset($user);
+}
 
 ?>
