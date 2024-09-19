@@ -214,7 +214,7 @@ if (isset($_POST['addProduct'])) {
         // Move the uploaded file
         if (move_uploaded_file($pImageTmpName, $destination)) {
             // Prepare the query
-            $query = $pdo->prepare("INSERT INTO products (product_name, category, price, qty,dscription, image_url, pr_barcode, c_id) 
+            $query = $pdo->prepare("INSERT INTO products (name, des, price, qty, image, pr_barcode, c_id) 
                                     VALUES (:pName, :pDes, :pPrz, :pQty, :pImage, :pBarcode, :cid)");
             
             // Bind the parameters
@@ -417,48 +417,75 @@ if(isset($_POST['pdt'])){
   
              }
 
-
+             
+  
+             //add design
+         $designName = $designData='';
+         $designNameErr=$designDataErr="";
+ 
+        
+        // Add DESIGN
+        if (isset($_POST['addDesign'])) {
+            $designName = $_POST['design_name'];
+            $designData = $_POST['design_data'];
+            $user_id = $_SESSION['user_id'];
+        
+            // Validate required fields
+            if (empty($designName)) {
+                $designNameErr = "Design name is required";
+            } else {
+                if (!preg_match("/^[a-zA-Z ]*$/", $designName)) {
+                    $designNameErr = "Enter a valid design name";
+                }
+            }
+            
+            if (empty($designData)) {
+                $designDataErr = "Design data is required";
+            }
+        
+            // Check for errors
+            if (empty($designNameErr) && empty($designDataErr)) {
+                $query = $pdo->prepare("INSERT INTO designs (design_name, design_data,user_id) VALUES (:dName, :dData,:user_id)");
+                $query->bindParam(':dName', $designName);
+                $query->bindParam(':dData', $designData);
+                $query->bindParam(':user_id', $user_id);
+                $query->execute();
+        
+                echo "<script>alert('Design added successfully'); location.assign('index.php');</script>";
+            } 
+        }
              //dashboard work
 
-// if (!isset($_SESSION['user_id'])) {
-//Redirect to login page if the user is not logged in
-//  header('Location: login.php');
-// exit();
-     // }  
 
-$userId = $_SESSION['user_id'];  // Assume user is already logged in
+
 
 
 // Fetch Designs, Activities, and Notifications Using isset()
 
 // Check if the request is for viewing designs
-if (isset($_GET['view_designs'])) {
-    $stmt = $pdo->prepare('SELECT * FROM designs WHERE user_id = :user_id ORDER BY updated_at DESC');
-    $stmt->execute(['user_id' => $user_id]);
-    $designs = $stmt->fetchAll();
-}
+
 
 // Check if the request is for viewing activities
-if (isset($_GET['view_activities'])) {
-    $stmt = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10');
-    $stmt->execute(['user_id' => $user_id]);
-    $activities = $stmt->fetchAll();
-}
+// if (isset($_GET['view_activities'])) {
+//     $stmt = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10');
+//     $stmt->execute(['user_id' => $user_id]);
+//     $activities = $stmt->fetchAll();
+// }
 
 // Check if the request is for viewing notifications
-if (isset($_GET['view_notifications'])) {
-    $stmt = $pdo->prepare('SELECT * FROM notifications WHERE user_id = :user_id AND is_read = 0 ORDER BY created_at DESC');
-    $stmt->execute(['user_id' => $user_id]);
-    $notifications = $stmt->fetchAll();
-}
+// if (isset($_GET['view_notifications'])) {
+//     $stmt = $pdo->prepare('SELECT * FROM notifications WHERE user_id = :user_id AND is_read = 0 ORDER BY created_at DESC');
+//     $stmt->execute(['user_id' => $user_id]);
+//     $notifications = $stmt->fetchAll();
+// }
 
 // Mark a notification as read (using GET to get the notification ID)
-if (isset($_GET['mark_read'])) {
-    $notification_id = $_GET['mark_read'];
-    $stmt = $pdo->prepare('UPDATE notifications SET is_read = 1 WHERE id = :notification_id');
-    $stmt->execute(['notification_id' => $notification_id]);
-    header('Location: dashboard.php?view_notifications');  // Redirect to refresh the notification list
-}
+// if (isset($_GET['mark_read'])) {
+//     $notification_id = $_GET['mark_read'];
+//     $stmt = $pdo->prepare('UPDATE notifications SET is_read = 1 WHERE id = :notification_id');
+//     $stmt->execute(['notification_id' => $notification_id]);
+//     header('Location: dashboard.php?view_notifications');  // Redirect to refresh the notification list
+// }
 
 ?>
 

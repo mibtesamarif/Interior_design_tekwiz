@@ -37,7 +37,7 @@ include('components/navbar.php');
                 <div class="d-flex align-items-center">
                    <h5 class="mb-0">Category list</h5>
                     <form class="ms-auto position-relative">
-                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
+                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
                       <input class="form-control " type="text" id="search" placeholder="search">
                     </form>
                 </div>

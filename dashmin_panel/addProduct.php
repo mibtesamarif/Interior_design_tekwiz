@@ -118,6 +118,4 @@ include('components/sidebar.php');
          
         
 
-      <?php
-      include('components/footer.php')
-      ?>
+     

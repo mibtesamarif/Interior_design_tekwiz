@@ -1,4 +1,6 @@
- <!--start footer-->
+ 
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!--start footer-->
  <footer class="footer">
       <div class="footer-text">
         Copyright © 2023. All right reserved.
@@ -26,6 +28,7 @@
    <!-- Ionicons CDN -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>

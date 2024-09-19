@@ -55,7 +55,7 @@ include('components/navbar.php');
                       </tr>
                     </thead>
                     <tbody>
-                    
+<!--                     
                         <td>
                           <div class="table-actions d-flex align-items-center gap-3 fs-6">
                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
@@ -63,7 +63,8 @@ include('components/navbar.php');
                             <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
                           </div>
                         </td>
-                     
+                      -->
+</tbody>
                     </table>
                 </div>
               </div>
@@ -83,7 +84,7 @@ include('components/navbar.php');
   <!--end wrapper-->
 
 
-  
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <script>
       $(document).ready(function(){
@@ -119,8 +120,8 @@ include('components/navbar.php');
  });
 </script>
 
-
-
-<?php 
-include('components/footer.php')
+<?php
+include('components/footer.php');
 ?>
+
+

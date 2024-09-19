@@ -230,15 +230,16 @@ include('php/query.php');
 
   </div>
 
-  <!-- Radio buttons for User and Designer -->
-  <div class="user-type">
-    <label>
-      <input type="radio" name="role" value="user" checked> User
-    </label>
-    <label>
-      <input type="radio" name="role" value="designer"> Designer
-    </label>
-  </div>
+<!-- Radio buttons for User and Designer -->
+<div class="user-type">
+  <label>
+    <input type="radio" name="role" value="user" checked> User
+  </label>
+  <label>
+    <input type="radio" name="role" value="designer"> Designer
+  </label>
+</div>
+
   
 
   <button type="submit" name="signUp" class="button">Signup</button>
