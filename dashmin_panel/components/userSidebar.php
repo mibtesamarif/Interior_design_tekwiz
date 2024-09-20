@@ -1,5 +1,5 @@
 <?php
-if(!isset($_SESSION['adminEmail'])){
+if(!isset($_SESSION['userEmail'])){
   echo "<script>location.assign('../index.php')</script>";
 }
 ?>
@@ -33,7 +33,7 @@ if(!isset($_SESSION['adminEmail'])){
   <link href="assets/css/semi-dark.css" rel="stylesheet" />
   <link href="assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>Fobia - Bootstrap5 Admin Template</title>
+  <title>Fobia User Panel</title>
 </head>
 
 <body>
@@ -49,13 +49,13 @@ if(!isset($_SESSION['adminEmail'])){
       <img src="assets/images/logo-icon-2.png" class="logo-icon" alt="logo icon">
     </div>
     <div>
-      <h4 class="logo-text">Admin Panel</h4>
+      <h4 class="logo-text">User Panel</h4>
     </div>
   </div>
   <!--navigation-->
   <ul class="metismenu" id="menu">
     <li>
-      <a href="index.php">
+      <a href="user.php">
         <div class="parent-icon">
           <ion-icon name="home-outline"></ion-icon>
         </div>
@@ -63,49 +63,10 @@ if(!isset($_SESSION['adminEmail'])){
       </a>
     </li>
 
-    <!-- Category Management -->
-    <li>
-      <?php
-      if(isset($_SESSION['adminEmail'])){
-        ?>
-      <a class="has-arrow" href="javascript:;">
-        <div class="parent-icon">
-          <ion-icon name="pricetags-outline"></ion-icon>
-        </div>
-        <div class="menu-title">Category</div>
-      </a>
-      <ul>
-        <li><a href="addCategory.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Add Category
-
-          </a>
-        </li>
-        <li><a href="viewCategory.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Categories
-          </a>
-        </li>
-      </ul>
-    </li>
+   
 
     <!-- Product Management -->
-    <li>
-      <a class="has-arrow" href="javascript:;">
-        <div class="parent-icon">
-          <ion-icon name="cube-outline"></ion-icon>
-        </div>
-        <div class="menu-title">Product</div>
-      </a>
-      <ul>
-        <li><a href="addProduct.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Add Product
-          </a>
-        </li>
-        <li><a href="viewProduct.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Products
-          </a>
-        </li>
-      </ul>
-    </li>
+   
 
     <!-- Orders Management -->
     <li>
@@ -113,22 +74,22 @@ if(!isset($_SESSION['adminEmail'])){
         <div class="parent-icon">
           <ion-icon name="cart-outline"></ion-icon>
         </div>
-        <div class="menu-title">Orders</div>
+        <div class="menu-title">Invoices</div>
       </a>
       <ul>
-        <li><a href="viewOrders.php">
+        <!-- <li><a href="viewOrders.php">
             <ion-icon name="ellipse-outline"></ion-icon>View Orders
           </a>
         </li>
         <li><a href="orderDetails.php">
             <ion-icon name="ellipse-outline"></ion-icon>Order Details
           </a>
-        </li>
+        </li> -->
       </ul>
     </li>
 
     <!-- User Management -->
-    <li>
+    <!-- <li>
       <a class="has-arrow" href="javascript:;">
         <div class="parent-icon">
           <ion-icon name="people-outline"></ion-icon>
@@ -145,10 +106,10 @@ if(!isset($_SESSION['adminEmail'])){
           </a>
         </li>
       </ul>
-    </li>
+    </li> -->
 
     <!-- Blog Management -->
-    <li>
+    <!-- <li>
       <a class="has-arrow" href="javascript:;">
         <div class="parent-icon">
           <ion-icon name="newspaper-outline"></ion-icon>
@@ -169,23 +130,18 @@ if(!isset($_SESSION['adminEmail'])){
           </a>
         </li>
       </ul>
-    </li>
+    </li> -->
 
     <!-- Reports -->
-    <li>
+    <!-- <li>
       <a href="reports.php">
         <div class="parent-icon">
           <ion-icon name="analytics-outline"></ion-icon>
         </div>
         <div class="menu-title">Reports</div>
       </a>
-    </li>
-<?php
-      }
-    
-      elseif(isset($_SESSION['userEmail'])){
-         ?>
-    
+    </li> -->
+
 
 
     <!--designers-->
@@ -195,7 +151,7 @@ if(!isset($_SESSION['adminEmail'])){
         <div class="parent-icon">
           <ion-icon name="people-outline"></ion-icon>
         </div>
-        <div class="menu-title">Design</div>
+        <div class="menu-title">Custom Design</div>
       </a>
       <ul>
       <li><a href="addDesign.php">
@@ -229,9 +185,22 @@ if(!isset($_SESSION['adminEmail'])){
        
       </ul>
     </li>
-    <?php
-      }
-      ?>
+    <li>
+      <a href="consultant-booking.php">
+        <div class="parent-icon">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="menu-title">Consultant Booking</div>
+      </a>
+    </li>
+    <li>
+      <a href="my-reviews.php">
+        <div class="parent-icon">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="menu-title">My Reviews</div>
+      </a>
+    </li>
   </ul>
   <!--end navigation-->
 </aside>

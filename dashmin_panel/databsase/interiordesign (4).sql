@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2024 at 09:23 AM
+-- Generation Time: Sep 20, 2024 at 09:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,14 @@ CREATE TABLE `activities` (
   `activity_data` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `activities`
+--
+
+INSERT INTO `activities` (`id`, `user_id`, `activity_type`, `activity_data`, `created_at`) VALUES
+(2, 4, 'xyz', 'abc', '2024-09-20 03:16:51'),
+(3, 2, 'xyz', 'abc', '2024-09-20 06:25:06');
 
 -- --------------------------------------------------------
 
@@ -81,7 +89,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `name`, `des`, `image`) VALUES
 (2, 'daniyal', 'abc', 'istockphoto-1439425791-612x612.jpg'),
-(7, 'ali', 'abc', 'ecommerce.png');
+(7, 'ali', 'abc', 'ecommerce.png'),
+(9, 'watches', 'abc', 'ecommerce.png');
 
 -- --------------------------------------------------------
 
@@ -94,7 +103,8 @@ CREATE TABLE `consultations` (
   `user_id` int(11) DEFAULT NULL,
   `designs_id` int(11) DEFAULT NULL,
   `consultation_date` datetime DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(200) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +166,15 @@ CREATE TABLE `designs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `designs`
+--
+
+INSERT INTO `designs` (`id`, `user_id`, `design_name`, `design_data`, `created_at`) VALUES
+(10, 2, 'aaaaaaaaaaaaaaaaaaaaaa', 'aaaaabbbbbbbbbbbbbbbbb', '2024-09-19 12:57:05'),
+(15, 4, 'xyz', 'abc', '2024-09-20 03:16:33'),
+(16, 2, 'bed', 'abc vnn', '2024-09-20 05:42:05');
+
 -- --------------------------------------------------------
 
 --
@@ -206,7 +225,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `des`, `image`, `price`, `qty`, `c_id`, `pr_barcode`) VALUES
 (4, 'fashion bags', 'good', 'gardenworld.png', 5000, 12, 2, '39455595'),
-(6, 'infinix', 'good', 'gardenworld.png', 8000, 12, 2, '46688988');
+(6, 'infinix', 'good', 'gardenworld.png', 8000, 12, 2, '46688988'),
+(8, 'fashion bags', 'abc', 'ecommerce.png', 2000, 16, 2, '46688988');
 
 --
 -- Triggers `products`
@@ -247,6 +267,15 @@ CREATE TABLE `role` (
   `name` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'admin'),
+(2, 'designer'),
+(3, 'user');
+
 -- --------------------------------------------------------
 
 --
@@ -274,17 +303,21 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
-(2, 'ali', 'ali@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '2024-09-18 12:16:27'),
-(3, 'ali', 'ali12@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-18 13:40:03'),
-(4, 'ali', 'ali23@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-19 06:23:06');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `role_id`) VALUES
+(2, 'ali', 'ali@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-18 12:16:27', 3),
+(3, 'ali', 'ali12@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-18 13:40:03', 3),
+(4, 'ali', 'ali23@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-19 06:23:06', 3),
+(6, 'usman', 'usman@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-19 09:22:49', 3),
+(7, 'daniyal', 'daniyal@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-19 09:24:31', 2),
+(8, 'admin', 'admin@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2024-09-19 12:40:15', 1);
 
 --
 -- Indexes for dumped tables
@@ -410,7 +443,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -428,7 +461,7 @@ ALTER TABLE `admin_activity_log`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `consultations`
@@ -458,7 +491,7 @@ ALTER TABLE `designers`
 -- AUTO_INCREMENT for table `designs`
 --
 ALTER TABLE `designs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `inspiration_gallery`
@@ -476,7 +509,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -488,7 +521,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `userdetail`
@@ -500,7 +533,7 @@ ALTER TABLE `userdetail`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
