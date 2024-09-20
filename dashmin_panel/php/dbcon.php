@@ -1,5 +1,6 @@
 <?php
 
+
 $server = "mysql:host=localhost;dbname=decor_vista";
 $user = "root";
 $pass = "";
@@ -11,6 +12,7 @@ try {
     echo "Connection failed: " . $e->getMessage();
     exit;
 }
+
 
 
 ?>

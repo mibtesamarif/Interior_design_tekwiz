@@ -1,7 +1,6 @@
 <?php
 include('query.php');
-                               $query=$pdo->query("select products .*,category.name as cName,c_id as catId from products inner join category on 
-                               products.c_id=category.id");
+                               $query=$pdo->query("select products.*,category.name as cName,c_id as catId from products inner join category on  products.c_id=category.id");
                                $allProducts=$query->fetchAll(PDO::FETCH_ASSOC);
                                foreach ($allProducts as $pdt) {
                                 

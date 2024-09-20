@@ -2,6 +2,13 @@
 include('php/query.php');
 include('components/sidebar.php');
 include('components/navbar.php');
+// Ensure user is logged in
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+} else {
+  echo "User not logged in.";
+ 
+}
 ?>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -46,40 +53,50 @@ include('components/navbar.php');
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center">
-                   <h5 class="mb-0">Category list</h5>
+                   <h5 class="mb-0">Design list</h5>
                     <form class="ms-auto position-relative">
                       <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
                       <input class="form-control " type="text" id="search" placeholder="search">
                     </form>
                 </div>
-                <div class="table-responsive mt-3">\
+                <div class="table-responsive mt-3">
+               
+                  <?php
+                $uid = $_SESSION['user_id'];
+                $designs=[];
+                $query = $pdo->prepare('SELECT * FROM designs WHERE user_id = :user_id ORDER BY created_at DESC');
+                $query->bindParam(':user_id', $uid);
+                $query->execute();
+                $designs = $query->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                     <!-- Display designs in a table -->
-                   <?php if ($designs): ?>
+                   <?php if(!empty($designs)): ?>
                   <table class="table align-middle">
                     <thead class="table-secondary">
                     <th>Design Name</th>
+                    <th>Design Data</th>
                     <th>Created At</th>
                     <th>Actions</th>
+                    <th>Actions</th>
+
                     </thead>
                     <tbody>
                     <?php foreach ($designs as $design): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($design['design_name']); ?></td>
-                    <td><?php echo htmlspecialchars($design['created_at']); ?></td>
+                    <td><?php echo $design['design_name']; ?></td>
+                    <td><?php echo $design['design_data']; ?></td>
+
+                    <td><?php echo $design['created_at']; ?></td>
                     <td>
-                        <a href="edit_design.php?id=<?php echo $design['id']; ?>">Edit</a>
-                        <a href="delete_design.php?id=<?php echo $design['id']; ?>">Delete</a>
+                        <a class="btn btn-primary" href="editDesign.php?desid=<?php echo $design['id']; ?>">Edit</a>
+                        
                     </td>
+                    <td><a class="btn btn-danger" href="?id=<?php echo $design['id']; ?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
-                        <td>
-                          <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                            <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                            <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                          </div>
-                        </td>
-                   
+                     
+                    </tbody>
                     </table>
                     <?php else: ?>
                   <p>No designs saved yet.</p>
@@ -190,38 +207,6 @@ include('components/navbar.php');
 <!-- Mirrored from codervent.com/fobia/demo/ltr/table-advance-tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 10:31:52 GMT -->
 </html>
 
-//seraching Work
-
-<!-- <script>
-      $(document).ready(function(){
-        let allCategories = () =>{
-                $.ajax({
-                url : "php/catajax.php",
-                type : "get",
-                success :function(abc){
-                   $("tbody").html(abc);   
-                }
-            }) 
-            }
-            allCategories();
-     $("#search").keyup(function(){
-       let input = $(this).val();
-         //alert(input);
-        if(input!="" ){
-            $.ajax({
-            url : "php/query.php",
-            type : "post",
-            data : {cat:input},
-            success :function(data){
-               $("tbody").html(data);   
-            }
-        })
-    }
-    else{
-        allCategories();
-    }
-
-
-   });
- });
-</script> -->
+<?php
+include('components/footer.php');
+?>
