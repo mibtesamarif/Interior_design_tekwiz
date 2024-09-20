@@ -75,8 +75,11 @@ if (isset($_SESSION['user_id'])) {
                   <table class="table align-middle">
                     <thead class="table-secondary">
                     <th>Design Name</th>
+                    <th>Design Data</th>
                     <th>Created At</th>
                     <th>Actions</th>
+                    <th>Actions</th>
+
                     </thead>
                     <tbody>
                     <?php foreach ($designs as $design): ?>
@@ -86,9 +89,10 @@ if (isset($_SESSION['user_id'])) {
 
                     <td><?php echo $design['created_at']; ?></td>
                     <td>
-                        <a href="edit_design.php?id=<?php echo $design['id']; ?>">Edit</a>
-                        <a href="delete_design.php?id=<?php echo $design['id']; ?>">Delete</a>
+                        <a class="btn btn-primary" href="editDesign.php?desid=<?php echo $design['id']; ?>">Edit</a>
+                        
                     </td>
+                    <td><a class="btn btn-danger" href="?id=<?php echo $design['id']; ?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
                      
@@ -203,3 +207,6 @@ if (isset($_SESSION['user_id'])) {
 <!-- Mirrored from codervent.com/fobia/demo/ltr/table-advance-tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 10:31:52 GMT -->
 </html>
 
+<?php
+include('components/footer.php');
+?>

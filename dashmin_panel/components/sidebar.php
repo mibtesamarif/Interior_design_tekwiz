@@ -159,6 +159,26 @@
        
       </ul>
     </li>
+   <!---Actiivities--->
+    <li>
+      <a class="has-arrow" href="javascript:;">
+        <div class="parent-icon">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+        <div class="menu-title">Activiities</div>
+      </a>
+      <ul>
+      <li><a href="addActivities.php">
+            <ion-icon name="ellipse-outline"></ion-icon>Add Activities
+          </a>
+        </li>
+        <li><a href="viewActivities.php">
+            <ion-icon name="ellipse-outline"></ion-icon>View Activities
+          </a>
+        </li>
+       
+      </ul>
+    </li>
     <!-- Blog Management -->
     <li>
       <a class="has-arrow" href="javascript:;">

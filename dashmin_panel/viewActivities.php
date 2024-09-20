@@ -2,6 +2,13 @@
 include('php/query.php');
 include('components/sidebar.php');
 include('components/navbar.php');
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+} else {
+  echo "User not logged in.";
+  exit;
+}
+
 ?>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -53,14 +60,22 @@ include('components/navbar.php');
                     </form>
                 </div>
                 <div class="table-responsive mt-3">
-                <?php if (isset($_GET['view_activities'])): ?>
+                  <?php
+// Fetch activities for the logged-in user
+$query = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC');
+$query->bindParam(':user_id', $user_id);
+$query->execute();
+$activities = $query->fetchAll(PDO::FETCH_ASSOC);
+?>
                  <?php if (!empty($activities)): ?>
                   <table class="table align-middle">
                     <thead class="table-secondary">
                       <tr>
                       <th>Activity Type</th>
-                      <th>Activity Details</th>
+                      <th>Activity Data</th>
                       <th>Created At</th>
+                      <th>Actions</th>
+                      <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -69,22 +84,20 @@ include('components/navbar.php');
                     <td><?php echo htmlspecialchars($activity['activity_type']); ?></td>
                     <td><?php echo htmlspecialchars($activity['activity_data']); ?></td>
                     <td><?php echo htmlspecialchars($activity['created_at']); ?></td>
+                    <td>
+                        <a class="btn btn-primary" href="editActivities.php?actid=<?php echo $activity['id']; ?>">Edit</a>
+                        
+                    </td>
+                    <td><a class="btn btn-danger" href="?id=<?php echo $activity['id']; ?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
-                        <td>
-                          <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                            <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Views" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                            <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                          </div>
-                        </td>
+                       
                    
                     </tbody>
                    
                   </table>
                   <?php else: ?>
                  <p>No recent activities.</p>
-                 <?php endif; ?>
                  <?php endif; ?>
 
                 </div>
@@ -193,7 +206,10 @@ include('components/navbar.php');
 <!-- Mirrored from codervent.com/fobia/demo/ltr/table-advance-tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 10:31:52 GMT -->
 </html>
 
-//seraching Work
+
+<?php
+include('components/footer.php');
+?>
 <!-- 
 <script>
       $(document).ready(function(){

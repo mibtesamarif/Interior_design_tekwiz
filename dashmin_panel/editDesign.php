@@ -2,6 +2,15 @@
 include('php/query.php');
 include('components/sidebar.php');
 include('components/navbar.php');
+
+if (isset($_GET['desid'])) {
+    $desid = $_GET['desid'];
+    // Correcting the binding parameter
+    $query = $pdo->prepare("SELECT * FROM designs WHERE id=:desid");
+    $query->bindParam(':desid', $desid);
+    $query->execute();
+    $des = $query->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 
@@ -22,41 +31,37 @@ include('components/navbar.php');
                 </ol>
               </nav>
             </div>
+
           </div>
           <!--end breadcrumb-->
 
 
           <div class="row">
             <div class="col-xl-8 mx-auto">
+            
+             
   
               <div class="card">
                 <div class="card-body">
                   <div class="border p-3 rounded">
-                  <h6 class="mb-0 text-uppercase">Category Form</h6>
+                  <h6 class="mb-0 text-uppercase">Design Edit Form</h6>
                   <hr>
-                  <form class="row g-3" method="post" enctype="multipart/form-data">
+                  <form class="row g-3" method="post">
                     <div class="col-12">
                       <label class="form-label">Name</label>
-                      <input type="text" name="cName" value="<?php echo $catName?>" class="form-control">
-                     <small class="text-danger"><?php echo $catNameErr?></small>
-
+                      <input type="text" value="<?php echo $des['design_name']?><?php echo $desName?>" name="desName" class="form-control">
+                      <small class="text-danger"><?php echo $dNameErr?></small>
+                       
                     </div>
                     <div class="col-12">
                       <label class="form-label">Description</label>
-                      <input type="text" name="cDes" value="<?php echo $catDes?>" class="form-control">
-                     <small class="text-danger"><?php echo $catDesErr?></small>
-
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label">Image</label>
-                    <input type="file" name="cImg" value="<?php echo $catImg?>" class="form-control">
-                    <small class="text-danger"><?php echo $catImgErr?></small>
-                    </div>
+                      <input type="text"  value="<?php echo $des['design_data']?><?php echo $desData?>" name="desData" class="form-control">
+                      <small class="text-danger"><?php echo $dDataErr?></small>
                     
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" class="btn btn-primary" name="addCategory">Add Category</button>
+                        <button type="submit" class="btn btn-primary" name="updateDesign">update Category</button>
                       </div>
                     </div>
                   </form>
@@ -64,7 +69,7 @@ include('components/navbar.php');
                 </div>
               </div>
   
-              
+             
   
             </div>
           </div>
@@ -74,17 +79,8 @@ include('components/navbar.php');
           <!-- end page content-->
          </div>
          
-<?php
-include('components/footer.php');
-?>
 
 
-   
-        
-
-
-    
-
-
-
-
+         <?php 
+         include('components/footer.php')
+         ?>
