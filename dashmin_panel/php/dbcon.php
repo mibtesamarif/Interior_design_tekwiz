@@ -1,6 +1,6 @@
 <?php
-<<<<<<< HEAD
-$server = "mysql:host=localhost;dbname=decorvista";
+
+$server = "mysql:host=localhost;dbname=decor_vista";
 $user = "root";
 $pass = "";
 
@@ -11,10 +11,6 @@ try {
     echo "Connection failed: " . $e->getMessage();
     exit;
 }
-=======
-$server="mysql:host=localhost;dbname=interiordesign";
-$user="root";
-$password="";
-$pdo=new PDO($server,$user,$password);
->>>>>>> b00339fa210c7d088eb9d2a3b0d1abd0486787c5
+
+
 ?>
