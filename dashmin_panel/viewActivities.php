@@ -1,7 +1,7 @@
 <?php
 include('php/query.php');
-include('components/sidebar.php');
-include('components/navbar.php');
+include('components/userSidebar.php');
+include('components/userNavbar.php');
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 } else {
@@ -55,19 +55,12 @@ if (isset($_SESSION['user_id'])) {
                 <div class="d-flex align-items-center">
                    <h5 class="mb-0">Activities OverView</h5>
                     <form class="ms-auto position-relative">
-                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
-                      <input class="form-control " type="text" id="search" placeholder="search">
+                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
+                      <input class="form-control " type="text" id="search"  name="search" placeholder="search">
                     </form>
                 </div>
                 <div class="table-responsive mt-3">
-                  <?php
-// Fetch activities for the logged-in user
-$query = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC');
-$query->bindParam(':user_id', $user_id);
-$query->execute();
-$activities = $query->fetchAll(PDO::FETCH_ASSOC);
-?>
-                 <?php if (!empty($activities)): ?>
+
                   <table class="table align-middle">
                     <thead class="table-secondary">
                       <tr>
@@ -79,26 +72,12 @@ $activities = $query->fetchAll(PDO::FETCH_ASSOC);
                       </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($activities as $activity): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($activity['activity_type']); ?></td>
-                    <td><?php echo htmlspecialchars($activity['activity_data']); ?></td>
-                    <td><?php echo htmlspecialchars($activity['created_at']); ?></td>
-                    <td>
-                        <a class="btn btn-primary" href="editActivities.php?actid=<?php echo $activity['id']; ?>">Edit</a>
-                        
-                    </td>
-                    <td><a class="btn btn-danger" href="?id=<?php echo $activity['id']; ?>">Delete</a></td>
-                </tr>
-            <?php endforeach; ?>
-                       
+                  
                    
                     </tbody>
                    
                   </table>
-                  <?php else: ?>
-                 <p>No recent activities.</p>
-                 <?php endif; ?>
+        
 
                 </div>
               </div>
@@ -207,46 +186,45 @@ $activities = $query->fetchAll(PDO::FETCH_ASSOC);
 </html>
 
 
+ <script>
+      $(document).ready(function() {
+    let loadActivities = () => {
+        $.ajax({
+            url: "php/activityajax.php",
+            type: "get",
+            success: function(response) {
+                $("tbody").html(response);   
+            }
+        });
+    };
+    
+    loadActivities(); // Initial load of all activities
+
+    // Search activities based on input
+    $("#search").keyup(function() {
+        let input = $(this).val();
+        if (input != "") {
+            $.ajax({
+                url: "php/query.php",
+                type: "post",
+                data: { activity: input },
+                success: function(response) {
+                    $("tbody").html(response);   
+                }
+            });
+        } else {
+            loadActivities(); // Reload all activities if search is cleared
+        }
+    });
+});
+
+</script> 
+
+
+
 <?php
 include('components/footer.php');
 ?>
-<!-- 
-<script>
-      $(document).ready(function(){
-        let allCategories = () =>{
-                $.ajax({
-                url : "php/catajax.php",
-                type : "get",
-                success :function(abc){
-                   $("tbody").html(abc);   
-                }
-            }) 
-            }
-            allCategories();
-     $("#search").keyup(function(){
-       let input = $(this).val();
-         //alert(input);
-        if(input!="" ){
-            $.ajax({
-            url : "php/query.php",
-            type : "post",
-            data : {cat:input},
-            success :function(data){
-               $("tbody").html(data);   
-            }
-        })
-    }
-    else{
-        allCategories();
-    }
-
-
-   });
- });
-</script> -->
-
-
-
 
 
 

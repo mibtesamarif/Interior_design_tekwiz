@@ -451,18 +451,19 @@ if(isset($_POST['pdt'])){
                 $query->bindParam(':user_id', $user_id);
                 $query->execute();
         
-                echo "<script>alert('Design added successfully'); location.assign('index.php');</script>";
+                echo "<script>alert('Design added successfully'); location.assign('user.php');</script>";
             } 
         }
 
 
-        
+        //Update Design
         // Initialize variables
         $desData = $desName = '';
         $dNameErr = $dDataErr = '';
         
         // Handling form submission for updating design
         if (isset($_POST['updateDesign'])) {
+            $desid = $_GET['desid'];
             $desName = $_POST['desName'];
             $desData = $_POST['desData'];
         
@@ -484,10 +485,10 @@ if(isset($_POST['pdt'])){
                 $query = $pdo->prepare("UPDATE designs SET design_name = :dName, design_data = :dData WHERE id = :id");
                 $query->bindParam(':dName', $desName);
                 $query->bindParam(':dData', $desData);
-                $query->bindParam(':id', $actid);
+                $query->bindParam(':id', $desid);
                 $query->execute();
         
-                echo "<script>alert('Design updated successfully'); location.assign('index.php');</script>";
+                echo "<script>alert('Design updated successfully'); location.assign('user.php');</script>";
             }
         }
 
@@ -496,7 +497,6 @@ if(isset($_POST['pdt'])){
 
         if (isset($_GET['id'])) {
             $design_id = $_GET['id'];
-        
             $query = $pdo->prepare('DELETE FROM designs WHERE id = :id');
             $query->bindParam(':id',$design_id);
             $query->execute();
@@ -529,7 +529,7 @@ if(isset($_POST['pdt'])){
                 $query->bindParam(':user_id', $user_id);
                 $query->execute();
         
-                echo "<script>alert('Activity added successfully'); location.assign('index.php');</script>";
+                echo "<script>alert('Activity added successfully'); location.assign('user.php');</script>";
             }
         }
         
@@ -576,12 +576,161 @@ if(isset($_POST['pdt'])){
                  $query->bindParam(':id', $actid);
                  $query->execute();
          
-                 echo "<script>alert('Activities updated successfully'); location.assign('index.php');</script>";
+                 echo "<script>alert('Activities updated successfully'); location.assign('user.php');</script>";
              }
          }
+         //searching work view design ajax
+         if (isset($_POST['design'])) {
+            $val = $_POST['design'];
+            $query = $pdo->prepare("SELECT * FROM designs WHERE design_name LIKE :val");
+            $val = "%$val%";
+            $query->bindParam(':val', $val);
+            $query->execute();
+            $allDesigns = $query->fetchAll(PDO::FETCH_ASSOC);
         
- 
-        ?>
+            if (!empty($allDesigns)) {
+                foreach ($allDesigns as $desg) {
+                    ?>
+                    <tr>
+                        <td><?php echo $desg['design_name']; ?></td>
+                        <td><?php echo $desg['design_data']; ?></td>
+                        <td><?php echo $desg['created_at']; ?></td>
+                        <td><a class="btn btn-primary" href="editDesign.php?desid=<?php echo $desg['id']; ?>">Edit</a></td>
+                      <!-- <input type="hidden" name="design_id" value="<?php //echo $design_id; ?>">
+                        <td><a class="btn btn-primary" name="design_id" value="<?php //echo $design_id; ?> ">Save Design</a></td> -->
+
+                        <td><a class="btn btn-danger" href="?id=<?php echo $desg['id']; ?>">Delete</a></td>
+                    </tr>
+                    <?php
+                }
+            } else {
+                // If no results, show a message
+                echo "<tr><td colspan='5'>No designs found</td></tr>";
+            }
+            exit();
+        }
+        
+// searching for adminpanel activities
+        if (isset($_POST['activity'])) {
+            $val = $_POST['activity'];
+            $user_id = $_SESSION['user_id']; // Fetch the user ID from session
+        
+            $query = $pdo->prepare("SELECT * FROM activities WHERE activity_type LIKE :val AND user_id = :user_id ORDER BY created_at DESC");
+            $val = "%$val%";
+            $query->bindParam(':val', $val);
+            $query->bindParam(':user_id', $user_id);  // Filter by the logged-in user
+            $query->execute();
+            
+            $allActivities = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+            if (!empty($allActivities)) {
+                foreach ($allActivities as $activity) {
+                    ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($activity['activity_type']); ?></td>
+                        <td><?php echo htmlspecialchars($activity['activity_data']); ?></td>
+                        <td><?php echo htmlspecialchars($activity['created_at']); ?></td>
+                        <td><a class="btn btn-primary" href="editActivities.php?actid=<?php echo $activity['id']; ?>">Edit</a></td>
+                        <td><a class="btn btn-danger" href="?id=<?php echo $activity['id']; ?>">Delete</a></td>
+                    </tr>
+                    <?php
+                }
+            } else {
+                echo "<tr><td colspan='5'>No activities found</td></tr>";
+            }
+            exit();
+        }
+
+
+
+// Searching functionality for reviews using AJAX
+if (isset($_POST['reviews'])) {
+    $val = $_POST['reviews'];
+
+    // Prepare the SQL query
+    $query = $pdo->prepare("
+        SELECT reviews.*, designers.name AS designer_name 
+        FROM reviews 
+        INNER JOIN designers ON reviews.designer_id = designers.designer_id 
+        WHERE reviews.user_id = :user_id 
+        AND (designers.name LIKE :val OR reviews.review_text LIKE :val) 
+        ORDER BY reviews.created_at DESC
+    ");
+
+    // Bind parameters
+    $val = "%$val%"; // For partial matching
+    $query->bindParam(':user_id', $user_id); // Bind the user ID
+    $query->bindParam(':val', $val); // Bind the search value
+
+    // Execute the query
+    $query->execute();
+
+    // Fetch results
+    $allReviews = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    // Check if there are any reviews found
+    if (!empty($allReviews)) {
+        foreach ($allReviews as $review): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($review['designer_name']); ?></td>
+                <td><?php echo htmlspecialchars($review['review_text']); ?></td>
+                <td><?php echo htmlspecialchars($review['rating']); ?></td>
+                <td><?php echo htmlspecialchars($review['created_at']); ?></td>
+            </tr>
+        <?php endforeach;
+    } else {
+        echo "<tr><td colspan='4'>No reviews found.</td></tr>"; // If no reviews match the search
+    }
+}
+
+
+
+
+        //saved design
+        
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     // Check if the user is logged in and design_id is set
+//     if (isset($_SESSION['user_id'], $_POST['design_id'])) {
+//         $user_id = $_SESSION['user_id'];
+//         $design_id = $_POST['design_id'];
+
+//         // Insert into the saved designs table
+//         $query = $pdo->prepare("INSERT INTO saved_designs (user_id, design_id, saved_at) VALUES (:user_id, :design_id, NOW())");
+//         $query->bindParam(':user_id', $user_id);
+//         $query->bindParam(':design_id', $design_id);
+
+//         if ($query->execute()) {
+//             // Redirect back to the design page with a success message
+//             header("Location: design_page.php?save=success");
+//             exit();
+//         } else {
+//             // Redirect back with an error message
+//             header("Location: design_page.php?save=error");
+//             exit();
+//         }
+//     } else {
+//         // Redirect back if no user or design ID is set
+//         header("Location: design_page.php?save=missing");
+//         exit();
+//     }
+// }// else {
+//     // Redirect back if the request method is not POST
+//     header("Location: design_page.php?save=invalid");
+//     exit();
+// } //else {
+        //     // Redirect back if the request method is not POST
+        //     header("Location: design_page.php?save=invalid");
+        //     exit();
+        // }
+
+
+
+
+            
+            
+                       
+             
+
         
         
 

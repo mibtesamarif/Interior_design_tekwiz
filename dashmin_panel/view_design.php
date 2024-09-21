@@ -1,7 +1,7 @@
 <?php
 include('php/query.php');
-include('components/sidebar.php');
-include('components/navbar.php');
+include('components/userSidebar.php');
+include('components/userNavbar.php');
 // Ensure user is logged in
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
@@ -55,23 +55,13 @@ if (isset($_SESSION['user_id'])) {
                 <div class="d-flex align-items-center">
                    <h5 class="mb-0">Design list</h5>
                     <form class="ms-auto position-relative">
-                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
-                      <input class="form-control " type="text" id="search" placeholder="search">
+                      <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
+                      <input class="form-control " type="text" id="search" name="search" placeholder="search">
                     </form>
                 </div>
                 <div class="table-responsive mt-3">
                
-                  <?php
-                $uid = $_SESSION['user_id'];
-                $designs=[];
-                $query = $pdo->prepare('SELECT * FROM designs WHERE user_id = :user_id ORDER BY created_at DESC');
-                $query->bindParam(':user_id', $uid);
-                $query->execute();
-                $designs = $query->fetchAll(PDO::FETCH_ASSOC);
-
-?>
-                    <!-- Display designs in a table -->
-                   <?php if(!empty($designs)): ?>
+                 
                   <table class="table align-middle">
                     <thead class="table-secondary">
                     <th>Design Name</th>
@@ -79,28 +69,17 @@ if (isset($_SESSION['user_id'])) {
                     <th>Created At</th>
                     <th>Actions</th>
                     <th>Actions</th>
+                    <!-- <th>Actions</th> -->
+
 
                     </thead>
                     <tbody>
-                    <?php foreach ($designs as $design): ?>
-                <tr>
-                    <td><?php echo $design['design_name']; ?></td>
-                    <td><?php echo $design['design_data']; ?></td>
-
-                    <td><?php echo $design['created_at']; ?></td>
-                    <td>
-                        <a class="btn btn-primary" href="editDesign.php?desid=<?php echo $design['id']; ?>">Edit</a>
-                        
-                    </td>
-                    <td><a class="btn btn-danger" href="?id=<?php echo $design['id']; ?>">Delete</a></td>
-                </tr>
-            <?php endforeach; ?>
+                 
+ 
                      
                     </tbody>
                     </table>
-                    <?php else: ?>
-                  <p>No designs saved yet.</p>
-                  <?php endif; ?>
+             
                 </div>
               </div>
             </div>
@@ -206,6 +185,40 @@ if (isset($_SESSION['user_id'])) {
 
 <!-- Mirrored from codervent.com/fobia/demo/ltr/table-advance-tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 10:31:52 GMT -->
 </html>
+
+<script>
+      $(document).ready(function(){
+        let allDesign = () =>{
+                $.ajax({
+                url : "php/designajax.php",
+                type : "get",
+                success :function(abc){
+                   $("tbody").html(abc);   
+                }
+            }) 
+            }
+            allDesign();
+     $("#search").keyup(function(){
+       let input = $(this).val();
+         //alert(input);
+        if(input!="" ){
+            $.ajax({
+            url : "php/query.php",
+            type : "post",
+            data : {design:input},
+            success :function(data){
+               $("tbody").html(data);   
+            }
+        })
+    }
+    else{
+        allDesign();
+    }
+
+
+   });
+ });
+</script>
 
 <?php
 include('components/footer.php');

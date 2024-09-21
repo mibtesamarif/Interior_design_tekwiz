@@ -186,7 +186,7 @@ if(!isset($_SESSION['userEmail'])){
       </ul>
     </li>
     <li>
-      <a href="consultant-booking.php">
+      <a href="consultant_booking.php">
         <div class="parent-icon">
           <ion-icon name="home-outline"></ion-icon>
         </div>
@@ -200,7 +200,7 @@ if(!isset($_SESSION['userEmail'])){
         </div>
         <div class="menu-title">My Reviews</div>
       </a>
-    </li>
+    
   </ul>
   <!--end navigation-->
 </aside>
