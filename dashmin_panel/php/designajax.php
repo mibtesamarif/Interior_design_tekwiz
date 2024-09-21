@@ -24,7 +24,7 @@ foreach ($designs as $design) {
         <!-- Save Design Button inside a form -->
         <!-- <td>
             <form action="save_design.php" method="POST">
-                <input type="hidden" name="design_id" value="<?php// echo $design['id']; ?>">
+                <input type="hidden" name="design_id" value="// echo $design['id']; ?>">
                 <button type="submit" class="btn btn-primary">Save Design</button>
             </form>
         </td> -->

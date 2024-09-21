@@ -579,9 +579,110 @@ if(isset($_POST['pdt'])){
                  echo "<script>alert('Activities updated successfully'); location.assign('index.php');</script>";
              }
          }
+
+
+        //  Add Design Category
+
+        if (isset($_POST['addDesignctg'])) {
+            $catName = $_POST['ctgName'];
         
- 
-        ?>
+            // Validate required fields
+            if (empty($catName)) {
+                $catNameErr = "Category name is required";
+            }
+            else{
+                if (!preg_match("/^[a-zA-Z ]*$/",$catName)) {
+                    $catNameErr = "Enter correct name";
+                }
+               }
+           
+            
+            // Proceed if there are no errors
+            if (empty($catNameErr)) {
+               
+    
+                    // Prepare and execute query
+                    $query = $pdo->prepare("INSERT INTO design_category (category_name)VALUES(:ctgName)");
+                    $query->bindParam(':ctgName',$catName);
+                    $query->execute();
+        
+                    echo "<script>alert('Category added successfully'); location.assign('index.php');</script>";
+                } 
+             
+            }
+        
+        // search work view Category designer addmin adminpanel
+if(isset($_POST['designcat'])){
+    $val = $_POST['designcat'];
+    $query = $pdo->prepare("select * from design_category Where category_name LIKE :val");
+    $val ="%$val%";
+    $query->bindParam('val',$val);
+    $query->execute();
+    $alldesignCategories =$query->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($alldesignCategories as $ctge) {
+        ?>         
+
+<tr>
+                       <!-- <td>1</td> -->
+                        <td>
+                          <div class="d-flex align-items-center gap-3 cursor-pointer">
+                             <!-- <img src="assets/images/avatars/01.png" class="rounded-circle" width="44" height="44" alt=""> -->
+                             <div class="">
+                               <p class="mb-0"><?php echo $ctg['category_name']?></p>
+                             </div>
+                          </div>
+                        </td>
+                        <td><a href="editdesignctg.php?cid=<?php echo $ctg['c_id']?>" class="btn btn-info">Edit</a></td>
+                        <td><a href="?cdid=<?php echo $ctg['c_id']?>" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                     <?php
+                       }
+                    }
+
+
+
+
+// Update design category
+if (isset($_POST['updateDesignctg'])) {
+    $id = $_GET['cid'];
+    $designcat = $_POST['ctg_name'];
+
+    // Validate Category Name
+    if (!empty($designcat)) {
+        // Update query using prepared statement
+        $query = $pdo->prepare("UPDATE design_category SET category_name = :uName WHERE c_id = :cid");
+        $query->bindParam(':cid', $id);
+        $query->bindParam(':uName', $designcat);
+        
+        // Execute the update query
+        if ($query->execute()) {
+            echo "<script>alert('Category updated successfully');
+                  location.assign('viewdesignctg.php');</script>";
+        } else {
+            echo "<script>alert('Error updating category');</script>";
+        }
+    } else {
+        echo "<script>alert('Category name cannot be empty');</script>";
+    }
+}
+
+// delete Design Category
+
+if(isset($_GET['ctgid'])){
+    $catid=$_GET['ctgid'];
+    $query=$pdo->prepare("delete from design_category where c_id=:catid");
+    $query->bindParam('catid',$catid);
+    $query->execute();
+    echo "<script>alert('delete category successfully');
+    location.assign('viewdesignctg.php');
+    </script>";
+
+}
+    
+
+
+ ?>
+    
         
         
 

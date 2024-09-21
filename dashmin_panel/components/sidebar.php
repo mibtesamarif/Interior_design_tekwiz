@@ -107,25 +107,27 @@ if(!isset($_SESSION['adminEmail'])){
       </ul>
     </li>
 
-    <!-- Orders Management -->
-    <li>
+       <!-- Design Category -->
+       <li>
       <a class="has-arrow" href="javascript:;">
         <div class="parent-icon">
-          <ion-icon name="cart-outline"></ion-icon>
+          <ion-icon name="cube-outline"></ion-icon>
         </div>
-        <div class="menu-title">Orders</div>
+        <div class="menu-title">Designer Category</div>
       </a>
       <ul>
-        <li><a href="viewOrders.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Orders
+        <li><a href="adddesignctg.php">
+            <ion-icon name="ellipse-outline"></ion-icon>Add Category
           </a>
         </li>
-        <li><a href="orderDetails.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Order Details
+        <li><a href="viewdesignctg.php">
+            <ion-icon name="ellipse-outline"></ion-icon>View Category
           </a>
         </li>
       </ul>
     </li>
+
+ 
 
     <!-- User Management -->
     <li>
@@ -156,16 +158,12 @@ if(!isset($_SESSION['adminEmail'])){
         <div class="menu-title">Blog</div>
       </a>
       <ul>
-        <li><a href="addBlog.php">
+        <li><a href="add_blog.php">
             <ion-icon name="ellipse-outline"></ion-icon>Add Blog
           </a>
         </li>
         <li><a href="viewBlogs.php">
             <ion-icon name="ellipse-outline"></ion-icon>View Blogs
-          </a>
-        </li>
-        <li><a href="deleteBlog.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Delete Blog
           </a>
         </li>
       </ul>

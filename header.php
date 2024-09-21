@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 <?php
 include("dashmin_panel\php\query.php");
 ?>
-=======
->>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
+
 <!DOCTYPE html>
 <html lang="en">
 

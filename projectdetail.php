@@ -72,6 +72,53 @@ include('header.php')
                 </p>
                 </p>
 
+                <div class="col-md-12>
+                        <form name="contactForm" id='contact_form' method="post">
+                            <div class="row">
+                            	<div class="col-md-12 mb10">
+                            		<h3>Send Us Message</h3>
+                            	</div>
+                                <div class="col-md-10">
+                                    <div id='name_error' class='error'>Please enter your name.</div>
+                                    <div>
+                                        <input type='text' name='Name' id='name' class="form-control" placeholder="Your Name" required>
+                                    </div>
+
+                                    <div id='email_error' class='error'>Please enter your valid E-mail ID.</div>
+                                    <div>
+                                        <input type='email' name='Email' id='email' class="form-control" placeholder="Your Email" required>
+                                    </div>
+
+                                    <div id='phone_error' class='error'>Please enter your phone number.</div>
+                                    <div>
+                                        <input type='text' name='phone' id='phone' class="form-control" placeholder="Your Phone" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div id='message_error' class='error'>Please enter your message.</div>
+                                    <div>
+                                        <textarea name='message' id='message' class="form-control" placeholder="Your Message" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="g-recaptcha" data-sitekey="6LdW03QgAAAAAJko8aINFd1eJUdHlpvT4vNKakj6"></div>
+                                    <p id='submit' class="mt20">
+                                        <input type='submit' id='send_message' value='Submit Form' class="btn btn-line">
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="success_message" class='success'>
+                            Your message has been sent successfully. Refresh this page if you want to send more messages.
+                        </div>
+                        <div id="error_message" class='error'>
+                        	Sorry there was an error sending your form.
+                        </div>
+
+                    </div>
+
 
             </div>
         </div>
