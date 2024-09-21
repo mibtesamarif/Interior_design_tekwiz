@@ -106,7 +106,7 @@ if(isset($_POST['signIn'])){
 //    print_r($user);
 if (sha1($userPassword) == $user['password']){
     if($user['role_id'] == 1 ){
-        $_SESSION['admin_id']=$user['id'];
+        $_SESSION['adminId']=$user['id'];
         $_SESSION['adminName']=$user['name'];
         $_SESSION['adminEmail']=$user['email'];
         echo "<script>location.assign('dashmin_panel/index.php')
@@ -114,7 +114,7 @@ if (sha1($userPassword) == $user['password']){
     }
 
      else if($user['role_id'] == 2 ) {
-        $_SESSION['designer_id']=$user['id'];
+        $_SESSION['designerId']=$user['id'];
         $_SESSION['designerName']=$user['name'];
         $_SESSION['designerEmail']=$user['email'];
         echo "<script>location.assign('index.php')
@@ -125,7 +125,7 @@ if (sha1($userPassword) == $user['password']){
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
     // $_SESSION['userCont']=$user['phone'];
-    echo "<script>location.assign('dashmin_panel/index.php')
+    echo "<script>location.assign('dashmin_panel/user.php')
     </script>";
     } 
   

@@ -1,18 +1,6 @@
 <?php
-
-
-$server = "mysql:host=localhost;dbname=decor_vista";
-$user = "root";
-$pass = "";
-
-try {
-    $pdo = new PDO($server, $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-    exit;
-}
-
-
-
+$server="mysql:host=localhost;dbname=interiordesign";
+$user="root";
+$password="";
+$pdo=new PDO($server,$user,$password);
 ?>
