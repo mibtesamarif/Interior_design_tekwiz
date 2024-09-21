@@ -417,41 +417,180 @@ if(isset($_POST['pdt'])){
   
              }
 
+             
+  
+             //add design
+         $designName = $designData='';
+         $designNameErr=$designDataErr="";
+ 
+        
+        // Add DESIGN
+        if (isset($_POST['addDesign'])) {
+            $designName = $_POST['design_name'];
+            $designData = $_POST['design_data'];
+            $user_id = $_SESSION['user_id'];
+        
+            // Validate required fields
+            if (empty($designName)) {
+                $designNameErr = "Design name is required";
+            } else {
+                if (!preg_match("/^[a-zA-Z ]*$/", $designName)) {
+                    $designNameErr = "Enter a valid design name";
+                }
+            }
+            
+            if (empty($designData)) {
+                $designDataErr = "Design data is required";
+            }
+        
+            // Check for errors
+            if (empty($designNameErr) && empty($designDataErr)) {
+                $query = $pdo->prepare("INSERT INTO designs (design_name, design_data,user_id) VALUES (:dName, :dData,:user_id)");
+                $query->bindParam(':dName', $designName);
+                $query->bindParam(':dData', $designData);
+                $query->bindParam(':user_id', $user_id);
+                $query->execute();
+        
+                echo "<script>alert('Design added successfully'); location.assign('index.php');</script>";
+            } 
+        }
 
-             //dashboard work
 
-// if (!isset($_SESSION['user_id'])) {
-//Redirect to login page if the user is not logged in
-//  header('Location: login.php');
-// exit();
-     // }  
+        
+        // Initialize variables
+        $desData = $desName = '';
+        $dNameErr = $dDataErr = '';
+        
+        // Handling form submission for updating design
+        if (isset($_POST['updateDesign'])) {
+            $desName = $_POST['desName'];
+            $desData = $_POST['desData'];
+        
+            // Validate required fields
+            if (empty($desName)) {
+                $dNameErr = "Design name is required";
+            } else {
+                if (!preg_match("/^[a-zA-Z ]*$/", $desName)) {
+                    $dNameErr = "Enter a valid design name";
+                }
+            }
+        
+            if (empty($desData)) {
+                $dDataErr = "Design description is required";
+            }
+        
+            // Check for errors and perform the update if no errors
+            if (empty($dNameErr) && empty($dDataErr)) {
+                $query = $pdo->prepare("UPDATE designs SET design_name = :dName, design_data = :dData WHERE id = :id");
+                $query->bindParam(':dName', $desName);
+                $query->bindParam(':dData', $desData);
+                $query->bindParam(':id', $actid);
+                $query->execute();
+        
+                echo "<script>alert('Design updated successfully'); location.assign('index.php');</script>";
+            }
+        }
 
-//$userId = $_SESSION['user_id'];  // Assume user is already logged in
+
+        //deleting design
+
+        if (isset($_GET['id'])) {
+            $design_id = $_GET['id'];
+        
+            $query = $pdo->prepare('DELETE FROM designs WHERE id = :id');
+            $query->bindParam(':id',$design_id);
+            $query->execute();
+        
+            echo "<script>alert('deleted design successfully');
+            location.assign('view_design.php');</script>";
+        }
+        //add ACTIVITY
+        $activity_type=$activity_data='';
+        $activityTypeErr=$activity_dataErr='';
+        if (isset($_POST['addActivity'])) {
+            $activity_type = $_POST['activity_type'];
+            $activity_data = $_POST['activity_data'];
+            $user_id = $_SESSION['user_id']; // Assuming user_id is stored in session
+        
+            // Validate the activity type
+            if (empty($activity_type)) {
+                $activityTypeErr = "Activity type is required";
+            }
+
+            if (empty($activity_data)) {
+                $activity_dataErr = "Activity data is required";
+            }
+        
+            if (empty($activityTypeErr)&& empty($activity_dataErr) ) {
+                // Insert into activities table
+                $query = $pdo->prepare("INSERT INTO activities (activity_type, activity_data, user_id, created_at) VALUES (:activity_type, :activity_data, :user_id, NOW())");
+                $query->bindParam(':activity_type', $activity_type);
+                $query->bindParam(':activity_data', $activity_data);
+                $query->bindParam(':user_id', $user_id);
+                $query->execute();
+        
+                echo "<script>alert('Activity added successfully'); location.assign('index.php');</script>";
+            }
+        }
+        
+        //delete activity
+        if (isset($_GET['id'])) {
+            $delete_id = $_GET['id'];
+        
+            // Delete the activity from the database
+            $query = $pdo->prepare("DELETE FROM activities WHERE id = :id");
+            $query->bindParam(':id', $delete_id);
+            $query->execute();
+        
+            echo "<script>alert('Activity deleted successfully'); location.assign('viewActiviities.php');</script>";
+        }
+///update activities
+         // Initialize variables
+         $activity_Type = $activity_Data = '';
+         $activity_typeErr = $activity_DataErr = '';
+         
+         // Handling form submission for updating ACtivities
+         if (isset($_POST['updateActivities'])) {
+            $actid=$_GET['actid'];
+             $activity_Type = $_POST['activity_type'];
+             $activity_Data = $_POST['activity_data'];
+         
+             // Validate required fields
+             if (empty($activity_Type)) {
+                 $activity_typeErr = "Activity type is required";
+             } else {
+                 if (!preg_match("/^[a-zA-Z ]*$/", $activity_Type)) {
+                     $activity_typeErr = "Enter a valid activity type";
+                 }
+                }
+         
+             if (empty($activity_Data)) {
+                 $activity_DataErr = "Activity Data is required";
+             }
+         
+             // Check for errors and perform the update if no errors
+             if (empty($activity_typeErr) && empty($activity_DataErr)) {
+                 $query = $pdo->prepare("UPDATE activities SET activity_type = :acName, activity_Data = :acData WHERE id = :id");
+                 $query->bindParam(':acName', $activity_Type);
+                 $query->bindParam(':acData', $activity_Data);
+                 $query->bindParam(':id', $actid);
+                 $query->execute();
+         
+                 echo "<script>alert('Activities updated successfully'); location.assign('index.php');</script>";
+             }
+         }
+        
+ 
+        ?>
+        
+        
 
 
-// Fetch Designs, Activities, and Notifications Using isset()
 
-// Check if the request is for viewing designs
-if (isset($_GET['view_designs'])) {
-    $stmt = $pdo->prepare('SELECT * FROM designs WHERE user_id = :user_id ORDER BY updated_at DESC');
-    $stmt->execute(['user_id' => $user_id]);
-    $designs = $stmt->fetchAll();
-}
 
-// Check if the request is for viewing activities
-if (isset($_GET['view_activities'])) {
-    $stmt = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10');
-    $stmt->execute(['user_id' => $user_id]);
-    $activities = $stmt->fetchAll();
-}
 
-// Check if the request is for viewing notifications
-if (isset($_GET['view_notifications'])) {
-    $stmt = $pdo->prepare('SELECT * FROM notifications WHERE user_id = :user_id AND is_read = 0 ORDER BY created_at DESC');
-    $stmt->execute(['user_id' => $user_id]);
-    $notifications = $stmt->fetchAll();
-}
 
+<<<<<<< HEAD
 // Mark a notification as read (using GET to get the notification ID)
 if (isset($_GET['mark_read'])) {
     $notification_id = $_GET['mark_read'];
@@ -680,6 +819,8 @@ if (isset($_GET['b_u_p_id_1'])) {
 
 
 ?>
+=======
+>>>>>>> e18f48ce536c41d474682d8e795f70f9852959b2
 
 
 

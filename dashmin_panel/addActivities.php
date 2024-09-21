@@ -1,7 +1,7 @@
 <?php
 include('php/query.php');
-include('components/sidebar.php');
-include('components/navbar.php');
+include('components/userSidebar.php');
+include('components/userNavbar.php');
 ?>
 
 
