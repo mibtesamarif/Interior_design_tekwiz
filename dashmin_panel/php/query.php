@@ -426,7 +426,7 @@ if(isset($_POST['pdt'])){
 // exit();
      // }  
 
-$userId = $_SESSION['user_id'];  // Assume user is already logged in
+//$userId = $_SESSION['user_id'];  // Assume user is already logged in
 
 
 // Fetch Designs, Activities, and Notifications Using isset()
@@ -459,6 +459,230 @@ if (isset($_GET['mark_read'])) {
     $stmt->execute(['notification_id' => $notification_id]);
     header('Location: dashboard.php?view_notifications');  // Redirect to refresh the notification list
 }
+
+
+
+
+
+// add post
+
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if (isset($_POST['addblog'])) {
+    // Get form data
+    $heading = $_POST['heading'];
+    $intro_1 = $_POST['intro_1'];
+    $intro_2 = $_POST['intro_2'];
+    $intro_3 = $_POST['intro_3'];
+    $main_1 = $_POST['cont_1'];  // Main Content
+    $conclusion = $_POST['conclusion'];
+    $meta_des = $_POST['meta_des'];
+    $meta_keywords = $_POST['meta_key'];
+    $date = $_POST['post_date'];
+
+    // echo "<script>alert('$heading');</script>";
+
+    // File upload handling for blogs_page_img
+    $blogsPageImgName = '';
+    if (isset($_FILES['blogs_page_img']) && $_FILES['blogs_page_img']['error'] == UPLOAD_ERR_OK) {
+        $blogsPageImgName = basename($_FILES['blogs_page_img']['name']);
+        $blogsPageImgTmpName = $_FILES['blogs_page_img']['tmp_name'];
+        $blogsPageImgDestination = "assets/images/blog_images/". $blogsPageImgName;
+
+        if (!move_uploaded_file($blogsPageImgTmpName, $blogsPageImgDestination)) {
+            echo "<script>alert('Failed to move uploaded file for blogs_page_img');</script>";
+            exit;
+        }
+    }
+
+    // File upload handling for blog_img
+    $blogImgName = '';
+    if (isset($_FILES['blog_img']) && $_FILES['blog_img']['error'] == UPLOAD_ERR_OK) {
+        $blogImgName = basename($_FILES['blog_img']['name']);
+        $blogImgTmpName = $_FILES['blog_img']['tmp_name'];
+        $blogImgDestination = "assets/images/blog_images/" . $blogImgName;
+
+        if (!move_uploaded_file($blogImgTmpName, $blogImgDestination)) {
+            echo "<script>alert('Failed to move uploaded file for blog_img');</script>";
+            exit;
+        }
+    }
+
+    // Proceed with database insertion
+    try {
+        // Insert into blogs table
+        $query = $pdo->prepare("INSERT INTO blogs (heading, intro_1, intro_2, intro_3, main_1, conclusion, meta_des, meta_keywords, date, blogs_page_img, blog_img) VALUES (:heading, :intro_1, :intro_2, :intro_3, :main_1, :conclusion, :meta_des, :meta_keywords, :date, :blogs_page_img, :blog_img)");
+        $query->bindParam(':heading', $heading);
+        $query->bindParam(':intro_1', $intro_1);
+        $query->bindParam(':intro_2', $intro_2);
+        $query->bindParam(':intro_3', $intro_3);
+        $query->bindParam(':main_1', $main_1);
+        $query->bindParam(':conclusion', $conclusion);
+        $query->bindParam(':meta_des', $meta_des);
+        $query->bindParam(':meta_keywords', $meta_keywords);
+        $query->bindParam(':date', $date);
+        $query->bindParam(':blogs_page_img', $blogsPageImgName);
+        $query->bindParam(':blog_img', $blogImgName);
+
+        if ($query->execute()) {
+            // Get the ID of the newly inserted blog
+            $newBlogId = $pdo->lastInsertId();
+
+            $status = "unpost";
+
+            // Insert into blogs_status table
+            $statusQuery = $pdo->prepare("INSERT INTO blogs_status (b_id, b_status) VALUES (:b_id ,:b_status)");
+            $statusQuery->bindParam(':b_id', $newBlogId);
+            $statusQuery->bindParam(':b_status', $status);
+
+            if ($statusQuery->execute()) {
+                // Redirect back to admin.php after successfully adding the blog
+                echo "<script>alert('Blog added successfully'); </script>";
+            } else {
+                echo "<script>alert('Failed to add blog status');</script>";
+            }
+        } else {
+            echo "<script>alert('Failed to add blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to add blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+//edit blog
+
+if(isset($_GET['id_1'])) {
+    $id = $_GET['id_1'];
+    $query = $pdo->prepare("SELECT * FROM blogs WHERE id = :id");
+    $query->bindParam(':id', $id);
+    $query->execute();
+    $blog = $query->fetch(PDO::FETCH_ASSOC);
+
+    if(isset($_POST['update_blog'])) {
+        // Get form data
+        $heading = $_POST['heading'];
+        $intro_1 = $_POST['intro_1'];
+        $intro_2 = $_POST['intro_2'];
+        $intro_3 = $_POST['intro_3'];
+        $main_1 = $_POST['cont_1'];
+        $conclusion = $_POST['conclusion'];
+        $meta_des = $_POST['meta_des'];
+        $meta_keywords = $_POST['meta_key'];
+        $post_date = $_POST['post_date'];
+
+        // File upload handling for blogs_page_img if a new image is uploaded
+        $blogsPageImgName = $blog['blogs_page_img']; // current image name
+        if(isset($_FILES['blogs_page_img']) && $_FILES['blogs_page_img']['error'] == UPLOAD_ERR_OK) {
+            $blogsPageImgName = basename($_FILES['blogs_page_img']['name']);
+            $blogsPageImgTmpName = $_FILES['blogs_page_img']['tmp_name'];
+            $blogsPageImgDestination = "assets/images/blog_images/" . $blogsPageImgName;
+
+            if(!move_uploaded_file($blogsPageImgTmpName, $blogsPageImgDestination)) {
+                echo "<script>alert('Failed to move uploaded file for blogs_page_img');</script>";
+                exit;
+            }
+        }
+
+        // File upload handling for blog_img if a new image is uploaded
+        $blogImgName = $blog['blog_img']; // current image name
+        if(isset($_FILES['blog_img']) && $_FILES['blog_img']['error'] == UPLOAD_ERR_OK) {
+            $blogImgName = basename($_FILES['blog_img']['name']);
+            $blogImgTmpName = $_FILES['blog_img']['tmp_name'];
+            $blogImgDestination = "assets/images/blog_images/" . $blogImgName;
+
+            if(!move_uploaded_file($blogImgTmpName, $blogImgDestination)) {
+                echo "<script>alert('Failed to move uploaded file for blog_img');</script>";
+                exit;
+            }
+        }
+
+        try {
+            // Update blogs table
+            $updateQuery = $pdo->prepare("UPDATE blogs SET heading = :heading, intro_1 = :intro_1, intro_2 = :intro_2, intro_3 = :intro_3, main_1 = :main_1, conclusion = :conclusion, meta_des = :meta_des, meta_keywords = :meta_keywords, date = :post_date, blogs_page_img = :blogs_page_img, blog_img = :blog_img WHERE id = :id");
+
+            $updateQuery->bindParam(':heading', $heading);
+            $updateQuery->bindParam(':intro_1', $intro_1);
+            $updateQuery->bindParam(':intro_2', $intro_2);
+            $updateQuery->bindParam(':intro_3', $intro_3);
+            $updateQuery->bindParam(':main_1', $main_1);
+            $updateQuery->bindParam(':conclusion', $conclusion);
+            $updateQuery->bindParam(':meta_des', $meta_des);
+            $updateQuery->bindParam(':meta_keywords', $meta_keywords);
+            $updateQuery->bindParam(':post_date', $post_date);
+            $updateQuery->bindParam(':blogs_page_img', $blogsPageImgName);
+            $updateQuery->bindParam(':blog_img', $blogImgName);
+            $updateQuery->bindParam(':id', $id);
+
+            if($updateQuery->execute()) {
+                echo "<script>alert('Blog updated successfully'); location.assign('view_blogs.php');</script>";
+            } else {
+                echo "<script>alert('Failed to update blog');</script>";
+            }
+        } catch(PDOException $e) {
+            echo "<script>alert('Failed to update blog: " . $e->getMessage() . "');</script>";
+        }
+    }
+}
+
+
+// delete blog
+if(isset($_GET['b_d_id_1'])){
+    $bid =$_GET['b_d_id_1'];
+    $query=$pdo->prepare("DELETE FROM blogs WHERE id = :bid");
+    $query->bindparam('bid',$bid);
+    $query->execute();
+    }
+
+// post blog
+if (isset($_GET['b_p_id_1'])) {
+    $bid = $_GET['b_p_id_1'];
+    $currentDate = date('Y-m-d H:i:s'); // Get the current date
+
+    try {
+        // Update the blog status and post date
+        $query = $pdo->prepare("UPDATE blogs_status SET post_date = :postDate, b_status = :status WHERE b_id = :bid");
+        $query->bindParam(':bid', $bid);
+        $query->bindParam(':postDate', $currentDate);
+        $query->bindParam(':status', $status);
+        $status = 'post'; // Set the status to 'post'
+
+        if ($query->execute()) {
+            echo "<script>alert('Blog has been posted successfully'); location.assign('view_blogs.php');</script>";
+        } else {
+            echo "<script>alert('Failed to post blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to post blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+// unpost blog
+if (isset($_GET['b_u_p_id_1'])) {
+    $bid = $_GET['b_u_p_id_1'];
+    $date = NULL; // Get the current date
+
+    try {
+        // Update the blog status and post date
+        $query = $pdo->prepare("UPDATE blogs_status SET post_date = :postDate, b_status = :status WHERE b_id = :bid");
+        $query->bindParam(':bid', $bid);
+        $query->bindParam(':postDate', $date);
+        $query->bindParam(':status', $status);
+        $status = 'unpost'; // Set the status to 'post'
+
+        if ($query->execute()) {
+            echo "<script>alert('Blog has been unposted successfully'); location.assign('view_blogs.php');</script>";
+        } else {
+            echo "<script>alert('Failed to unpost blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to unpost blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+
 
 ?>
 

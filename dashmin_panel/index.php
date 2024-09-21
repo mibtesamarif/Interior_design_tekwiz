@@ -2,7 +2,6 @@
 include('php/query.php');
 include('components/navbar.php');
 include('components/sidebar.php');
-
 ?>
 
    
