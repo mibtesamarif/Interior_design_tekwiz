@@ -1,5 +1,5 @@
 <?php
-include('php/query.php');
+include('dashmin_panel\php\query.php');
 ?>
 
 <!DOCTYPE html>

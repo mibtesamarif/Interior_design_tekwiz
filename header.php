@@ -127,12 +127,11 @@ include("dashmin_panel\php\query.php");
 										<li><a href="contact.php">Contact</a>
 										</li>
                                         <?php
-                                        //if($_SESSION['designerId'] == 2){
-                                        ?>
-										<li><a href="user.php">Dashboard</a>
-										</li>
-                                        <?php
-                                       // }
+                                            if (isset($_SESSION['designerId']) && $_SESSION['designerId'] == 2) {
+                                            ?>
+                                                <li><a href="user.php">Dashboard</a></li>
+                                            <?php
+                                            }
                                         ?>
 										<!-- <a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
 										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a> -->
@@ -140,7 +139,8 @@ include("dashmin_panel\php\query.php");
                                             <a href="renovation-form.html" class="btn-on-header btn-line">Get Quote</a>
                                         </span> -->
                                        
-                            
+                                        <li><a href="contact.php"><span style="font-size:">Login</span></a>
+										</li>
 									
 									</ul>
 							
