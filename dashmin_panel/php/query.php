@@ -586,7 +586,7 @@ if(isset($_POST['pdt'])){
         if (isset($_POST['addDesignctg'])) {
             $catName = $_POST['ctgName'];
         
-<<<<<<< HEAD
+
             // Validate required fields
             if (empty($catName)) {
                 $catNameErr = "Category name is required";
@@ -682,11 +682,9 @@ if(isset($_GET['ctgid'])){
     
 
 
- ?>
-    
-=======
  
->>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
+    
+
         
         
 
@@ -1017,7 +1015,7 @@ if(isset($_POST['signIn'])){
     $query->execute();
    $user =  $query->fetch(PDO::FETCH_ASSOC);
    if($user){
-//    print_r($user);
+// print_r($user);
 if (sha1($userPassword) == $user['password']){
     if($user['role_id'] == 1 ){
         $_SESSION['adminId']=$user['id'];
