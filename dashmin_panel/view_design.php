@@ -2,13 +2,13 @@
 include('php/query.php');
 include('components/sidebar.php');
 include('components/navbar.php');
+// Ensure user is logged in
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 } else {
   echo "User not logged in.";
-  exit;
+ 
 }
-
 ?>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
                   <ol class="breadcrumb mb-0 p-0 align-items-center">
                     <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">view Activities Tables</li>
+                    <li class="breadcrumb-item active" aria-current="page">view Design Tables</li>
                   </ol>
                 </nav>
               </div>
@@ -53,53 +53,54 @@ if (isset($_SESSION['user_id'])) {
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center">
-                   <h5 class="mb-0">Activities OverView</h5>
+                   <h5 class="mb-0">Design list</h5>
                     <form class="ms-auto position-relative">
                       <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
                       <input class="form-control " type="text" id="search" placeholder="search">
                     </form>
                 </div>
                 <div class="table-responsive mt-3">
+               
                   <?php
-// Fetch activities for the logged-in user
-$query = $pdo->prepare('SELECT * FROM activities WHERE user_id = :user_id ORDER BY created_at DESC');
-$query->bindParam(':user_id', $user_id);
-$query->execute();
-$activities = $query->fetchAll(PDO::FETCH_ASSOC);
+                $uid = $_SESSION['user_id'];
+                $designs=[];
+                $query = $pdo->prepare('SELECT * FROM designs WHERE user_id = :user_id ORDER BY created_at DESC');
+                $query->bindParam(':user_id', $uid);
+                $query->execute();
+                $designs = $query->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
-                 <?php if (!empty($activities)): ?>
+                    <!-- Display designs in a table -->
+                   <?php if(!empty($designs)): ?>
                   <table class="table align-middle">
                     <thead class="table-secondary">
-                      <tr>
-                      <th>Activity Type</th>
-                      <th>Activity Data</th>
-                      <th>Created At</th>
-                      <th>Actions</th>
-                      <th>Actions</th>
-                      </tr>
+                    <th>Design Name</th>
+                    <th>Design Data</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                    <th>Actions</th>
+
                     </thead>
                     <tbody>
-                    <?php foreach ($activities as $activity): ?>
+                    <?php foreach ($designs as $design): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($activity['activity_type']); ?></td>
-                    <td><?php echo htmlspecialchars($activity['activity_data']); ?></td>
-                    <td><?php echo htmlspecialchars($activity['created_at']); ?></td>
+                    <td><?php echo $design['design_name']; ?></td>
+                    <td><?php echo $design['design_data']; ?></td>
+
+                    <td><?php echo $design['created_at']; ?></td>
                     <td>
-                        <a class="btn btn-primary" href="editActivities.php?actid=<?php echo $activity['id']; ?>">Edit</a>
+                        <a class="btn btn-primary" href="editDesign.php?desid=<?php echo $design['id']; ?>">Edit</a>
                         
                     </td>
-                    <td><a class="btn btn-danger" href="?id=<?php echo $activity['id']; ?>">Delete</a></td>
+                    <td><a class="btn btn-danger" href="?id=<?php echo $design['id']; ?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
-                       
-                   
+                     
                     </tbody>
-                   
-                  </table>
-                  <?php else: ?>
-                 <p>No recent activities.</p>
-                 <?php endif; ?>
-
+                    </table>
+                    <?php else: ?>
+                  <p>No designs saved yet.</p>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
@@ -206,51 +207,6 @@ $activities = $query->fetchAll(PDO::FETCH_ASSOC);
 <!-- Mirrored from codervent.com/fobia/demo/ltr/table-advance-tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 10:31:52 GMT -->
 </html>
 
-
 <?php
 include('components/footer.php');
 ?>
-<!-- 
-<script>
-      $(document).ready(function(){
-        let allCategories = () =>{
-                $.ajax({
-                url : "php/catajax.php",
-                type : "get",
-                success :function(abc){
-                   $("tbody").html(abc);   
-                }
-            }) 
-            }
-            allCategories();
-     $("#search").keyup(function(){
-       let input = $(this).val();
-         //alert(input);
-        if(input!="" ){
-            $.ajax({
-            url : "php/query.php",
-            type : "post",
-            data : {cat:input},
-            success :function(data){
-               $("tbody").html(data);   
-            }
-        })
-    }
-    else{
-        allCategories();
-    }
-
-
-   });
- });
-</script> -->
-
-
-
-
-
-
-
-
-
-

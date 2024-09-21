@@ -240,7 +240,7 @@
                       <div class="">
                         <ion-icon name="log-out-outline"></ion-icon>
                       </div>
-                      <div class="ms-3"><span><a href="adminLogout.php">Logout</a></span></div>
+                      <div class="ms-3"><span><a href="userLogout.php">Logout</a></span></div>
                     </div>
                   </a>
                 </li>

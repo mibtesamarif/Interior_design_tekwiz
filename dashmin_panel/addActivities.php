@@ -32,31 +32,27 @@ include('components/navbar.php');
               <div class="card">
                 <div class="card-body">
                   <div class="border p-3 rounded">
-                  <h6 class="mb-0 text-uppercase">Category Form</h6>
+                  <h6 class="mb-0 text-uppercase">Actiivty Form <?php echo $_SESSION['user_id']?></h6>
                   <hr>
-                  <form class="row g-3" method="post" enctype="multipart/form-data">
+                  <form class="row g-3" method="post" >
                     <div class="col-12">
-                      <label class="form-label">Name</label>
-                      <input type="text" name="cName" value="<?php echo $catName?>" class="form-control">
-                     <small class="text-danger"><?php echo $catNameErr?></small>
+                      <label class="form-label">Activity Type</label>
+                      <input type="text" name="activity_type" value="<?php echo $activity_type?>" class="form-control">
+                     <small class="text-danger"><?php echo $activityTypeErr?></small>
 
                     </div>
                     <div class="col-12">
-                      <label class="form-label">Description</label>
-                      <input type="text" name="cDes" value="<?php echo $catDes?>" class="form-control">
-                     <small class="text-danger"><?php echo $catDesErr?></small>
+                      <label class="form-label">Activity Data</label>
+                      <input type="text" name="activity_data" value="<?php echo $activity_data?>" class="form-control">
+                     <small class="text-danger"><?php echo $activity_dataErr?></small>
 
                     </div>
-                    <div class="col-12">
-                      <label class="form-label">Image</label>
-                    <input type="file" name="cImg" value="<?php echo $catImg?>" class="form-control">
-                    <small class="text-danger"><?php echo $catImgErr?></small>
-                    </div>
+                   
                     
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" class="btn btn-primary" name="addCategory">Add Category</button>
+                        <button type="submit" class="btn btn-primary" name="addActivity">Add Activity</button>
                       </div>
                     </div>
                   </form>
@@ -74,10 +70,10 @@ include('components/navbar.php');
           <!-- end page content-->
          </div>
          
-<?php
+
+         <?php
 include('components/footer.php');
 ?>
-
 
    
         

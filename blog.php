@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 <?php
 include("header.php");
 ?>
 
 
 
+=======
+<?php 
+include('header.php')
+?>
+
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
         <!-- subheader -->
         <section id="subheader" data-speed="8" data-type="background">
             <div class="container">
@@ -11,7 +18,11 @@ include("header.php");
                     <div class="col-md-12">
                         <h1>Blog</h1>
                         <ul class="crumb">
+<<<<<<< HEAD
                             <li><a href="index.php">Home</a></li>
+=======
+                            <li><a href="index.html">Home</a></li>
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
                             <li class="sep">/</li>
                             <li>Blog</li>
                         </ul>
@@ -25,6 +36,7 @@ include("header.php");
         <div id="content">
             <div class="container">
                 <div class="row">
+<<<<<<< HEAD
                 <?php
                         // Assuming $_GET['page'] contains the current page number, defaulting to page 1 if not set
                         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -96,11 +108,40 @@ include("header.php");
 
                             
 
+=======
+                    <div class="col-md-8">
+                        <ul class="blog-list">
+                            <li>
+                                <div class="post-content">
+                                    <div class="post-image">
+                                        <img src="images/blog/pic-blog-1.jpg" alt="" />
+                                    </div>
+
+
+                                    <div class="date-box">
+                                        <div class="day">26</div>
+                                        <div class="month">FEB</div>
+                                    </div>
+
+                                    <div class="post-text">
+                                        <h3><a href="blogdetail.php">5 Things That Take a Room from Good to Great</a></h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                                    </div>
+
+                                    <a href="blog-single.html" class="btn-more">Read More</a>
+                                </div>
+                            </li>
+
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
 
                         </ul>
 
                         <div class="text-center">
                             <ul class="pagination">
+<<<<<<< HEAD
                                 <li><a href="?page=<?php echo ($current_page > 1) ? ($current_page - 1) : 1; ?>">Prev</a></li>
                                 <!-- Numbered Page Links -->
                                 <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
@@ -110,6 +151,15 @@ include("header.php");
 
                                     <!-- Next Page Link -->
                                 <li><a href="?page=<?php echo ($current_page < $total_pages) ? ($current_page + 1) : $total_pages; ?>">Next</a></li>
+=======
+                                <li><a href="#">Prev</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">Next</a></li>
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
                             </ul>
                         </div>
                     </div>
@@ -118,6 +168,7 @@ include("header.php");
                         <div class="widget widget-post">
                             <h4>Recent Posts</h4>
                             <div class="small-border"></div>
+<<<<<<< HEAD
                             <?php                       
                                     // Fetch the latest six blog posts based on the date column from blogs_status table
                                     $query = $pdo->query("SELECT x.*, y.post_date AS post_date 
@@ -144,6 +195,20 @@ include("header.php");
                             <?php
                                 }
                             ?>                           
+=======
+
+                            <ul class="de-bloglist-type-1">
+                                <li>
+                                    <div class="d-image">
+                                        <img src="images/news-thumbnail/pic-blog-1.jpg" alt="">
+                                    </div>
+                                    <div class="d-content">
+                                        <a href="#">5 Things That Take a Room from Good to Great</a>
+                                        <div class="d-date">June 15, 2022</div>
+                                    </div>
+                                </li>
+                            </ul>                            
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
                         </div>
 
 
@@ -162,6 +227,7 @@ include("header.php");
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- footer begin -->
         <footer>
             <div class="container">
@@ -283,3 +349,8 @@ include("header.php");
 
 <!-- Mirrored from www.madebydesignesia.com/themes/archi/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Sep 2024 20:30:16 GMT -->
 </html>
+=======
+      <?php 
+      include('footer.php');
+      ?>
+>>>>>>> 84a25f0f10cacd3dfe9ae66f26935f3ee1872d17
