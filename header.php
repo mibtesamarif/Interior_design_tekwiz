@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
 <?php
 include("dashmin_panel\php\query.php");
+// include("php\query.php");
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +64,7 @@ include("dashmin_panel\php\query.php");
 					<div class="col-lg-9 sm-hide">
 						<div class="row">
 							
-							<div class="col-md-4">
+							<!-- <div class="col-md-3">
                                         <div class="info-box s2">
                                             <i class="icon_clock_alt"></i>
                                             <div class="info-box_text">
@@ -67,7 +72,7 @@ include("dashmin_panel\php\query.php");
                                                 <div class="info-box_subtite">09:00 - 18:00</div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-md-4">
                                         <div class="info-box s2">
@@ -87,6 +92,12 @@ include("dashmin_panel\php\query.php");
                                                 <div class="info-box_subtite">+923 023 929649</div>
                                             </div>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="md-flex-col col-extra">
+                                            <a href="renovation-form.html" class="btn-on-header btn-line">Get Quote</a>
+                                        </span>
                                     </div>
 							
 						</div>
@@ -118,10 +129,21 @@ include("dashmin_panel\php\query.php");
 										</li>
 										<li><a href="contact.php">Contact</a>
 										</li>
-										<li><a href="contact.php">Dshboard</a>
+                                        <?php
+                                            if (isset($_SESSION['designerId']) && $_SESSION['designerId'] == 2) {
+                                            ?>
+                                                <li><a href="user.php">Dashboard</a></li>
+                                            <?php
+                                            }
+                                        ?>
+										<!-- <a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
+										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a> -->
+                                        <!-- <span class="md-flex-col col-extra">
+                                            <a href="renovation-form.html" class="btn-on-header btn-line">Get Quote</a>
+                                        </span> -->
+                                       
+                                        <li><a href="contact.php"><span style="font-size:">Login</span></a>
 										</li>
-										<a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
-										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a>
 									
 									</ul>
 							
@@ -131,6 +153,7 @@ include("dashmin_panel\php\query.php");
 							<!-- mainmenu close -->
 							
 						</div>
+ 
 						
 					</div>
 				</div>

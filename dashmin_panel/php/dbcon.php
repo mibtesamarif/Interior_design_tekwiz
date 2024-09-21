@@ -1,6 +1,9 @@
 <?php
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
 $server = "mysql:host=localhost;dbname=decore_vista";
 $user = "root";
 $pass = "";

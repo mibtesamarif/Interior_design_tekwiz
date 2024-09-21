@@ -586,6 +586,7 @@ if(isset($_POST['pdt'])){
         if (isset($_POST['addDesignctg'])) {
             $catName = $_POST['ctgName'];
         
+<<<<<<< HEAD
             // Validate required fields
             if (empty($catName)) {
                 $catNameErr = "Category name is required";
@@ -683,6 +684,9 @@ if(isset($_GET['ctgid'])){
 
  ?>
     
+=======
+ 
+>>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
         
         
 
@@ -690,6 +694,371 @@ if(isset($_GET['ctgid'])){
 
 
 
+
+
+
+ // add post
+
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if (isset($_POST['addblog'])) {
+    // Get form data
+    $heading = $_POST['heading'];
+    $intro_1 = $_POST['intro_1'];
+    $intro_2 = $_POST['intro_2'];
+    $intro_3 = $_POST['intro_3'];
+    $main_1 = $_POST['cont_1'];  // Main Content
+    $conclusion = $_POST['conclusion'];
+    $meta_des = $_POST['meta_des'];
+    $meta_keywords = $_POST['meta_key'];
+    $date = $_POST['post_date'];
+
+    // echo "<script>alert('$heading');</script>";
+
+    // File upload handling for blogs_page_img
+    $blogsPageImgName = '';
+    if (isset($_FILES['blogs_page_img']) && $_FILES['blogs_page_img']['error'] == UPLOAD_ERR_OK) {
+        $blogsPageImgName = basename($_FILES['blogs_page_img']['name']);
+        $blogsPageImgTmpName = $_FILES['blogs_page_img']['tmp_name'];
+        $blogsPageImgDestination = "assets/images/blog_images/". $blogsPageImgName;
+
+        if (!move_uploaded_file($blogsPageImgTmpName, $blogsPageImgDestination)) {
+            echo "<script>alert('Failed to move uploaded file for blogs_page_img');</script>";
+            exit;
+        }
+    }
+
+    // File upload handling for blog_img
+    $blogImgName = '';
+    if (isset($_FILES['blog_img']) && $_FILES['blog_img']['error'] == UPLOAD_ERR_OK) {
+        $blogImgName = basename($_FILES['blog_img']['name']);
+        $blogImgTmpName = $_FILES['blog_img']['tmp_name'];
+        $blogImgDestination = "assets/images/blog_images/" . $blogImgName;
+
+        if (!move_uploaded_file($blogImgTmpName, $blogImgDestination)) {
+            echo "<script>alert('Failed to move uploaded file for blog_img');</script>";
+            exit;
+        }
+    }
+
+    // Proceed with database insertion
+    try {
+        // Insert into blogs table
+        $query = $pdo->prepare("INSERT INTO blogs (heading, intro_1, intro_2, intro_3, main_1, conclusion, meta_des, meta_keywords, date, blogs_page_img, blog_img) VALUES (:heading, :intro_1, :intro_2, :intro_3, :main_1, :conclusion, :meta_des, :meta_keywords, :date, :blogs_page_img, :blog_img)");
+        $query->bindParam(':heading', $heading);
+        $query->bindParam(':intro_1', $intro_1);
+        $query->bindParam(':intro_2', $intro_2);
+        $query->bindParam(':intro_3', $intro_3);
+        $query->bindParam(':main_1', $main_1);
+        $query->bindParam(':conclusion', $conclusion);
+        $query->bindParam(':meta_des', $meta_des);
+        $query->bindParam(':meta_keywords', $meta_keywords);
+        $query->bindParam(':date', $date);
+        $query->bindParam(':blogs_page_img', $blogsPageImgName);
+        $query->bindParam(':blog_img', $blogImgName);
+
+        if ($query->execute()) {
+            // Get the ID of the newly inserted blog
+            $newBlogId = $pdo->lastInsertId();
+
+            $status = "unpost";
+
+            // Insert into blogs_status table
+            $statusQuery = $pdo->prepare("INSERT INTO blogs_status (b_id, b_status) VALUES (:b_id ,:b_status)");
+            $statusQuery->bindParam(':b_id', $newBlogId);
+            $statusQuery->bindParam(':b_status', $status);
+
+            if ($statusQuery->execute()) {
+                // Redirect back to admin.php after successfully adding the blog
+                echo "<script>alert('Blog added successfully'); </script>";
+            } else {
+                echo "<script>alert('Failed to add blog status');</script>";
+            }
+        } else {
+            echo "<script>alert('Failed to add blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to add blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+//edit blog
+
+if(isset($_GET['id_1'])) {
+    $id = $_GET['id_1'];
+    $query = $pdo->prepare("SELECT * FROM blogs WHERE id = :id");
+    $query->bindParam(':id', $id);
+    $query->execute();
+    $blog = $query->fetch(PDO::FETCH_ASSOC);
+
+    if(isset($_POST['update_blog'])) {
+        // Get form data
+        $heading = $_POST['heading'];
+        $intro_1 = $_POST['intro_1'];
+        $intro_2 = $_POST['intro_2'];
+        $intro_3 = $_POST['intro_3'];
+        $main_1 = $_POST['cont_1'];
+        $conclusion = $_POST['conclusion'];
+        $meta_des = $_POST['meta_des'];
+        $meta_keywords = $_POST['meta_key'];
+        $post_date = $_POST['post_date'];
+
+        // File upload handling for blogs_page_img if a new image is uploaded
+        $blogsPageImgName = $blog['blogs_page_img']; // current image name
+        if(isset($_FILES['blogs_page_img']) && $_FILES['blogs_page_img']['error'] == UPLOAD_ERR_OK) {
+            $blogsPageImgName = basename($_FILES['blogs_page_img']['name']);
+            $blogsPageImgTmpName = $_FILES['blogs_page_img']['tmp_name'];
+            $blogsPageImgDestination = "assets/images/blog_images/" . $blogsPageImgName;
+
+            if(!move_uploaded_file($blogsPageImgTmpName, $blogsPageImgDestination)) {
+                echo "<script>alert('Failed to move uploaded file for blogs_page_img');</script>";
+                exit;
+            }
+        }
+
+        // File upload handling for blog_img if a new image is uploaded
+        $blogImgName = $blog['blog_img']; // current image name
+        if(isset($_FILES['blog_img']) && $_FILES['blog_img']['error'] == UPLOAD_ERR_OK) {
+            $blogImgName = basename($_FILES['blog_img']['name']);
+            $blogImgTmpName = $_FILES['blog_img']['tmp_name'];
+            $blogImgDestination = "assets/images/blog_images/" . $blogImgName;
+
+            if(!move_uploaded_file($blogImgTmpName, $blogImgDestination)) {
+                echo "<script>alert('Failed to move uploaded file for blog_img');</script>";
+                exit;
+            }
+        }
+
+        try {
+            // Update blogs table
+            $updateQuery = $pdo->prepare("UPDATE blogs SET heading = :heading, intro_1 = :intro_1, intro_2 = :intro_2, intro_3 = :intro_3, main_1 = :main_1, conclusion = :conclusion, meta_des = :meta_des, meta_keywords = :meta_keywords, date = :post_date, blogs_page_img = :blogs_page_img, blog_img = :blog_img WHERE id = :id");
+
+            $updateQuery->bindParam(':heading', $heading);
+            $updateQuery->bindParam(':intro_1', $intro_1);
+            $updateQuery->bindParam(':intro_2', $intro_2);
+            $updateQuery->bindParam(':intro_3', $intro_3);
+            $updateQuery->bindParam(':main_1', $main_1);
+            $updateQuery->bindParam(':conclusion', $conclusion);
+            $updateQuery->bindParam(':meta_des', $meta_des);
+            $updateQuery->bindParam(':meta_keywords', $meta_keywords);
+            $updateQuery->bindParam(':post_date', $post_date);
+            $updateQuery->bindParam(':blogs_page_img', $blogsPageImgName);
+            $updateQuery->bindParam(':blog_img', $blogImgName);
+            $updateQuery->bindParam(':id', $id);
+
+            if($updateQuery->execute()) {
+                echo "<script>alert('Blog updated successfully'); location.assign('view_blogs.php');</script>";
+            } else {
+                echo "<script>alert('Failed to update blog');</script>";
+            }
+        } catch(PDOException $e) {
+            echo "<script>alert('Failed to update blog: " . $e->getMessage() . "');</script>";
+        }
+    }
+}
+
+
+// delete blog
+if(isset($_GET['b_d_id_1'])){
+    $bid =$_GET['b_d_id_1'];
+    $query=$pdo->prepare("DELETE FROM blogs WHERE id = :bid");
+    $query->bindparam('bid',$bid);
+    $query->execute();
+    }
+
+// post blog
+if (isset($_GET['b_p_id_1'])) {
+    $bid = $_GET['b_p_id_1'];
+    $currentDate = date('Y-m-d H:i:s'); // Get the current date
+
+    try {
+        // Update the blog status and post date
+        $query = $pdo->prepare("UPDATE blogs_status SET post_date = :postDate, b_status = :status WHERE b_id = :bid");
+        $query->bindParam(':bid', $bid);
+        $query->bindParam(':postDate', $currentDate);
+        $query->bindParam(':status', $status);
+        $status = 'post'; // Set the status to 'post'
+
+        if ($query->execute()) {
+            echo "<script>alert('Blog has been posted successfully'); location.assign('view_blogs.php');</script>";
+        } else {
+            echo "<script>alert('Failed to post blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to post blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+// unpost blog
+if (isset($_GET['b_u_p_id_1'])) {
+    $bid = $_GET['b_u_p_id_1'];
+    $date = NULL; // Get the current date
+
+    try {
+        // Update the blog status and post date
+        $query = $pdo->prepare("UPDATE blogs_status SET post_date = :postDate, b_status = :status WHERE b_id = :bid");
+        $query->bindParam(':bid', $bid);
+        $query->bindParam(':postDate', $date);
+        $query->bindParam(':status', $status);
+        $status = 'unpost'; // Set the status to 'post'
+
+        if ($query->execute()) {
+            echo "<script>alert('Blog has been unposted successfully'); location.assign('view_blogs.php');</script>";
+        } else {
+            echo "<script>alert('Failed to unpost blog');</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Failed to unpost blog: " . $e->getMessage() . "');</script>";
+    }
+}
+
+
+$nameErr = "";
+$emailErr = "";
+$PhoneErr = "";
+$userErr = "";
+$passErr = "";
+$cpassErr = "";
+$userName = $userEmail = $userPhone = $useruName = $userPassword = $userConfirmPassword = $role = '';
+
+if(isset($_POST['signUp'])){
+    $userName = $_POST['userName'];
+    $userEmail = $_POST['userEmail'];
+    $userPhone = $_POST['userPhone'];
+    $useruName = $_POST['useruName'];
+    $userPassword = $_POST['userPassword'];
+    $userConfirmPassword = $_POST['userConfirmPassword'];
+    $role = isset($_POST['role']) ? $_POST['role'] : 'user'; // Default to 'user' if not set
+    
+    // Validation
+    if(empty($_POST['userName'])){
+        $nameErr = "Name is required";
+    } else {
+        if (!preg_match("/^[a-zA-Z ]*$/", $userName)) {
+            $nameErr = "Enter a valid name";
+        }
+    }
+
+    if(empty($_POST['userEmail'])){
+        $emailErr = "Email is required";
+    } else {
+        $query = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+        $query->bindParam('email', $userEmail);
+        $query->execute();
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+        if($user){
+            $emailErr = 'Email already exists';
+        }
+    }
+
+    if(empty($_POST['userPhone'])){
+        $PhoneErr = "Phone number is required";
+    }
+
+    if(empty($_POST['useruName'])){
+        $userErr = "Username is required";
+    }
+
+    if(empty($_POST['userPassword'])){
+        $passErr = "Password is required";
+    }
+
+    if(empty($_POST['userConfirmPassword'])){
+        $cpassErr = "Confirm password is required";
+    } else {
+        if($userPassword !== $userConfirmPassword){
+            $cpassErr = "Passwords do not match";
+        }
+    }
+
+    // If no errors, proceed with registration
+    if(empty($nameErr) && empty($emailErr) && empty($PhoneErr) && empty($userErr) && empty($passErr) && empty($cpassErr)){
+        $passwordHash = sha1($userPassword);
+        
+        // Determine role_id based on selected role
+        $role_id = ($role == 'designer') ? 2 : 3; // Assuming 2 for designer and 3 for user
+        
+        $query = $pdo->prepare("INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)");
+        $query->bindParam('name', $userName);
+        $query->bindParam('email', $userEmail);
+        $query->bindParam('password', $passwordHash);
+        $query->bindParam('role_id', $role_id);
+        $query->execute();
+        
+        echo "<script>alert('User registered successfully'); location.assign('login.php');</script>";
+    }
+}
+
+
+
+
+
+
+// unset($user);
+
+//login
+
+if(isset($_POST['signIn'])){
+    $userEmail = $_POST['userEmail'];
+    $userPassword = $_POST['userPassword'];
+    if(empty($_POST['userEmail'])){
+        $emailErr = "Enter your email";
+
+    }
+    if(empty($_POST['userPassword'])){
+        $passErr = "Enter your password";
+    }
+    if(empty($emailErr) && empty($passErr)){
+    $query = $pdo->prepare("select * from users where email = :email");
+    $query->bindParam('email',$userEmail);
+    $query->execute();
+   $user =  $query->fetch(PDO::FETCH_ASSOC);
+   if($user){
+//    print_r($user);
+if (sha1($userPassword) == $user['password']){
+    if($user['role_id'] == 1 ){
+        $_SESSION['adminId']=$user['id'];
+        $_SESSION['adminName']=$user['name'];
+        $_SESSION['adminEmail']=$user['email'];
+        echo "<script>location.assign('dashmin_panel/index.php')
+        </script>";
+    }
+
+     else if($user['role_id'] == 2 ) {
+        $_SESSION['designerId']=$user['id'];
+        $_SESSION['designerName']=$user['name'];
+        $_SESSION['designerEmail']=$user['email'];
+        echo "<script>location.assign('index.php')
+        </script>";
+    }
+    else if ($user['role_id'] == 3 ) {
+    $_SESSION['user_id']=$user['id'];
+    $_SESSION['userName']=$user['name'];
+    $_SESSION['userEmail']=$user['email'];
+    // $_SESSION['userCont']=$user['phone'];
+    echo "<script>location.assign('dashmin_panel/user.php')
+    </script>";
+    } 
+  
+        echo "<script>alert('login successfully')</script>";
+       }
+    
+   else{
+   
+    echo "<script>location.assign('login.php?error=invalid credentials')</script>";
+}
+}
+else{
+    echo "<script>location.assign('login.php?error=user not found')</script>";
+}
+}
+unset($user);
+}
+
+?>
 
 
 

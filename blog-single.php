@@ -40,7 +40,7 @@ include("header.php");
                         <div class="blog-read">
                                 <div class="post-content">
                                     <div class="post-image">
-                                        <img src="dashmin_panel/assets/blog_images/<?php echo $blog['blog_img']?>" alt="" />
+                                        <img src="dashmin_panel/assets/images/blog_images/<?php echo $blog['blog_img']?>" alt="" />
                                     </div>
 
                                     <?php 
@@ -57,9 +57,9 @@ include("header.php");
 
                                     <div class="post-text">
                                         <h3><a href="#"><?php echo $blog['heading']?></a></h3>
-                                        <p><?php echo $blog['intro_1'];?> <?php echo $blog['intro_2'];?>
+                                        <p><?php echo $blog['intro_1'];?> <?php echo $blog['intro_2'];?></p>
                                         
-                                        <?php echo $blog['intro_3']?></p>
+                                       <p> <?php echo $blog['intro_3']?></p>
 
                                         <p><?php echo $blog['main_1']?></p>
 
@@ -197,7 +197,7 @@ include("header.php");
                             <ul class="de-bloglist-type-1">
                                 <li>
                                     <div class="d-image">
-                                        <img src="dashmin_panel/assets/blog_images/<?php echo $blog['blogs_page_img']?>" alt="">
+                                        <img src="dashmin_panel/assets/images/blog_images/<?php echo $blog['blogs_page_img']?>" alt="">
                                     </div>
                                     <div class="d-content">
                                         <a href="?id=<?php echo $blog['id']; ?>"><?php echo htmlspecialchars($blog['heading']); ?></a>
