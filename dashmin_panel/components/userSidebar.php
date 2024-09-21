@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 if(!isset($_SESSION['userEmail'])){
   echo "<script>location.assign('../index.php')</script>";
@@ -206,3 +207,5 @@ if(!isset($_SESSION['userEmail'])){
 </aside>
 
     <!--end sidebar -->
+=======
+>>>>>>> 88300fda008936e7cef80c08e7688d7c626bc2ab

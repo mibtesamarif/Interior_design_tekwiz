@@ -93,25 +93,6 @@ include("header.php");
                                 <img src="images/misc/pic_1.jpg" class="img-responsive" alt="">
                             </a>
                         </div>
-
-                        <div class="col-md-4 wow fadeInUp" data-wow-delay=".2s">
-                            <h3><span class="id-color">Office</span> Design</h3>
-                            Establishing a conducive and efficient workspace that aligns with the organization's objectives. It encompasses creating a functional and well-organized environment that enhances productivity, supports effective collaboration, and prioritizes employee well-being and motivation.
-                            <div class="spacer-single"></div>
-                            <a class="image-popup-no-margins" href="images/misc/pic_2.jpg">
-                                <img src="images/misc/pic_2.jpg" class="img-responsive" alt="">
-                            </a>
-                        </div>
-
-                        <div class="col-md-4 wow fadeInRight">
-                            <h3><span class="id-color">Commercial</span> Design</h3>
-                            Creating functional and visually appealing spaces for businesses, retail stores, and other commercial establishments. It involves understanding the unique needs and goals of the business and translating them into a well-designed space that enhances the customer experience. 
-                            <div class="spacer-single"></div>
-                            <a class="image-popup-no-margins" href="images/misc/pic_3.jpg">
-                                <img src="images/misc/pic_3.jpg" class="img-responsive" alt="">
-                            </a>
-                        </div>
-
                     </div>
                 </div>
             </section>
@@ -197,6 +178,45 @@ include("header.php");
             </section>
             <!-- section close -->
 
+            <section id="section-team">
+                <div class="container">
+
+                    <div class="row">
+                    <div class="col-md-6 offset-md-3 text-center wow fadeInUp">
+                            <h1>Our Designers</h1>
+                            <div class="separator"><span><i class="fa fa-circle"></i></span></div>
+                            <div class="spacer-single"></div>
+                        </div>
+                        <div class="col-md-12 container-4">
+                            <!-- team member -->
+                            <div class="de-team-list">
+                                <div class="team-pic">
+                                    <img src="images/team/team_pic_1.jpg" class="img-responsive" alt="" />
+                                </div>
+                                <div class="team-desc col-md-12">
+                                    <h3>John Smith</h3>
+                                    <p class="lead">Project Manager</p>
+                                    <div class="small-border"></div>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla pariatur.</p>
+
+                                    <div class="social">
+                                        <a href="#"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+                                        <a href="#"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-skype fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- team close -->
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+
 
             <!-- section begin -->
             <section id="section-portfolio" class="no-top no-bottom" aria-label="section-portfolio">
@@ -238,115 +258,6 @@ include("header.php");
                     </div>
                     <!-- close gallery item -->
 
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-2.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Modern Elegance Suite</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(2).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-3.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Apartment Renovation</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(3).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item residential">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Youtube Video</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(4).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item office">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Vimeo Video</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(5).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item commercial">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Restaurant In Texas</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(6).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item residential">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Summer House</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(7).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item office">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Office On Space</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(8).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
                 </div>
 
                 <div id="loader-area">
@@ -358,10 +269,44 @@ include("header.php");
 
             <!-- section begin -->
             <section id="view-all-projects" class="call-to-action bg-color text-center" data-speed="5" data-type="background" aria-label="view-all-projects">
-                <a href="project-wide-4-cols.html" class="btn btn-line black btn-big">View All Projects</a>
+                <a href="project.php" class="btn btn-line black btn-big">View All Projects</a>
             </section>
             <!-- logo carousel section close -->
+            <section>
+                <div class="container">
+                    <div class="row">
+						
+						<div class="col-md-3 wow fadeIn" data-wow-delay="0">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="2350" data-speed="2500">0</h3>
+                                <span>Designers</span>
+                            </div>
+                        </div>
 
+                        <div class="col-md-3 wow fadeIn" data-wow-delay=".25s">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="128" data-speed="2500">0</h3>
+                                <span>Projects Complete</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 wow fadeIn" data-wow-delay=".5s">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="750" data-speed="2500">0</h3>
+                                <span>Users</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 wow fadeIn" data-wow-delay=".75s">
+                            <div class="de_count">
+                                <h3 class="timer" data-to="520" data-speed="2500">0</h3>
+                                <span>Feadback Recieved</span>
+                            </div>
+                        </div>
+						
+                    </div>
+                </div>
+            </section>
 
             <!-- section begin -->
             <section id="section-testimonial" class="jarallax text-light">
@@ -389,45 +334,6 @@ include("header.php");
 
                             </div>
                         </div>
-
-                        <div class="col-md-3 col-sm-6 col-12 item">
-                            <div class="de_testi">
-                                <blockquote>
-                                    <p>I have very much enjoyed with your services. Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                                    <div class="de_testi_by">
-                                        Michael, Customer
-                                    </div>
-                                </blockquote>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-6 col-12 item">
-                            <div class="de_testi">
-                                <blockquote>
-                                    <p>I totally recommend your services. Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                                    <div class="de_testi_by">
-                                        Patrick, Customer
-                                    </div>
-                                </blockquote>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-6 col-12 item">
-                            <div class="de_testi">
-                                <blockquote>
-                                    <p>I have very much enjoyed with your services. Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                                    <div class="de_testi_by">
-                                        James, Customer
-                                    </div>
-                                </blockquote>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -435,157 +341,6 @@ include("header.php");
 
 
             <!-- footer begin -->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <img src="images/logo.svg" class="logo-small" alt=""><br>We are passionate about transforming spaces into stunning, functional, and personalized environments. With years of experience in the industry, we specialize in creating exceptional interior designs that reflect our clients unique style and meet their specific needs.
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="widget widget_recent_post">
-                            <h3>Latest News</h3>
-                            <ul>
-                                <li><a href="#">The Essentials Interior Design Tips</a></li>
-                                <li><a href="#">Functional Wall-to-Wall Shelves</a></li>
-                                <li><a href="#">9 Unique Ways to Display Your TV</a></li>
-                                <li><a href="#">The 5 Secrets to Minimal Design</a></li>
-                                <li><a href="#">Make a Huge Impact With Multiples</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <h3>Contact Us</h3>
-                        <div class="widget widget-address">
-                            <address>
-                                <span>100 S Main St, Los Angeles, CA</span>
-                                <span><strong>Phone:</strong>(208) 333 9296</span>
-                                <span><strong>Fax:</strong>(208) 333 9298</span>
-                                <span><strong>Email:</strong><a href="mailto:contact@archi-interior.com">contact@archi-interior.com</a></span>
-                                <span><strong>Web:</strong><a href="#">http://archi-interior.com</a></span>
-                            </address>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="widget widget_recent_post">
-                            <h3>Our Services</h3>
-                            <ul>
-                                <li><a href="#">Interior Design</a></li>
-                                <li><a href="#">Architecture</a></li>
-                                <li><a href="#">Industry</a></li>
-                                <li><a href="#">Consulting</a></li>
-                                <li><a href="#">Photography</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="subfooter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            &copy; Copyright 2024 - Archi Interior Design Template by <span class="id-color">Designesia</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <div class="social-icons">
-                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                <a href="#"><i class="fa-brands fa-skype"></i></a>
-                                <a href="#"><i class="fa-brands fa-dribbble"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a href="#" id="back-to-top"></a>
-        </footer>
-        <!-- footer close -->
-        </div>
-    </div>
-
-    <!-- style switcher
-    ================================================== -->
-
-
-    <!-- <div id="switcher">
-        <span class="custom-close"></span>
-        <span class="custom-show"></span>
-        <span class="sw-title">Header Layout</span>
-        <select name="switcher" id="de-header-layout">
-            <option value="opt-1" selected>Simple</option>
-            <option value="opt-2">Extended</option>
-        </select>
-        <div class="clearfix"></div>
-        <span class="sw-title">Color :</span>
-        <ul id="de-color">
-            <li class="bg1"></li>
-            <li class="bg2"></li>
-            <li class="bg3"></li>
-            <li class="bg4"></li>
-            <li class="bg5"></li>
-            <li class="bg6"></li>
-            <li class="bg7"></li>
-            <li class="bg8"></li>
-            <li class="bg9"></li>
-            <li class="bg10"></li>
-        </ul>
-    </div> -->
-
-    <div id="purchase-now">
-    	<a href="https://themeforest.net/cart/configure_before_adding/10940889"><span>$</span>25</a>
-    	<div class="pn-hover">Buy Now</div>
-    </div>
-
-    <!-- Javascript Files
-    ================================================== -->
-    <script src="js/plugins.js"></script>
-    <script src="js/designesia.js"></script>
-
-    <!-- SLIDER REVOLUTION SCRIPTS  -->
-    <script src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-    <script src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-
-    <!-- COOKIES PLUGIN  -->
-     <script>
-      $(document).ready(function() {
-        $.cookit({
-          backgroundColor: '#1c1c1c',
-          messageColor: '#fff',
-          linkColor: '#fad04c',
-          buttonColor: '#fad04c',
-          messageText: "This website uses <b>cookies</b> to ensure you get the best experience on our website.",
-          linkText: "Learn more",
-          linkUrl: "index.html",
-          buttonText: "I accept",
-        });
-      });
-    </script>
-
-    <script>
-        // revolution slider
-		(function($) {})(jQuery);
-        var revapi;
-        revapi = jQuery('#revolution-slider').revolution({
-            delay: 5000,
-            startwidth: 1120,
-            startheight: 500,
-            hideThumbs: 10,
-            fullWidth: "on",
-            fullScreen: "on",
-            fullScreenOffsetContainer: "",
-            touchenabled: "on",
-            navigationType: "none",
-            dottedOverlay: ""
-        });
-    </script>
-
-</body>
-
-
-<!-- Mirrored from www.madebydesignesia.com/themes/archi/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Sep 2024 20:27:02 GMT -->
-</html>
+            <?php 
+include('footer.php');
+?>

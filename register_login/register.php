@@ -53,7 +53,7 @@ include("..\query.php");
                     </div>
                     <div class="signup-image">
                         <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="#" class="signup-image-link">I am already member</a>
+                        <a href="login.php" class="signup-image-link">I am already member</a>
                     </div>
                 </div>
             </div>
@@ -66,5 +66,27 @@ include("..\query.php");
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+    
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+    
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+          .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
