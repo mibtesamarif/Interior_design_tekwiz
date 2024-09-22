@@ -986,7 +986,7 @@ if(isset($_POST['signUp'])){
         $query->bindParam('role_id', $role_id);
         $query->execute();
         
-        echo "<script>alert('User registered successfully'); location.assign('login.php');</script>";
+        echo "<script>alert('User registered successfully'); location.assign('../login.php');</script>";
     }
 }
 
@@ -1021,7 +1021,7 @@ if (sha1($userPassword) == $user['password']){
         $_SESSION['adminId']=$user['id'];
         $_SESSION['adminName']=$user['name'];
         $_SESSION['adminEmail']=$user['email'];
-        echo "<script>location.assign('dashmin_panel/index.php')
+        echo "<script>location.assign('index.php')
         </script>";
     }
 
@@ -1037,7 +1037,7 @@ if (sha1($userPassword) == $user['password']){
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
     // $_SESSION['userCont']=$user['phone'];
-    echo "<script>location.assign('dashmin_panel/user.php')
+    echo "<script>location.assign('..\index.php')
     </script>";
     } 
   

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
 <?php
 include("dashmin_panel\php\query.php");
 // include("php\query.php");
@@ -130,7 +127,7 @@ include("dashmin_panel\php\query.php");
 										<li><a href="contact.php">Contact</a>
 										</li>
                                         <?php
-                                            if (isset($_SESSION['user_id']) && $_SESSION['designerId'] == 3) {
+                                            if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 3) {
                                             ?>
                                                 <li><a href="user.php">Dashboard</a></li>
                                             <?php
@@ -151,6 +148,14 @@ include("dashmin_panel\php\query.php");
                                        
                                         <li><a href="login.php"><span style="font-size:">Login</span></a>
 										</li>
+                                        <?php
+                                            if (isset($_SESSION['designerId']) && isset($_SESSION['user_id'])) {
+                                            ?>
+                                               <li><a href="login.php"><span style="font-size:">Login</span></a>
+                                               </li>
+                                            <?php
+                                            }
+                                        ?>
 									
 									</ul>
 							
