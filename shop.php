@@ -48,7 +48,6 @@ include("header.php");
 											<i class="fa fa-star"></i>
 	                                    </div>
 	                                    <div class="price">$<?php echo $product['price']?></div>
-	                                    <a href="#" class="btn btn-line">Add To Cart</a>
                                 	</div>
                                 </li>
 

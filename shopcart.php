@@ -20,6 +20,12 @@ include('header.php')
 
 
 		<?php
+
+$subtotal = 0;
+foreach ($_SESSION['cart'] as $item) {
+    $subtotal += $item['p_price'] * $item['p_qty'];
+}
+
 		if(isset($_POST['addToCart'])){
 
 			if(isset($_SESSION['cart'])){
@@ -152,43 +158,39 @@ include('header.php')
                     	</table>
                     </div>
 
-                    <div id="sidebar" class="col-md-3">
-                        <div class="d-summary">
-                        	<h3>Summary</h3>
-                        	<div class="de-flex">
-                        		<div>Subtotal</div>
-                        		<div class="strong">$950</div>
-                        	</div>
-                        	<div class="de-flex">
-                        		<div>Shipping est </div>
-                        		<div class="strong">$150</div>
-                        	</div>
+					<div id="sidebar" class="col-md-3">
+    <div class="d-summary">
+        <h3>Summary</h3>
+        <div class="de-flex">
+            <div>Subtotal</div>
+            <div class="strong">$<?php echo number_format($subtotal, 2); ?></div>
+        </div>
 
-                        	<div class="spacer-line"></div>
+        <div class="spacer-line"></div>
 
-                        	<form action="https://www.madebydesignesia.com/themes/archi/blank.php" class="row" id="form_coupon" method="post" name="form_coupon">
-                                <div class="col text-center">
-                                    <input class="form-control" id="name_1" name="name_1" placeholder="enter promo code" type="text" /> <a href="#" id="btn-submit"><i class="fa fa-long-arrow-right"></i></a>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
+        <div class="spacer-line"></div>
 
-                        	<div class="spacer-line"></div>
+        <div class="de-flex">
+            <div>Total Price </div>
+            <div class="strong">$<?php echo number_format($subtotal, 2); ?></div>
+        </div>
 
-                        	<div class="de-flex">
-                        		<div>Total Price </div>
-                        		<div class="strong">$1100</div>
-                        	</div>
+        <div class="spacer-line"></div>
 
-                        	<div class="spacer-line"></div>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="checkout.php?user_id=<?php echo $_SESSION['user_id']; ?>" class="btn-custom btn-fullwidth text-center">Checkout</a>
+        <?php else: ?>
+            <a href="login.php" class="btn-custom btn-fullwidth text-center">Checkout</a>
+        <?php endif; ?>
+    </div>
+</div>
 
-                        	<a href="#" class="btn-custom btn-fullwidth text-center">Checkout</a>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
         </div>
+
 
 <?php 
 include('footer.php');

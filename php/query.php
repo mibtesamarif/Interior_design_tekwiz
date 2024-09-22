@@ -125,7 +125,7 @@ if (sha1($userPassword) == $user['password']){
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
     // $_SESSION['userCont']=$user['phone'];
-    echo "<script>location.assign('dashmin_panel/user.php')
+    echo "<script>location.assign('index.php')
     </script>";
     } 
   
