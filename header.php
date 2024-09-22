@@ -47,7 +47,7 @@ include("dashmin_panel\php\query.php");
                         <!-- logo begin -->
                         <div id="logo">
                             <a href="index.php">
-                                <img class="logo" src="images/logo.svg"  alt="">
+                                <img class="logo" src="images/logo3.png" width="150" alt="">
                             </a>
                         </div>
                         <!-- logo close -->
@@ -126,6 +126,7 @@ include("dashmin_panel\php\query.php");
 										<li><a href="contact.php">Contact</a>
 										</li>
                                         <?php
+
 // Check if the user is logged in (general user or designer)
 if (isset($_SESSION['user_id'])) {
     // General user dashboard and logout
@@ -134,6 +135,7 @@ if (isset($_SESSION['user_id'])) {
     <li><a href="dashmin_panel\userLogout.php"><span>Logout</span></a></li>
     <?php
 }
+
 
 // Check if the designer is logged in
 if (isset($_SESSION['designerId'])) {

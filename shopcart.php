@@ -22,8 +22,10 @@ include('header.php')
 		<?php
 
 $subtotal = 0;
+if(isset($_SESSION['cart'])){
 foreach ($_SESSION['cart'] as $item) {
     $subtotal += $item['p_price'] * $item['p_qty'];
+}
 }
 
 		if(isset($_POST['addToCart'])){
@@ -122,6 +124,7 @@ foreach ($_SESSION['cart'] as $item) {
                     	      <th scope="col">Items</th>
                     	      <th scope="col">Quantity</th>
                     	      <th scope="col">Final Price</th>
+							  <th scope="col">Action</th>
 							  <!-- <th>Action</th> -->
                     	    </tr>
                     	  </thead>
@@ -148,7 +151,7 @@ foreach ($_SESSION['cart'] as $item) {
 								</div>
                     	      </td>
                     	      <td class="column-5"><?php echo $value['p_qty']*$value['p_price']?></td>
-									<!-- <td class="column-6"><a href="?remove=<?php echo $value['p_id']?>" class="">Remove</a></td> -->
+									 <td class="column-6"><a href="?remove=<?php echo $value['p_id']?>" class=""><i class="fa-solid fa-trash"></i></a></td>
                     	    </tr>
                     	  </tbody>
 						  <?php
