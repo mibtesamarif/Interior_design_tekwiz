@@ -127,6 +127,9 @@ include('php\query.php');
   .signup {
     text-align: center;
   }
+  .textarea1{
+    width: 100%;
+  }
 
   /* Enhanced responsiveness for different screen sizes */
   @media (max-width: 768px) {
@@ -143,6 +146,7 @@ include('php\query.php');
       margin-bottom: 1rem;
     }
   }
+
 
   @media (max-width: 480px) {
     .form header {
@@ -190,7 +194,7 @@ include('php\query.php');
       font-size: 12px;
     }
   }
-
+   
 
 </style>
 
@@ -202,7 +206,7 @@ include('php\query.php');
   <form action="" method="post">
   <div class="row">
   <div>
-    <input name="userName" value="<?php echo $userName?>"  type="text" placeholder="Enter your name">
+    <input name="userName"  type="text" placeholder="Enter your name">
     <small class="text-danger"><?php echo $nameErr?></small></div>
 <div>    <input name="userEmail" value="<?php echo $userEmail?>" type="email" placeholder="Enter your email">
     <small class="text-danger"><?php echo $emailErr?></small></div>
@@ -210,50 +214,62 @@ include('php\query.php');
 
   </div>
   <div class="row">
+
+                                <div class="textarea1" >
+                                    <textarea id="bio" name="bio"  placeholder="Your Bio (max 250 characters)" maxlength="250" rows="4"></textarea>
+                                    <small id="charCount" class="form-text text-muted">250 characters remaining</small>
+                                </div>
+
     <div>
     <input name="userPhone" value="<?php echo $userPhone?>"  type="number" placeholder="Enter your number">
-    <small class="text-danger"><?php echo $PhoneErr?></small></div>
+    
 
     <div>
     <input name="useruName"  value="<?php echo $useruName?>"  type="text" placeholder="Enter your username">
-    <small class="text-danger"><?php echo $userErr?></small></div>
+   
 
   </div>
   <div class="row">
     <div>
     <input name="userPassword" value="<?php echo $userPassword?>" type="password" placeholder="Create a password">
-    <small class="text-danger"><?php echo $passErr?></small></div>
+    
      
     <div>
     <input  name="userConfirmPassword" value="<?php echo $userConfirmPassword?>" type="password" placeholder="Confirm your password">
-    <small class="text-danger"><?php echo $cpassErr?></small></div>
+    
 
   </div>
 
-<!-- Radio buttons for User and Designer -->
-<div class="user-type">
-  <label>
-    <input type="radio" name="role" value="user" checked> User
-  </label>
-  <label>
-    <input type="radio" name="role" value="designer"> Designer
-  </label>
-</div>
+
 
   
 
-  <button type="submit" name="signUp" class="button">Signup</button>
+  <button type="submit" name="add_detail" class="button">Submit</button>
 
 </form>
 
 
-  <div class="signup">
-    <span class="signup">Already have an account?
-      <label for=""><a href="login.php">Login</a></label>
-    </span>
-  </div>
+
 </div>
 
   </div>
+  <script>
+        const bio = document.getElementById('bio');
+        const charCount = document.getElementById('charCount');
+        const maxChars = 250;
+
+        bio.addEventListener('input', function() {
+            const remaining = maxChars - bio.value.length;
+            charCount.textContent = `${remaining} characters remaining`;
+
+            // If the limit is reached, prevent further typing
+            if (remaining <= 0) {
+                charCount.textContent = 'You have reached the 250 character limit';
+            }
+        });
+    </script>
 </body>
+
 </html>
+
+

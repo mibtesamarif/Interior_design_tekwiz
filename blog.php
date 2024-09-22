@@ -87,7 +87,7 @@ include('header.php')
 
                                     </div>
 
-                                    <a href="blog-single.php?id=<?php echo $blog['id']; ?>" class="btn-more">Read More</a>
+                                    <a href="blog-single.php?bid=<?php echo $blog['id']; ?>" class="btn-more">Read More</a>
                                 </div>
                             </li>
 
@@ -155,10 +155,14 @@ include('header.php')
                         <div class="widget widget-text">
                             <h4>About Us</h4>
                             <div class="small-border"></div>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni
+                            <p>At DecorVista, we believe in turning your interior design dreams into    reality. Our platform connects homeowners and businesses with skilled interior designers who can transform any space into something extraordinary. Whether you're looking for a simple room makeover or a complete renovation, our designers specialize in a variety of styles to match your unique vision.
+                            </p>
+                            <p>
+                                We provide an easy-to-use platform where clients can browse portfolios, book consultations, and track project progress, while designers manage their services and connect with clients seamlessly.
+                            </p>
+                            <p>
+                            Let's create a space you'll love, together.
+                            </p>
                         </div>
 
                     </div>

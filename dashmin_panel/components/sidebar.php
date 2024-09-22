@@ -107,27 +107,25 @@ if(!isset($_SESSION['adminEmail'])){
       </ul>
     </li>
 
-       <!-- Design Category -->
-       <li>
+    <!-- Orders Management -->
+    <li>
       <a class="has-arrow" href="javascript:;">
         <div class="parent-icon">
-          <ion-icon name="cube-outline"></ion-icon>
+          <ion-icon name="cart-outline"></ion-icon>
         </div>
-        <div class="menu-title">Designer Category</div>
+        <div class="menu-title">Orders</div>
       </a>
       <ul>
-        <li><a href="adddesignctg.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Add Category
+        <li><a href="viewOrders.php">
+            <ion-icon name="ellipse-outline"></ion-icon>View Orders
           </a>
         </li>
-        <li><a href="viewdesignctg.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Category
+        <li><a href="orderDetails.php">
+            <ion-icon name="ellipse-outline"></ion-icon>Order Details
           </a>
         </li>
       </ul>
     </li>
-
- 
 
     <!-- User Management -->
     <li>
@@ -162,8 +160,12 @@ if(!isset($_SESSION['adminEmail'])){
             <ion-icon name="ellipse-outline"></ion-icon>Add Blog
           </a>
         </li>
-        <li><a href="viewBlogs.php">
+        <li><a href="view_blogs.php">
             <ion-icon name="ellipse-outline"></ion-icon>View Blogs
+          </a>
+        </li>
+        <li><a href="deleteBlog.php">
+            <ion-icon name="ellipse-outline"></ion-icon>Delete Blog
           </a>
         </li>
       </ul>

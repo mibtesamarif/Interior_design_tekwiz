@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> a9f8fd371ca751c2682a437ab4c643c6a47e2560
 <?php
 include("dashmin_panel\php\query.php");
 // include("php\query.php");
@@ -130,28 +126,34 @@ include("dashmin_panel\php\query.php");
 										<li><a href="contact.php">Contact</a>
 										</li>
                                         <?php
-                                            if (isset($_SESSION['user_id']) && $_SESSION['designerId'] == 3) {
-                                            ?>
-                                                <li><a href="user.php">Dashboard</a></li>
-                                            <?php
-                                            }
-                                        ?>
-                                         <?php
-                                            // if (isset($_SESSION['designerId']) && $_SESSION['designerId'] == 2) {
-                                            
-                                                // <!-- <li><a href="#">Dashboard</a></li> -->
-                                           
-                                            // }
-                                           
-                                        ?>
-										<!-- <a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
-										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a> -->
-                                        <!-- <span class="md-flex-col col-extra">
-                                            <a href="renovation-form.html" class="btn-on-header btn-line">Get Quote</a>
-                                        </span> -->
+// Check if the user is logged in (general user or designer)
+if (isset($_SESSION['user_id'])) {
+    // General user dashboard and logout
+    ?>
+    <li><a href="dashmin_panel/user.php">User Dashboard</a></li>
+    <li><a href="dashmin_panel\userLogout.php"><span>Logout</span></a></li>
+    <?php
+}
+
+// Check if the designer is logged in
+if (isset($_SESSION['designerId'])) {
+    // Designer dashboard and logout
+    ?>
+    <li><a href="dashmin_panel/designer.php">Designer Dashboard</a></li>  
+    <li><a href="dashmin_panel\designer_logout.php"><span>Logout</span></a></li>
+    <?php
+}
+
+// If neither user nor designer is logged in, show the login link
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['designerId'])) {
+    ?>
+    <li><a href="login.php"><span>Login</span></a></li>
+    <?php
+}
+?>
                                        
-                                        <li><a href="login.php"><span style="font-size:">Login</span></a>
-										</li>
+                                       
+                                     
 									
 									</ul>
 							
