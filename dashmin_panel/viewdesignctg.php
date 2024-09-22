@@ -46,8 +46,11 @@ include('components/navbar.php');
                     <thead class="table-secondary">
                       <tr>
                        <th>Name</th>
+                       <th>Des</th>
+                       <th>Image</th>
                        <th>Actions</th>
                        <th>Actions</th>
+                  
                       </tr>
                     </thead>
                     <tbody>

@@ -1,5 +1,7 @@
 <?php 
-include('header.php')
+include('header.php');
+$_SESSION['designer_id'] = 2;
+
 ?>
         <!-- subheader -->
         <section id="subheader" data-speed="8" data-type="background">
@@ -72,43 +74,38 @@ include('header.php')
                 </p>
                 </p>
 
-                <div class="col-md-12>
-                        <form name="contactForm" id='contact_form' method="post">
-                            <div class="row">
-                            	<div class="col-md-12 mb10">
-                            		<h3>Send Us Message</h3>
-                            	</div>
-                                <div class="col-md-10">
-                                    <div id='name_error' class='error'>Please enter your name.</div>
-                                    <div>
-                                        <input type='text' name='Name' id='name' class="form-control" placeholder="Your Name" required>
-                                    </div>
+                <form name="consultationForm" id="consultation_form" method="post">
+    <div class="row">
+        <div class="col-md-12 mb10">
+            <h3>Book Consultation</h3>
+        </div>
 
-                                    <div id='email_error' class='error'>Please enter your valid E-mail ID.</div>
-                                    <div>
-                                        <input type='email' name='Email' id='email' class="form-control" placeholder="Your Email" required>
-                                    </div>
+        <div class="col-md-10">
+            <!-- Hidden field to store the logged-in user's ID -->
+            <input type="hidden" name="user_id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
 
-                                    <div id='phone_error' class='error'>Please enter your phone number.</div>
-                                    <div>
-                                        <input type='text' name='phone' id='phone' class="form-control" placeholder="Your Phone" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-10">
-                                    <div id='message_error' class='error'>Please enter your message.</div>
-                                    <div>
-                                        <textarea name='message' id='message' class="form-control" placeholder="Your Message" required></textarea>
-                                    </div>
-                                </div>
+            <!-- Hidden field to store the designer's ID (auto-filled from session) -->
+            <input type="hidden" name="designer_id" value="<?php echo isset($_SESSION['designer_id']) ? $_SESSION['designer_id'] : ''; ?>">
 
-                                <div class="col-md-12">
-                                    <div class="g-recaptcha" data-sitekey="6LdW03QgAAAAAJko8aINFd1eJUdHlpvT4vNKakj6"></div>
-                                    <p id='submit' class="mt20">
-                                        <input type='submit' id='send_message' value='Submit Form' class="btn btn-line">
-                                    </p>
-                                </div>
-                            </div>
-                        </form>
+            <div>
+                <label for="designs_id">Design ID</label>
+                <input type="text" name="designs_id" id="designs_id" class="form-control" placeholder="Enter Design ID" required>
+            </div>
+
+            <div>
+                <label for="consultation_date">Consultation Date</label>
+                <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <p id="submit" class="mt20">
+                <input type="submit" id="book_consultation" name="consultationBookweb" value="Book Consultation" class="btn btn-line">
+            </p>
+        </div>
+    </div>
+</form>
+
 
                         <div id="success_message" class='success'>
                             Your message has been sent successfully. Refresh this page if you want to send more messages.

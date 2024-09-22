@@ -1,6 +1,7 @@
 <?php
 include("dashmin_panel\php\query.php");
 // include("php\query.php");
+// include("php\query.php");
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +135,7 @@ include("dashmin_panel\php\query.php");
                                             
                                             if (isset($_SESSION['designerId']) ) {
                                                 ?>
-                                                    <li><a href="designer.php">User Dashboard</a></li>
+                                                    <li><a href="designer.php">Designer Dashboard</a></li>
                                                 <?php
                                                 }
                                                 else{

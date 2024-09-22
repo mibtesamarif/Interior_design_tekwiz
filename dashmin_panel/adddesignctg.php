@@ -33,35 +33,48 @@ include('components/navbar.php');
                 <div class="card-body">
                   <div class="border p-3 rounded">
                   <h6 class="mb-0 text-uppercase">Add Design Category</h6>
-                  <hr>
-                  <form class="row g-3" method="post">
-                    <div class="col-12">
-                      <label class="form-label">Name</label>
-                      <input type="text" name="ctgName" value="<?php echo $catName?>" class="form-control">
-                     <small class="text-danger"><?php echo $catNameErr?></small>
+                  <form class="row g-3" method="post" enctype="multipart/form-data">
+                 
+                   <div class="col-12">
+                       <label class="form-label">Category Name</label>
+                         <input type="text" name="ctgName" value="<?php echo $catName ?>" class="form-control" placeholder="Enter category name">
+                         <small class="text-danger"><?php echo $catNameErr ?></small>
+                           </div>
 
-                    </div>
-                    
-                    </div>
-                    <div class="col-12">
-                      <div class="d-grid">
-                        <button type="submit" class="btn btn-primary" name="addDesignctg">Add Category</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                </div>
-              </div>
+                 <div class="col-12">
+                  <label class="form-label">Description</label>
+                  <input type="text" name="ctgdes" value="<?php echo $catDes ?>" class="form-control" placeholder="Enter description">
+                   <small class="text-danger"><?php echo $catDesErr ?></small>
+                            </div>
+
+                       <!-- Image Upload Input -->
+                               <div class="col-12">
+                                <label class="form-label">Image</label>
+                                 <input type="file" name="ctgimg" class="form-control">
+                                    <small class="text-danger"><?php echo $catImgErr ?></small>
+                                    </div>
+
+                           <!-- Submit Button -->
+                               <div class="col-12">
+                              <div class="d-grid">
+                              <button type="submit" class="btn btn-primary" name="addDesignctg">Add Category</button>
+                                </div>
+                               </div>
+                                </form>
+
+                              </div>
+                                </div>
+                                  </div>
   
               
   
-            </div>
-          </div>
+                                     </div>
+                                   </div>
              
 
-          </div>
-          <!-- end page content-->
-         </div>
+                                        </div>
+                            <!-- end page content-->
+                                            </div>
          
 <?php
 include('components/footer.php');

@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('dashmin_panel/php/dbcon.php');
 
 $nameErr = "";
@@ -114,7 +113,7 @@ if (sha1($userPassword) == $user['password']){
     }
 
      else if($user['role_id'] == 2 ) {
-        $_SESSION['designerId']=$user['id'];
+        $_SESSION['designer_id']=$user['id'];
         $_SESSION['designerName']=$user['name'];
         $_SESSION['designerEmail']=$user['email'];
         echo "<script>location.assign('index.php')
@@ -143,5 +142,49 @@ else{
 }
 unset($user);
 }
+
+
+
+    
+    // Check if the consultation book flag is set
+    if (isset($_POST['consultationBookweb'])) {
+       
+
+        // Check if user and designer IDs are set in the session
+        if (isset($_SESSION['user_id']) && isset($_SESSION['designer_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $designer_id = $_SESSION['designer_id'];
+            $designs_id = htmlspecialchars($_POST['designs_id']);
+            $consultation_date = htmlspecialchars($_POST['consultation_date']);
+            $status = 'scheduled';
+
+            // Prepare the SQL statement
+            $sql = "INSERT INTO consultations (user_id, designs_id, consultation_id, consultation_date, status) 
+                    VALUES (:user_id, :designs_id, :consultation_id, :consultation_date, :status)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':designs_id', $designs_id);
+            $stmt->bindParam(':consultation_id', $designer_id);
+            $stmt->bindParam(':consultation_date', $consultation_date);
+            $stmt->bindParam(':status', $status);
+
+            // Execute the statement and check for success
+            if ($stmt->execute()) {
+                echo "Consultation booked successfully!";
+            } else {
+                $errorInfo = $stmt->errorInfo();
+                echo "Error booking the consultation: " . $errorInfo[2];
+            }
+        } else {
+            echo "Error: User or Designer ID is not set.<br>";
+        }
+    } else {
+        echo "Error: Consultation Book Flag is not set.<br>";
+    }
+
+
+
+
+
 
 ?>
