@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 if(!isset($_SESSION['userEmail'])){
   echo "<script>location.assign('../index.php')</script>";
 }

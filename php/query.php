@@ -113,14 +113,14 @@ if (sha1($userPassword) == $user['password']){
         </script>";
     }
 
-     else if($user['role_id'] == 2 ) {
+      if($user['role_id'] == 2 ) {
         $_SESSION['designerId']=$user['id'];
         $_SESSION['designerName']=$user['name'];
         $_SESSION['designerEmail']=$user['email'];
         echo "<script>location.assign('index.php')
         </script>";
     }
-    else if ($user['role_id'] == 3 ) {
+     if ($user['role_id'] == 3 ) {
     $_SESSION['user_id']=$user['id'];
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
