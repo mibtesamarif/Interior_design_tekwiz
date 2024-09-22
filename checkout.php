@@ -1,70 +1,84 @@
 <?php 
 include('header.php');
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate the input data
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $house = $_POST['house'];
-    $postalCode = $_POST['postalCode'];
-    $message = $_POST['message'];
-    
-    $userId = $_SESSION['user_id']; // Assuming user ID is stored in the session
+// Initialize total price and total products
+$totalPrice = 0;
+$totalProducts = 0;
 
-    // Calculate total price from cart
-    $totalPrice = 0;
+if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
-        $totalPrice += $item['p_price'] * $item['p_qty'];
+        $totalProducts += $item['p_qty'];  // Count total products
+        $totalPrice += $item['p_price'] * $item['p_qty'];  // Calculate total price
     }
-
-    // Insert order
-    $orderQuery = $pdo->prepare("INSERT INTO orders (user_id, shipping_address, city, postal_code, total_price, message) VALUES (:user_id, :shipping_address, :city, :postal_code, :total_price, :message)");
-    $orderQuery->bindParam(':user_id', $userId);
-    $orderQuery->bindParam(':shipping_address', $address);
-    $orderQuery->bindParam(':city', $city);
-    $orderQuery->bindParam(':postal_code', $postalCode);
-    $orderQuery->bindParam(':total_price', $totalPrice);
-    $orderQuery->bindParam(':message', $message);
-    $orderQuery->execute();
-    $orderId = $pdo->lastInsertId();
-
-    // Insert invoice
-    $invoiceQuery = $pdo->prepare("INSERT INTO invoices (order_id, user_id, billing_address, city, postal_code, total_amount) VALUES (:order_id, :user_id, :billing_address, :city, :postal_code, :total_amount)");
-    $invoiceQuery->bindParam(':order_id', $orderId);
-    $invoiceQuery->bindParam(':user_id', $userId);
-    $invoiceQuery->bindParam(':billing_address', $address);
-    $invoiceQuery->bindParam(':city', $city);
-    $invoiceQuery->bindParam(':postal_code', $postalCode);
-    $invoiceQuery->bindParam(':total_amount', $totalPrice);
-    $invoiceQuery->execute();
-    $invoiceId = $pdo->lastInsertId();
-
-    // Insert items into invoice_items
-    foreach ($_SESSION['cart'] as $item) {
-        $productId = $item['p_id'];
-        $quantity = $item['p_qty'];
-        $unitPrice = $item['p_price'];
-
-        $invoiceItemQuery = $pdo->prepare("INSERT INTO invoice_items (invoice_id, product_id, quantity, unit_price) VALUES (:invoice_id, :product_id, :quantity, :unit_price)");
-        $invoiceItemQuery->bindParam(':invoice_id', $invoiceId);
-        $invoiceItemQuery->bindParam(':product_id', $productId);
-        $invoiceItemQuery->bindParam(':quantity', $quantity);
-        $invoiceItemQuery->bindParam(':unit_price', $unitPrice);
-        $invoiceItemQuery->execute();
-    }
-
-    // Clear the cart
-    unset($_SESSION['cart']);
-
-    // Redirect to the invoice page
-    echo "<script>alert('Order placed successfully!'); location.assign('invoice.php?invoice_id=$invoiceId');</script>";
+} else {
+    $emptyCartMessage = "Your cart is empty. Please add items to your cart before proceeding to checkout.";
 }
 
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_SESSION['cart'])) {
+        $showModal = true;
+        $modalMessage = "Your cart is empty. Please add items to your cart before proceeding to checkout.";
+    } else {
+        // Get form data
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $city = $_POST['city'];
+        $house = $_POST['house'];
+        $postalCode = $_POST['postalCode'];
+        $message = $_POST['message'];
+
+        $userId = $_SESSION['user_id'];
+
+        try {
+            // Begin transaction
+            $pdo->beginTransaction();
+
+            // Insert order with total products
+            $orderQuery = $pdo->prepare("INSERT INTO orders (user_id, shipping_address, city, postal_code, total_products, total_price, message) 
+                                         VALUES (:user_id, :shipping_address, :city, :postal_code, :total_products, :total_price, :message)");
+            $orderQuery->bindParam(':user_id', $userId);
+            $orderQuery->bindParam(':shipping_address', $address);
+            $orderQuery->bindParam(':city', $city);
+            $orderQuery->bindParam(':postal_code', $postalCode);
+            $orderQuery->bindParam(':total_products', $totalProducts);
+            $orderQuery->bindParam(':total_price', $totalPrice);
+            $orderQuery->bindParam(':message', $message);
+            $orderQuery->execute();
+            $orderId = $pdo->lastInsertId();
+
+            // Insert invoice
+            $invoiceQuery = $pdo->prepare("INSERT INTO invoices (order_id, user_id, billing_address, city, postal_code, total_amount) 
+                                           VALUES (:order_id, :user_id, :billing_address, :city, :postal_code, :total_amount)");
+            $invoiceQuery->bindParam(':order_id', $orderId);
+            $invoiceQuery->bindParam(':user_id', $userId);
+            $invoiceQuery->bindParam(':billing_address', $address);
+            $invoiceQuery->bindParam(':city', $city);
+            $invoiceQuery->bindParam(':postal_code', $postalCode);
+            $invoiceQuery->bindParam(':total_amount', $totalPrice);
+            $invoiceQuery->execute();
+            $invoiceId = $pdo->lastInsertId();
+
+            // Unset the cart and commit transaction
+            unset($_SESSION['cart']);
+            $pdo->commit();
+
+            // Redirect to confirmation page
+            header("Location: order_confirmation.php?order_id=" . $orderId);
+            exit;
+
+        } catch (Exception $e) {
+            // Rollback transaction and log the error
+            $pdo->rollBack();
+            file_put_contents('error_log.txt', "Error: " . $e->getMessage(), FILE_APPEND);
+            $showModal = true;
+            $modalMessage = "There was an error processing your order. Please try again.";
+        }
+    }
+}
 ?>
 
 <section class="bg-light py-5">
@@ -83,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
 
-                <!-- Checkout -->
+                <!-- Checkout Form -->
                 <div class="card shadow-0 border">
                     <div class="p-4">
                         <h5 class="card-title mb-3 text-white">Checkout</h5>
@@ -169,39 +183,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </form>
                     </div>
                 </div>
-                <!-- Checkout -->
+                <!-- Checkout Form -->
             </div>
 
             <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
                 <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
                     <h6 class="mb-3">Summary</h6>
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-2">Total price:</p>
-                        <p class="mb-2">$<?php echo $totalPrice; ?></p>
-                    </div>
-
-                    <hr />
-                    <h6 class="text-dark my-4">Items in cart</h6>
-
-                    <?php if (isset($_SESSION['cart'])): ?>
+                    <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
                         <?php foreach ($_SESSION['cart'] as $item): ?>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="me-3 position-relative">
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
-                                        <?php echo $item['p_qty']; ?>
-                                    </span>
-                                    <img src="dashmin_panel/img/<?php echo $item['p_image']; ?>" style="height: 96px; width: 96px;" class="img-sm rounded border" />
-                                </div>
-                                <div>
-                                    <a href="#" class="nav-link text-black">
-                                        <?php echo $item['p_name']; ?><br />
-                                        <div class="price text-muted">Total: $<?php echo number_format($item['p_price'] * $item['p_qty'], 2); ?></div>
-                                    </a>
-                                </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2"><?php echo $item['p_name']; ?> (x<?php echo $item['p_qty']; ?>)</p>
+                                <p class="mb-2">$<?php echo number_format($item['p_price'] * $item['p_qty'], 2); ?></p>
                             </div>
                         <?php endforeach; ?>
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <p>Total price:</p>
+                            <p>$<?php echo number_format($totalPrice, 2); ?></p>
+                        </div>
                     <?php else: ?>
-                        <p>No items in the cart.</p>
+                        <p>Your cart is currently empty. <a href="shop.php">Go back to shop</a> to add items.</p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -214,10 +215,9 @@ function validateForm() {
     let valid = true;
     document.querySelectorAll('small').forEach(el => el.innerHTML = '');
 
-    // Validate each field
     const fields = ['firstName', 'lastName', 'phone', 'email', 'address', 'city', 'house', 'postalCode'];
     fields.forEach(field => {
-        const value = document.getElementById(field).value;
+        const value = document.getElementById(field).value.trim();
         if (value === "") {
             document.getElementById(field + 'Error').innerHTML = field.replace(/([A-Z])/g, ' $1').trim() + " is required.";
             valid = false;
@@ -227,7 +227,7 @@ function validateForm() {
     const phone = document.getElementById('phone').value;
     const phonePattern = /^[+]{1}[0-9]{11,14}$/;
     if (!phone.match(phonePattern)) {
-        document.getElementById('phoneError').innerHTML = "Enter a valid phone number.";
+        document.getElementById('phoneError').innerHTML = "Enter a valid phone number (e.g., +123456789012).";
         valid = false;
     }
 
@@ -238,10 +238,15 @@ function validateForm() {
         valid = false;
     }
 
+    const postalCode = document.getElementById('postalCode').value;
+    const postalCodePattern = /^[0-9]{5}$/;
+    if (!postalCode.match(postalCodePattern)) {
+        document.getElementById('postalCodeError').innerHTML = "Enter a valid postal code.";
+        valid = false;
+    }
+
     return valid;
 }
 </script>
 
-<?php 
-include('footer.php');
-?>
+<?php include('footer.php'); ?>

@@ -48,7 +48,7 @@ include("dashmin_panel\php\query.php");
                         <!-- logo begin -->
                         <div id="logo">
                             <a href="index.php">
-                                <img class="logo" src="images/logo.svg"  alt="">
+                                <img class="logo" src="images/logo3.png" width="150" alt="">
                             </a>
                         </div>
                         <!-- logo close -->
@@ -153,6 +153,9 @@ include("dashmin_panel\php\query.php");
                                             // }
                                            
                                         ?>
+                                        <li><a href="shopcart.php" ><i class="fa-solid fa-cart-shopping" style="font-size: larger;"></i></a></li>
+
+
 										<!-- <a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
 										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a> -->
                                         <!-- <span class="md-flex-col col-extra">

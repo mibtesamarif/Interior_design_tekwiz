@@ -169,6 +169,18 @@ if(!isset($_SESSION['adminEmail'])){
       </ul>
     </li>
 
+        <!--orders -->
+        <li>
+      <a href="reports.php">
+        <div class="parent-icon">
+          <ion-icon name="orders-outline"></ion-icon>
+        </div>
+        <div class="menu-title">Orders</div>
+      </a>
+    </li>
+
+
+
     <!-- Reports -->
     <li>
       <a href="reports.php">
