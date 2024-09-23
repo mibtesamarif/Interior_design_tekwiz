@@ -128,19 +128,24 @@ include("php/query.php");
                                         <?php
 
 // Check if the user is logged in (general user or designer)
-if(isset($_SESSION['user_id'])) {
-    // General user dashboard and logout
+if (isset($_SESSION['userEmail'])) {
+    // General user dashboard and logout link
     ?>
     <li><a href="dashmin_panel/user.php">User Dashboard</a></li>
-
+    <li><a href="dashmin_panel/userLogout.php"><span>Logout</span></a></li>
     <?php
-}
-else{
+} elseif (isset($_SESSION['designerEmail'])) {
+    // Designer dashboard and logout link
     ?>
-    <li><a href="login.php">login</a></li>
+    <li><a href="dashmin_panel/designer.php">Designer Dashboard</a></li>  
+    <li><a href="dashmin_panel/designer_logout.php"><span>Logout</span></a></li>
+    <?php
+} else {
+    // Show login link if neither user nor designer is logged in
+    ?>
+    <li><a href="login.php"><span>Login</span></a></li>
     <?php
 }
-
 
 
 

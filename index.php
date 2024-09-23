@@ -93,6 +93,24 @@ include("header.php");
                                 <img src="images/misc/pic_1.jpg" class="img-responsive" alt="">
                             </a>
                         </div>
+                        <div class="col-md-4 wow fadeInUp" data-wow-delay=".2s">
+                            <h3><span class="id-color">Office</span> Design</h3>
+                            Establishing a conducive and efficient workspace that aligns with the organization's objectives. It encompasses creating a functional and well-organized environment that enhances productivity, supports effective collaboration, and prioritizes employee well-being and motivation.
+                            <div class="spacer-single"></div>
+                            <a class="image-popup-no-margins" href="images/misc/pic_2.jpg">
+                                <img src="images/misc/pic_2.jpg" class="img-responsive" alt="">
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 wow fadeInRight">
+                            <h3><span class="id-color">Commercial</span> Design</h3>
+                            Creating functional and visually appealing spaces for businesses, retail stores, and other commercial establishments. It involves understanding the unique needs and goals of the business and translating them into a well-designed space that enhances the customer experience. 
+                            <div class="spacer-single"></div>
+                            <a class="image-popup-no-margins" href="images/misc/pic_3.jpg">
+                                <img src="images/misc/pic_3.jpg" class="img-responsive" alt="">
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -183,7 +201,7 @@ include("header.php");
 
                     <div class="row">
                     <div class="col-md-6 offset-md-3 text-center wow fadeInUp">
-                            <h1>Our Designers</h1>
+                            <h1>Interior Designers</h1>
                             <div class="separator"><span><i class="fa fa-circle"></i></span></div>
                             <div class="spacer-single"></div>
                         </div>
@@ -200,6 +218,69 @@ include("header.php");
                                     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                                         nulla pariatur.</p>
 
+                                    <div class="social">
+                                        <a href="#"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+                                        <a href="#"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-skype fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- team close -->
+                             <!-- team member -->
+                            <div class="de-team-list">
+                                <div class="team-pic">
+                                    <img src="images/team/team_pic_2.jpg" class="img-responsive" alt="" />
+                                </div>
+                                <div class="team-desc col-md-12">
+                                    <h3>Michael Dennis</h3>
+                                    <p class="lead">Creative Director</p>
+                                    <div class="small-border"></div>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla pariatur.</p>
+
+                                    <div class="social">
+                                        <a href="#"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+                                        <a href="#"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-skype fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- team close -->
+
+                            <!-- team member -->
+                            <div class="de-team-list">
+                                <div class="team-pic">
+                                    <img src="images/team/team_pic_3.jpg" class="img-responsive" alt="" />
+                                </div>
+                                <div class="team-desc col-md-12">
+                                    <h3>Sarah Michelle</h3>
+                                    <p class="lead">Creative Staff</p>
+                                    <div class="small-border"></div>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla pariatur.</p>
+                                    <div class="social">
+                                        <a href="#"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
+                                        <a href="#"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                                        <a href="#"><i class="fa fa-skype fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- team close -->
+
+                            <!-- team member -->
+                            <div class="de-team-list">
+                                <div class="team-pic">
+                                    <img src="images/team/team_pic_4.jpg" class="img-responsive" alt="" />
+                                </div>
+                                <div class="team-desc col-md-12">
+                                    <h3>Katty Wilson</h3>
+                                    <p class="lead">Creative Staff</p>
+                                    <div class="small-border"></div>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla pariatur.</p>
                                     <div class="social">
                                         <a href="#"><i class="fa-brands fa-facebook-f fa-lg"></i></a>
                                         <a href="#"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
@@ -257,7 +338,114 @@ include("header.php");
                         </div>
                     </div>
                     <!-- close gallery item -->
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-2.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Modern Elegance Suite</span>
+                                    </span>
+                                </span>
+                            </a>
 
+                            <img src="images/portfolio/cols-4/pf%20(2).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-3.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Apartment Renovation</span>
+                                    </span>
+                                </span>
+                            </a>
+
+                            <img src="images/portfolio/cols-4/pf%20(3).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item residential">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Youtube Video</span>
+                                    </span>
+                                </span>
+                            </a>
+                            <img src="images/portfolio/cols-4/pf%20(4).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item office">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Vimeo Video</span>
+                                    </span>
+                                </span>
+                            </a>
+                            <img src="images/portfolio/cols-4/pf%20(5).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item commercial">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Restaurant In Texas</span>
+                                    </span>
+                                </span>
+                            </a>
+                            <img src="images/portfolio/cols-4/pf%20(6).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item residential">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Summer House</span>
+                                    </span>
+                                </span>
+                            </a>
+
+                            <img src="images/portfolio/cols-4/pf%20(7).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="col-md-3 col-sm-6 col-12 item office">
+                        <div class="picframe">
+                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
+                                <span class="overlay">
+                                    <span class="pf_text">
+                                        <span class="project-name">Office On Space</span>
+                                    </span>
+                                </span>
+                            </a>
+
+                            <img src="images/portfolio/cols-4/pf%20(8).jpg" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
                 </div>
 
                 <div id="loader-area">
