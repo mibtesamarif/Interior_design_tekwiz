@@ -1,6 +1,7 @@
 <?php
 include("php/query.php");
 // include("php\query.php");
+// include("php\query.php");
 ?>
 
 <!DOCTYPE html>

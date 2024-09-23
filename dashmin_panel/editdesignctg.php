@@ -4,9 +4,8 @@ include('components/sidebar.php');
 include('components/navbar.php');
 
 // Fetch category details if 'cid' is passed in URL
-if (isset($_GET['cid'])) {
-    $id = $_GET['cid'];
-    
+if (isset($_GET['dgcid'])) {
+    $id = $_GET['dgcid'];
     // Prepare the query to fetch the category
     $query = $pdo->prepare("SELECT * FROM design_category WHERE c_id = :cid");
     $query->bindParam(':cid', $id);
@@ -45,8 +44,19 @@ if (isset($_GET['cid'])) {
               <hr>
               <form class="row g-3" method="post">
                 <div class="col-12">
-                  <label class="form-label">Name</label>
-                  <input type="text" value="<?php echo isset($cat['category_name']) ? $cat['category_name'] : ''; ?>" name="ctg_name" class="form-control" required>
+                  <label class="form-label">Design Name</label>
+                  <input type="text" value="<?php echo isset($cat['category_name']) ? $cat['category_name'] : ''; ?>" name="ctgName" class="form-control" required>
+                  <small class="text-danger"><?php echo $catNameErr; ?></small>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Design Description</label>
+                  <input type="text" value="<?php echo isset($cat['des']) ? $cat['des'] : ''; ?>" name="ctgdes" class="form-control" required>
+                  <small class="text-danger"><?php echo $catDesErr; ?></small>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Design Image</label>
+                  <input type="text" value="<?php echo isset($cat['image']) ? $cat['image'] : ''; ?>" name="ctgimg" class="form-control" required>
+                  <small class="text-danger"><?php echo $catImgErr; ?></small>
                 </div>
                 <div class="col-12">
                   <div class="d-grid">

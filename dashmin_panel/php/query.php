@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5fb8ff3bcd89b7a3c524ea54ec4c4b55d5f69083
 include('dbcon.php');
 // session_start();
 $catNameErr = '';
@@ -581,38 +584,65 @@ if(isset($_POST['pdt'])){
              }
          }
 
+//design category admin dashboard
 
-        //  Add Design Category
+$catName = $catDes = $catImg = "";
+$catNameErr = $catDesErr = $catImgErr = "";
 
-        if (isset($_POST['addDesignctg'])) {
-            $catName = $_POST['ctgName'];
-        
+if (isset($_POST['addDesignctg'])) {
+    $catName = $_POST['ctgName'];
+    $catDes = $_POST['ctgdes'];
+    $catImg = $_FILES['ctgimg']['name'];
+    $cImageTmpName = $_FILES['ctgimg']['tmp_name'];
+    $extension = strtolower(pathinfo($catImg, PATHINFO_EXTENSION));
+    $destination = "img/" . $catImg;
 
-            // Validate required fields
-            if (empty($catName)) {
-                $catNameErr = "Category name is required";
-            }
-            else{
-                if (!preg_match("/^[a-zA-Z ]*$/",$catName)) {
-                    $catNameErr = "Enter correct name";
-                }
-               }
-           
-            
-            // Proceed if there are no errors
-            if (empty($catNameErr)) {
-               
-    
-                    // Prepare and execute query
-                    $query = $pdo->prepare("INSERT INTO design_category (category_name)VALUES(:ctgName)");
-                    $query->bindParam(':ctgName',$catName);
-                    $query->execute();
-        
-                    echo "<script>alert('Category added successfully'); location.assign('index.php');</script>";
-                } 
-             
-            }
-        
+    // Validate required fields
+    if (empty($catName)) {
+        $catNameErr = "Category name is required";
+    } else {
+        if (!preg_match("/^[a-zA-Z ]*$/", $catName)) {
+            $catNameErr = "Enter a valid name";
+        }
+    }
+
+    if (empty($catDes)) {
+        $catDesErr = "Description is required";
+    }
+
+    if (empty($catImg)) {
+        $catImgErr = "Image is required";
+    } else {
+        // Validate file type
+        if (!in_array($extension, ['jpg', 'png', 'jpeg'])) {
+            $catImgErr = "Invalid image format. Only JPG, PNG, and JPEG are allowed.";
+        }
+    }
+
+    // Proceed if there are no errors
+    if (empty($catNameErr) && empty($catDesErr) && empty($catImgErr)) {
+        // Check if the directory exists
+        if (!is_dir('img')) {
+            mkdir('img', 0755, true);
+        }
+
+        // Move uploaded file
+        if (move_uploaded_file($cImageTmpName, $destination)) {
+            // Prepare and execute query
+            $query = $pdo->prepare("INSERT INTO design_category (category_name, des, image) VALUES (:cName, :cDes, :cImage)");
+            $query->bindParam(':cName', $catName);
+            $query->bindParam(':cDes', $catDes);
+            $query->bindParam(':cImage', $catImg);
+            $query->execute();
+
+            echo "<script>alert('Design Category added successfully'); location.assign('index.php');</script>";
+        } else {
+            $catImgErr = "Failed to upload image.";
+        }
+    }
+}
+
+
         // search work view Category designer addmin adminpanel
 if(isset($_POST['designcat'])){
     $val = $_POST['designcat'];
@@ -644,30 +674,42 @@ if(isset($_POST['designcat'])){
 
 
 
-// Update design category
+// Handle form submission for updating category
 if (isset($_POST['updateDesignctg'])) {
-    $id = $_GET['cid'];
-    $designcat = $_POST['ctg_name'];
+    $id = $_GET['dgcid'];
+    $catName = $_POST['ctgName'];
+    $catDes = $_POST['ctgdes'];
+    $catImg = $_POST['ctgimg'];
+    
+    // Validate required fields
+    if (empty($catName)) {
+        $catNameErr = "Category name is required";
+    }
+    if (empty($catDes)) {
+        $catDesErr = "Description is required";
+    }
+    if (empty($catImg)) {
+        $catImgErr = "Image name is required";
+    }
 
-    // Validate Category Name
-    if (!empty($designcat)) {
-        // Update query using prepared statement
-        $query = $pdo->prepare("UPDATE design_category SET category_name = :uName WHERE c_id = :cid");
-        $query->bindParam(':cid', $id);
-        $query->bindParam(':uName', $designcat);
+    // Proceed if there are no errors
+    if (empty($catNameErr) && empty($catDesErr) && empty($catImgErr)) {
+        // Prepare the update query
+        $updateQuery = $pdo->prepare("UPDATE design_category SET category_name = :cName, des = :cDes, image = :cImage WHERE c_id = :cid");
+        $updateQuery->bindParam(':cName', $catName);
+        $updateQuery->bindParam(':cDes', $catDes);
+        $updateQuery->bindParam(':cImage', $catImg);
+        $updateQuery->bindParam(':cid', $id);
         
         // Execute the update query
-        if ($query->execute()) {
-            echo "<script>alert('Category updated successfully');
-                  location.assign('viewdesignctg.php');</script>";
+        if ($updateQuery->execute()) {
+            echo "<script>alert('Design Category updated successfully'); location.assign('index.php');</script>";
+            exit; // Add exit to stop further execution
         } else {
-            echo "<script>alert('Error updating category');</script>";
+            echo "<script>alert('Failed to update the category');</script>";
         }
-    } else {
-        echo "<script>alert('Category name cannot be empty');</script>";
     }
 }
-
 // delete Design Category
 
 if(isset($_GET['ctgid'])){
