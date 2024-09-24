@@ -1,5 +1,10 @@
 <?php
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5fb8ff3bcd89b7a3c524ea54ec4c4b55d5f69083
 include('dbcon.php');
+// session_start();
 $catNameErr = '';
 $catDesErr = '';
 $catImgErr = '';
@@ -952,146 +957,203 @@ if (isset($_GET['b_u_p_id_1'])) {
 }
 
 
-$nameErr = "";
-$emailErr = "";
-$PhoneErr = "";
-$userErr = "";
-$passErr = "";
-$cpassErr = "";
-$userName = $userEmail = $userPhone = $useruName = $userPassword = $userConfirmPassword = $role = '';
+// $nameErr = "";
+// $emailErr = "";
+// $PhoneErr = "";
+// $userErr = "";
+// $passErr = "";
+// $cpassErr = "";
+// $userName = $userEmail = $userPhone = $useruName = $userPassword = $userConfirmPassword = $role = '';
 
-if(isset($_POST['signUp'])){
-    $userName = $_POST['userName'];
-    $userEmail = $_POST['userEmail'];
-    $userPhone = $_POST['userPhone'];
-    $useruName = $_POST['useruName'];
-    $userPassword = $_POST['userPassword'];
-    $userConfirmPassword = $_POST['userConfirmPassword'];
-    $role = isset($_POST['role']) ? $_POST['role'] : 'user'; // Default to 'user' if not set
+// if(isset($_POST['signUp'])){
+//     $userName = $_POST['userName'];
+//     $userEmail = $_POST['userEmail'];
+//     $userPhone = $_POST['userPhone'];
+//     $useruName = $_POST['useruName'];
+//     $userPassword = $_POST['userPassword'];
+//     $userConfirmPassword = $_POST['userConfirmPassword'];
+//     $role = isset($_POST['role']) ? $_POST['role'] : 'user'; // Default to 'user' if not set
     
-    // Validation
-    if(empty($_POST['userName'])){
-        $nameErr = "Name is required";
-    } else {
-        if (!preg_match("/^[a-zA-Z ]*$/", $userName)) {
-            $nameErr = "Enter a valid name";
-        }
-    }
+//     // Validation
+//     if(empty($_POST['userName'])){
+//         $nameErr = "Name is required";
+//     } else {
+//         if (!preg_match("/^[a-zA-Z ]*$/", $userName)) {
+//             $nameErr = "Enter a valid name";
+//         }
+//     }
 
-    if(empty($_POST['userEmail'])){
-        $emailErr = "Email is required";
-    } else {
-        $query = $pdo->prepare("SELECT id FROM users WHERE email = :email");
-        $query->bindParam('email', $userEmail);
-        $query->execute();
-        $user = $query->fetch(PDO::FETCH_ASSOC);
-        if($user){
-            $emailErr = 'Email already exists';
-        }
-    }
+//     if(empty($_POST['userEmail'])){
+//         $emailErr = "Email is required";
+//     } else {
+//         $query = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+//         $query->bindParam('email', $userEmail);
+//         $query->execute();
+//         $user = $query->fetch(PDO::FETCH_ASSOC);
+//         if($user){
+//             $emailErr = 'Email already exists';
+//         }
+//     }
 
-    if(empty($_POST['userPhone'])){
-        $PhoneErr = "Phone number is required";
-    }
+//     if(empty($_POST['userPhone'])){
+//         $PhoneErr = "Phone number is required";
+//     }
 
-    if(empty($_POST['useruName'])){
-        $userErr = "Username is required";
-    }
+//     if(empty($_POST['useruName'])){
+//         $userErr = "Username is required";
+//     }
 
-    if(empty($_POST['userPassword'])){
-        $passErr = "Password is required";
-    }
+//     if(empty($_POST['userPassword'])){
+//         $passErr = "Password is required";
+//     }
 
-    if(empty($_POST['userConfirmPassword'])){
-        $cpassErr = "Confirm password is required";
-    } else {
-        if($userPassword !== $userConfirmPassword){
-            $cpassErr = "Passwords do not match";
-        }
-    }
+//     if(empty($_POST['userConfirmPassword'])){
+//         $cpassErr = "Confirm password is required";
+//     } else {
+//         if($userPassword !== $userConfirmPassword){
+//             $cpassErr = "Passwords do not match";
+//         }
+//     }
 
-    // If no errors, proceed with registration
-    if(empty($nameErr) && empty($emailErr) && empty($PhoneErr) && empty($userErr) && empty($passErr) && empty($cpassErr)){
-        $passwordHash = sha1($userPassword);
+//     // If no errors, proceed with registration
+//     if(empty($nameErr) && empty($emailErr) && empty($PhoneErr) && empty($userErr) && empty($passErr) && empty($cpassErr)){
+//         $passwordHash = sha1($userPassword);
         
-        // Determine role_id based on selected role
-        $role_id = ($role == 'designer') ? 2 : 3; // Assuming 2 for designer and 3 for user
+//         // Determine role_id based on selected role
+//         $role_id = ($role == 'designer') ? 2 : 3; // Assuming 2 for designer and 3 for user
         
-        $query = $pdo->prepare("INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)");
-        $query->bindParam('name', $userName);
-        $query->bindParam('email', $userEmail);
-        $query->bindParam('password', $passwordHash);
-        $query->bindParam('role_id', $role_id);
-        $query->execute();
+//         $query = $pdo->prepare("INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)");
+//         $query->bindParam('name', $userName);
+//         $query->bindParam('email', $userEmail);
+//         $query->bindParam('password', $passwordHash);
+//         $query->bindParam('role_id', $role_id);
+//         $query->execute();
         
-        echo "<script>alert('User registered successfully'); location.assign('login.php');</script>";
-    }
-}
+//         echo "<script>alert('User registered successfully'); location.assign('../login.php');</script>";
+//     }
+// }
 
 
 
 
 
 
-// unset($user);
+// // unset($user);
 
-//login
+// //login
 
-if(isset($_POST['signIn'])){
-    $userEmail = $_POST['userEmail'];
-    $userPassword = $_POST['userPassword'];
-    if(empty($_POST['userEmail'])){
-        $emailErr = "Enter your email";
+// if(isset($_POST['signIn'])){
+//     $userEmail = $_POST['userEmail'];
+//     $userPassword = $_POST['userPassword'];
+//     if(empty($_POST['userEmail'])){
+//         $emailErr = "Enter your email";
 
-    }
-    if(empty($_POST['userPassword'])){
-        $passErr = "Enter your password";
-    }
-    if(empty($emailErr) && empty($passErr)){
-    $query = $pdo->prepare("select * from users where email = :email");
-    $query->bindParam('email',$userEmail);
-    $query->execute();
-   $user =  $query->fetch(PDO::FETCH_ASSOC);
-   if($user){
-// print_r($user);
-if (sha1($userPassword) == $user['password']){
-    if($user['role_id'] == 1 ){
-        $_SESSION['adminId']=$user['id'];
-        $_SESSION['adminName']=$user['name'];
-        $_SESSION['adminEmail']=$user['email'];
-        echo "<script>location.assign('dashmin_panel/index.php')
-        </script>";
-    }
+//     }
+//     if(empty($_POST['userPassword'])){
+//         $passErr = "Enter your password";
+//     }
+//     if(empty($emailErr) && empty($passErr)){
+//     $query = $pdo->prepare("select * from users where email = :email");
+//     $query->bindParam('email',$userEmail);
+//     $query->execute();
+//    $user =  $query->fetch(PDO::FETCH_ASSOC);
+//    if($user){
+// // print_r($user);
+// if (sha1($userPassword) == $user['password']){
+//     if($user['role_id'] == 1 ){
+//         $_SESSION['adminId']=$user['id'];
+//         $_SESSION['adminName']=$user['name'];
+//         $_SESSION['adminEmail']=$user['email'];
+//         echo "<script>location.assign('index.php')
+//         </script>";
+//     }
 
-     else if($user['role_id'] == 2 ) {
-        $_SESSION['designerId']=$user['id'];
-        $_SESSION['designerName']=$user['name'];
-        $_SESSION['designerEmail']=$user['email'];
-        echo "<script>location.assign('index.php')
-        </script>";
-    }
-    else if ($user['role_id'] == 3 ) {
-    $_SESSION['user_id']=$user['id'];
-    $_SESSION['userName']=$user['name'];
-    $_SESSION['userEmail']=$user['email'];
-    // $_SESSION['userCont']=$user['phone'];
-    echo "<script>location.assign('index.php')
-    </script>";
-    } 
+//      if($user['role_id'] == 2 ) {
+//         $_SESSION['designerId']=$user['id'];
+//         $_SESSION['designerName']=$user['name'];
+//         $_SESSION['designerEmail']=$user['email'];
+//         echo "<script>location.assign('../index.php')
+//         </script>";
+//     }
+//     else if ($user['role_id'] == 3 ) {
+//     $_SESSION['user_id']=$user['id'];
+//     $_SESSION['userName']=$user['name'];
+//     $_SESSION['userEmail']=$user['email'];
+//     // $_SESSION['userCont']=$user['phone'];
+
+//     echo "<script>location.assign('../index.php')
+
+//     </script>";
+//     } 
   
-        echo "<script>alert('login successfully')</script>";
-       }
+//         echo "<script>alert('login successfully')</script>";
+//        }
     
-   else{
+//    else{
    
-    echo "<script>location.assign('login.php?error=invalid credentials')</script>";
-}
-}
-else{
-    echo "<script>location.assign('login.php?error=user not found')</script>";
-}
-}
-unset($user);
+//     echo "<script>location.assign('login.php?error=invalid credentials')</script>";
+// }
+// }
+// else{
+//     echo "<script>location.assign('login.php?error=user not found')</script>";
+// }
+// }
+// unset($user);
+// }
+
+
+if (isset($_POST['addPortfolioDesign'])) {
+    // Initialize variables
+    $user_id =  $_SESSION['designerId']; // Replace with actual user_id
+    $design_name = $_POST['design_name'];
+    $design_description = $_POST['cont_1']; // Content from the Quill editor
+    $c_id = $_POST['c_Id'];
+
+    // Handle card image upload (Image 1)
+    $design_card_image = '';
+    if (isset($_FILES['design_card_image']) && $_FILES['design_card_image']['error'] == 0) {
+        $card_image_tmp = $_FILES['design_card_image']['tmp_name'];
+        $card_image_name = uniqid() . "_" . $_FILES['design_card_image']['name'];
+        $card_image_dest = '../assets/images/addportfoliodesign/' . $card_image_name; // Directory to save the image
+        move_uploaded_file($card_image_tmp, $card_image_dest);
+        $design_card_image = $card_image_name;
+    }
+
+    // Handle detailed images upload (Multiple Images)
+    $design_detailed_images = [];
+    if (isset($_FILES['design_detail_images']) && !empty($_FILES['design_detail_images']['name'][0])) {
+        foreach ($_FILES['design_detail_images']['tmp_name'] as $key => $tmp_name) {
+            if ($_FILES['design_detail_images']['error'][$key] == 0) {
+                $detailed_image_name = uniqid() . "_" . $_FILES['design_detail_images']['name'][$key];
+                $detailed_image_dest = '../assets/images/addportfoliodesign/' . $detailed_image_name; // Directory to save the image
+                move_uploaded_file($tmp_name, $detailed_image_dest);
+                $design_detailed_images[] = $card_image_name; // Store each file path
+            }
+        }
+    }
+
+    // Convert detailed images array to a JSON string for storage in a single field
+    $design_detailed_images_json = json_encode($design_detailed_images);
+
+    // Prepare SQL query
+    $sql = "INSERT INTO saveddesigns (user_id, design_name, design_description, design_card_image, design_detailed_images, created_at, c_id) 
+            VALUES (:user_id, :design_name, :design_description, :design_card_image, :design_detailed_images, NOW(), :c_id)";
+    $stmt = $pdo->prepare($sql);
+    
+    // Bind values to the query
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':c_id', $c_id);
+    $stmt->bindParam(':design_name', $design_name);
+    $stmt->bindParam(':design_description', $design_description);
+    $stmt->bindParam(':design_card_image', $design_card_image);
+    $stmt->bindParam(':design_detailed_images', $design_detailed_images_json);
+
+    // Execute the query
+    if ($stmt->execute()) {
+      echo "<script>alert('Design added successfully!'); location.assign('view_portfolio_designs.php');</script>";
+    } else {
+          echo "<script>alert('Failed to add design.');</script>";
+    }
 }
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-include("dashmin_panel\php\query.php");
+include("php/query.php");
 // include("php\query.php");
 // include("php\query.php");
 ?>
@@ -127,43 +127,34 @@ include("dashmin_panel\php\query.php");
 										<li><a href="contact.php">Contact</a>
 										</li>
                                         <?php
-                                            if (isset($_SESSION['user_id']) ) {
-                                            ?>
-                                                <li><a href="dashmin_panel/user.php">User Dashboard</a></li>
-                                            <?php
-                                            }
-                                            
-                                            if (isset($_SESSION['designerId']) ) {
-                                                ?>
-                                                    <li><a href="designer.php">Designer Dashboard</a></li>
-                                                <?php
-                                                }
-                                                else{
-                                                    ?>
-                                                             <li><a href="login.php"><span >Login</span></a>
-                                                             </li>
-                                                    <?php
-                                                }
-                                        ?>
-                                         <?php
-                                            // if (isset($_SESSION['designerId']) && $_SESSION['designerId'] == 2) {
-                                            
-                                                // <!-- <li><a href="#">Dashboard</a></li> -->
-                                           
-                                            // }
-                                           
-                                        ?>
-                                        <li><a href="shopcart.php" ><i class="fa-solid fa-cart-shopping" style="font-size: larger;"></i></a></li>
+
+// Check if the user is logged in (general user or designer)
+if (isset($_SESSION['userEmail'])) {
+    // General user dashboard and logout link
+    ?>
+    <li><a href="dashmin_panel/user.php">User Dashboard</a></li>
+    <li><a href="dashmin_panel/userLogout.php"><span>Logout</span></a></li>
+    <?php
+} elseif (isset($_SESSION['designerEmail'])) {
+    // Designer dashboard and logout link
+    ?>
+    <li><a href="dashmin_panel/designer.php">Designer Dashboard</a></li>  
+    <li><a href="dashmin_panel/designer_logout.php"><span>Logout</span></a></li>
+    <?php
+} else {
+    // Show login link if neither user nor designer is logged in
+    ?>
+    <li><a href="login.php"><span>Login</span></a></li>
+    <?php
+}
 
 
-										<!-- <a href="login.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline; margin-top:-10px;">login</button></a>
-										<a href="signup.php"><button style="background-color:#FAB702; border:none; color:white; border-radius:10px; font-size:20px;padding:10px 20px; line-height:10px; display:inline;">register</button></a> -->
-                                        <!-- <span class="md-flex-col col-extra">
-                                            <a href="renovation-form.html" class="btn-on-header btn-line">Get Quote</a>
-                                        </span> -->
-                                            
 
+
+?>
                                        
+                                       
+                                     
 									
 									</ul>
 							

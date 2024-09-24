@@ -13,6 +13,6 @@ try {
     exit;
 }
 
-
+session_start();
 
 ?>
