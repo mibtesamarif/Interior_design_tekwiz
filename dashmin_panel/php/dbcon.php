@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 $server = "mysql:host=localhost;dbname=decore_vista";
 $user = "root";

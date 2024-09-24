@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
 
-=======
->>>>>>> 5fb8ff3bcd89b7a3c524ea54ec4c4b55d5f69083
 include('dashmin_panel/php/dbcon.php');
 
 $nameErr = "";
@@ -86,7 +83,7 @@ if(isset($_POST['signUp'])){
 
 
 
-// unset($user);
+ unset($user);
 
 //login
 
@@ -116,13 +113,10 @@ if (sha1($userPassword) == $user['password']){
         </script>";
     }
 
-<<<<<<< HEAD
+
       if($user['role_id'] == 2 ) {
         $_SESSION['designerId']=$user['id'];
-=======
-     else if($user['role_id'] == 2 ) {
-        $_SESSION['designer_id']=$user['id'];
->>>>>>> 5fb8ff3bcd89b7a3c524ea54ec4c4b55d5f69083
+
         $_SESSION['designerName']=$user['name'];
         $_SESSION['designerEmail']=$user['email'];
         echo "<script>location.assign('index.php')
