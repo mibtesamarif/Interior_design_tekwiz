@@ -16,7 +16,7 @@ include('query.php');
                           </div>
                         </td>
                         <td><?php echo $ctg['des']?></td>
-                        <td><?php echo $ctg['image']?></td>
+                        <td><img src="img/<?php echo $ctg['image']?>" height="50" alt=""></td>
                         <td><a href="editdesignctg.php?dgcid=<?php echo $ctg['c_id']?>" class="btn btn-info">Edit</a></td>
                         <td><a href="?ctgid=<?php echo $ctg['c_id']?>" class="btn btn-danger">Delete</a></td>
                         </tr>
