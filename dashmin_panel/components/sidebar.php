@@ -65,9 +65,6 @@ if(!isset($_SESSION['adminEmail'])){
 
     <!-- Category Management -->
     <li>
-      <?php
-      if(isset($_SESSION['adminEmail'])){
-        ?>
       <a class="has-arrow" href="javascript:;">
         <div class="parent-icon">
           <ion-icon name="pricetags-outline"></ion-icon>
@@ -102,6 +99,26 @@ if(!isset($_SESSION['adminEmail'])){
         </li>
         <li><a href="viewProduct.php">
             <ion-icon name="ellipse-outline"></ion-icon>View Products
+          </a>
+        </li>
+      </ul>
+    </li>
+
+           <!-- Design Category -->
+           <li>
+      <a class="has-arrow" href="javascript:;">
+        <div class="parent-icon">
+          <ion-icon name="cube-outline"></ion-icon>
+        </div>
+        <div class="menu-title">Designer Category</div>
+      </a>
+      <ul>
+        <li><a href="adddesignctg.php">
+            <ion-icon name="ellipse-outline"></ion-icon>Add Category
+          </a>
+        </li>
+        <li><a href="viewdesignctg.php">
+            <ion-icon name="ellipse-outline"></ion-icon>View Category
           </a>
         </li>
       </ul>
@@ -192,58 +209,7 @@ if(!isset($_SESSION['adminEmail'])){
         <div class="menu-title">Reports</div>
       </a>
     </li>
-<?php
-      }
-    
-      elseif(isset($_SESSION['userEmail'])){
-         ?>
-    
 
-
-    <!--designers-->
-    <li>
-  
-      <a class="has-arrow" href="javascript:;">
-        <div class="parent-icon">
-          <ion-icon name="people-outline"></ion-icon>
-        </div>
-        <div class="menu-title">Design</div>
-      </a>
-      <ul>
-      <li><a href="addDesign.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Add Design
-          </a>
-        </li>
-        <li><a href="view_design.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Design
-          </a>
-        </li>
-       
-      </ul>
-    </li>
-   <!---Actiivities--->
-    <li>
-      <a class="has-arrow" href="javascript:;">
-        <div class="parent-icon">
-          <ion-icon name="people-outline"></ion-icon>
-        </div>
-        <div class="menu-title">Activiities</div>
-      </a>
-      <ul>
-      <li><a href="addActivities.php">
-            <ion-icon name="ellipse-outline"></ion-icon>Add Activities
-          </a>
-        </li>
-        <li><a href="viewActivities.php">
-            <ion-icon name="ellipse-outline"></ion-icon>View Activities
-          </a>
-        </li>
-       
-      </ul>
-    </li>
-    <?php
-      }
-      ?>
   </ul>
   <!--end navigation-->
 </aside>

@@ -51,8 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $orderId = $pdo->lastInsertId();
 
             // Insert invoice
-            $invoiceQuery = $pdo->prepare("INSERT INTO invoices (order_id, user_id, billing_address, city, postal_code, total_amount) 
-                                           VALUES (:order_id, :user_id, :billing_address, :city, :postal_code, :total_amount)");
+            $invoiceQuery = $pdo->prepare("INSERT INTO invoices (order_id, user_id, billing_address, city, postal_code, total_amount)VALUES (:order_id, :user_id, :billing_address, :city, :postal_code, :total_amount)");
             $invoiceQuery->bindParam(':order_id', $orderId);
             $invoiceQuery->bindParam(':user_id', $userId);
             $invoiceQuery->bindParam(':billing_address', $address);

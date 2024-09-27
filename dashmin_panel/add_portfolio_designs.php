@@ -81,7 +81,7 @@ include('components/designer_navbar.php');
                     </div>
                     <div class="col-12 mt-3">
                       <div class="d-grid">
-                        <button type="submit" class="btn btn-primary" name="addDesign">Add Design</button>
+                        <button type="submit" class="btn btn-primary" name="addPortfolioDesign">Add Design</button>
                       </div>
                     </div>
 

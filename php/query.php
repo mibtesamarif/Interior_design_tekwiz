@@ -147,47 +147,34 @@ unset($user);
 }
 
 
-
+//consultation booking 
     
-    // Check if the consultation book flag is set
-    if (isset($_POST['consultationBookweb'])) {
-       
+if (isset($_POST['consultationBookweb'])) {
 
-        // Check if user and designer IDs are set in the session
-        if (isset($_SESSION['user_id']) && isset($_SESSION['designer_id'])) {
-            $user_id = $_SESSION['user_id'];
-            $designer_id = $_SESSION['designer_id'];
-            $designs_id = htmlspecialchars($_POST['designs_id']);
-            $consultation_date = htmlspecialchars($_POST['consultation_date']);
-            $status = 'scheduled';
+    // if (isset($_SESSION['user_id']) && isset($_SESSION['designerId'])) {
+        $user_id = $_SESSION['user_id'];  
+        $designer_id = $_SESSION['designerId'];  
+        // echo $designer_id ."hello";
+        $designs_id=$_GET['dId'];
+        $consultation_date = $_POST['consultation_date'];
+        $status = 'pending';
 
-            // Prepare the SQL statement
-            $sql = "INSERT INTO consultations (user_id, designs_id, consultation_id, consultation_date, status) 
-                    VALUES (:user_id, :designs_id, :consultation_id, :consultation_date, :status)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':designs_id', $designs_id);
-            $stmt->bindParam(':consultation_id', $designer_id);
-            $stmt->bindParam(':consultation_date', $consultation_date);
-            $stmt->bindParam(':status', $status);
+        $query = $pdo->prepare("INSERT INTO consultations (user_id, design_id, designer_id, consultation_date) VALUES (:user_id, :designs_id, :consultation_id, :consultation_date)");
 
-            // Execute the statement and check for success
-            if ($stmt->execute()) {
-                echo "Consultation booked successfully!";
-            } else {
-                $errorInfo = $stmt->errorInfo();
-                echo "Error booking the consultation: " . $errorInfo[2];
-            }
+        $query->bindParam(':user_id', $user_id);
+        $query->bindParam(':designs_id', $designs_id);
+        $query->bindParam(':consultation_id', $designer_id);  
+        $query->bindParam(':consultation_date', $consultation_date);
+        // $query->bindParam(':stat', $status);
+
+        // Execute the statement and check for success
+        if ($query->execute()) {
+            echo "Consultation booked successfully!";
         } else {
-            echo "Error: User or Designer ID is not set.<br>";
+            $errorInfo = $query->errorInfo();
+            echo "Error booking the consultation: " . $errorInfo[2];
         }
-    } else {
-        echo "Error: Consultation Book Flag is not set.<br>";
-    }
-
-
-
-
+    } 
 
 
 ?>

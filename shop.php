@@ -31,7 +31,7 @@ include("header.php");
 					$allProducts = $query->fetchAll(PDO::FETCH_ASSOC);
 					foreach($allProducts as $product){
 					?>	
-                                <li class="col-xl-4 col-lg-4 col-md-6 product">
+                                <li class="col-xl-4 col-lg-4 col-md-6 product <?php echo $product['c_id']?>">
                                 	<div class="p-inner">
                                 		<div class="p-images">
 	                                    	<img src="dashmin_panel/img/<?php echo $product['image']?>" class="pi-1 img-responsive" alt="">
@@ -93,7 +93,7 @@ include("header.php");
 					foreach($allCategories as $category){
 					?>
                             <ul>
-                                <li><a href="#" data-filter=".<?php echo $category['id']?>"><?php echo $category['name']?></a></li>
+                                <li><a href="#" data-filter="."><?php echo $category['name']?></a></li>
 
                             </ul>
 							<?php

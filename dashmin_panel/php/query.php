@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
 
-=======
->>>>>>> 5fb8ff3bcd89b7a3c524ea54ec4c4b55d5f69083
 include('dbcon.php');
 // session_start();
 $catNameErr = '';
@@ -635,7 +632,7 @@ if (isset($_POST['addDesignctg'])) {
             $query->bindParam(':cImage', $catImg);
             $query->execute();
 
-            echo "<script>alert('Design Category added successfully'); location.assign('index.php');</script>";
+            echo "<script>alert('Design Category added successfully'); location.assign('viewdesignctg.php');</script>";
         } else {
             $catImgErr = "Failed to upload image.";
         }
@@ -674,42 +671,78 @@ if(isset($_POST['designcat'])){
 
 
 
-// Handle form submission for updating category
+// Update category
 if (isset($_POST['updateDesignctg'])) {
     $id = $_GET['dgcid'];
-    $catName = $_POST['ctgName'];
-    $catDes = $_POST['ctgdes'];
-    $catImg = $_POST['ctgimg'];
-    
-    // Validate required fields
-    if (empty($catName)) {
-        $catNameErr = "Category name is required";
-    }
-    if (empty($catDes)) {
-        $catDesErr = "Description is required";
-    }
-    if (empty($catImg)) {
-        $catImgErr = "Image name is required";
+    $cName = $_POST['ctgName'];
+    $cDes = $_POST['ctgdes'];
+
+    // Initialize error variables
+    $cNameErr = $catDesErr = $cImgErr = '';
+
+    // Validate Category Name
+    if (empty($cName)) {
+        $cNameErr = "Category name is required";
+    } elseif (!preg_match("/^[a-zA-Z ]*$/", $cName)) {
+        $cNameErr = "Enter a valid category name (only letters and spaces)";
     }
 
-    // Proceed if there are no errors
-    if (empty($catNameErr) && empty($catDesErr) && empty($catImgErr)) {
-        // Prepare the update query
-        $updateQuery = $pdo->prepare("UPDATE design_category SET category_name = :cName, des = :cDes, image = :cImage WHERE c_id = :cid");
-        $updateQuery->bindParam(':cName', $catName);
-        $updateQuery->bindParam(':cDes', $catDes);
-        $updateQuery->bindParam(':cImage', $catImg);
-        $updateQuery->bindParam(':cid', $id);
-        
-        // Execute the update query
-        if ($updateQuery->execute()) {
-            echo "<script>alert('Design Category updated successfully'); location.assign('index.php');</script>";
-            exit; // Add exit to stop further execution
+    // Validate Description
+    if (empty($cDes)) {
+        $catDesErr = "Category description is required";
+    }
+
+    // Validate Image
+    if (isset($_FILES['ctgimg']) && !empty($_FILES['ctgimg']['name'])) {
+        $cImageName = $_FILES['ctgimg']['name'];
+        $cImageTmpName = $_FILES['ctgimg']['tmp_name'];
+        $extension = pathinfo($cImageName, PATHINFO_EXTENSION);
+        $destination = "img/".$cImageName;
+
+        if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+            $cImgErr = "Invalid image format. Only JPG, JPEG, and PNG are allowed.";
         } else {
-            echo "<script>alert('Failed to update the category');</script>";
+            if (!is_dir('img')) {
+                mkdir('img', 0755, true);
+            }
+            move_uploaded_file($cImageTmpName, $destination);
+        }
+    }
+
+    // Proceed only if there are no validation errors
+    if (empty($cNameErr) && empty($catDesErr) && empty($cImgErr)) {
+        // Prepare update query
+        if (!empty($cImageName)) {
+            $query = $pdo->prepare("UPDATE design_category SET category_name=:ctgName, des=:ctgdes, image=:uImage WHERE c_id=:dgcid");
+            $query->bindParam('uImage', $cImageName);
+        } else {
+            $query = $pdo->prepare("UPDATE design_category SET category_name=:ctgName, des=:ctgdes WHERE c_id=:dgcid");
+        }
+        
+        $query->bindParam('dgcid', $id);
+        $query->bindParam('ctgName', $cName);
+        $query->bindParam('ctgdes', $cDes);
+
+        // Execute the query
+        if ($query->execute()) {
+            echo "<script>alert('Category updated successfully'); location.assign('viewCategory.php');</script>";
+        } else {
+            echo "<script>alert('Failed to update category. Please try again.');</script>";
+        }
+    } else {
+        // Display error messages
+        if (!empty($cNameErr)) {
+            echo "<script>alert('$cNameErr');</script>";
+        }
+        if (!empty($catDesErr)) {
+            echo "<script>alert('$catDesErr');</script>";
+        }
+        if (!empty($cImgErr)) {
+            echo "<script>alert('$cImgErr');</script>";
         }
     }
 }
+
 // delete Design Category
 
 if(isset($_GET['ctgid'])){
@@ -1107,7 +1140,7 @@ if (isset($_POST['addPortfolioDesign'])) {
     $user_id =  $_SESSION['designerId']; // Replace with actual user_id
     $design_name = $_POST['design_name'];
     $design_description = $_POST['cont_1']; // Content from the Quill editor
-    $c_id = $_POST['c_Id'];
+    $c_id = $_POST['cId'];
 
     // Handle card image upload (Image 1)
     $design_card_image = '';

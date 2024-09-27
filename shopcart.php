@@ -183,7 +183,7 @@ foreach ($_SESSION['cart'] as $item) {
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="checkout.php?user_id=<?php echo $_SESSION['user_id']; ?>" class="btn-custom btn-fullwidth text-center">Checkout</a>
         <?php else: ?>
-            <a href="login.php" class="btn-custom btn-fullwidth text-center">Checkout</a>
+            <a href="login.php" class="btn-custom btn-fullwidth text-center">Login to Checkout</a>
         <?php endif; ?>
     </div>
 </div>

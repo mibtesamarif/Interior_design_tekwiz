@@ -1,8 +1,14 @@
 <?php 
 include('header.php');
-$_SESSION['designer_id'] = 2;
+// $_SESSION['designer_id'] = 2;
 
 ?>
+
+<style>
+    .des{
+        color: #fff !important;
+    }
+</style>
         <!-- subheader -->
         <section id="subheader" data-speed="8" data-type="background">
             <div class="container">
@@ -29,14 +35,23 @@ $_SESSION['designer_id'] = 2;
             <img src="images/portfolio/view/p1_b.jpg" alt="" class="img-responsive" />
             <img src="images/portfolio/view/p1_c.jpg" alt="" class="img-responsive" />
         </div>
+        <?php
+        if(isset($_GET['dId'])){
+			$dId = $_GET['dId'];
+			$query = $pdo->prepare("select * from saveddesigns where id = :productId");
+			$query->bindParam('productId',$dId);
+			$query->execute();
+			$product = $query->fetch(PDO::FETCH_ASSOC);
+		}
+		?>
         <div class="col-md-4">
             <div class="project-info">
-                <h2>Your Title Goes Here</h2>
+                <h2><?php echo $product['design_name']; ?></h2>
 
                 <div class="details">
                     <div class="info-text">
                         <span class="title">Date</span>
-                        <span class="val">March 2014</span>
+                        <span class="val"> 16 March 2014</span>
                     </div>
 
                     <div class="info-text">
@@ -44,10 +59,7 @@ $_SESSION['designer_id'] = 2;
                         <span class="val">Paris, France</span>
                     </div>
 
-                    <div class="info-text">
-                        <span class="title">Value</span>
-                        <span class="val">$10,000</span>
-                    </div>
+                 
 
                     <div class="info-text">
                         <span class="title">Client</span>
@@ -60,19 +72,14 @@ $_SESSION['designer_id'] = 2;
                     </div>
                 </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.</p>
+    <p class="" >
+        <h4>Our Solutions</h4>
+        <?php echo $product['design_description']?>
+                </p>
 
-                <p>
-                    <h4>Our Solutions</h4>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                    laborum.
-                </p>
-                </p>
+               
+
+
 
                 <form name="consultationForm" id="consultation_form" method="post">
     <div class="row">
@@ -81,17 +88,6 @@ $_SESSION['designer_id'] = 2;
         </div>
 
         <div class="col-md-10">
-            <!-- Hidden field to store the logged-in user's ID -->
-            <input type="hidden" name="user_id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
-
-            <!-- Hidden field to store the designer's ID (auto-filled from session) -->
-            <input type="hidden" name="designer_id" value="<?php echo isset($_SESSION['designer_id']) ? $_SESSION['designer_id'] : ''; ?>">
-
-            <div>
-                <label for="designs_id">Design ID</label>
-                <input type="text" name="designs_id" id="designs_id" class="form-control" placeholder="Enter Design ID" required>
-            </div>
-
             <div>
                 <label for="consultation_date">Consultation Date</label>
                 <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" required>
@@ -104,6 +100,7 @@ $_SESSION['designer_id'] = 2;
             </p>
         </div>
     </div>
+  
 </form>
 
 

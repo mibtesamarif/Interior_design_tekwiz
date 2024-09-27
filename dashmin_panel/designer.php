@@ -625,7 +625,7 @@ include('components/designer_sidebar.php');
         <div class="card radius-10 w-100">
           <div class="card-body">
             <div class="d-flex align-items-center">
-              <h6 class="mb-0">Recent Orders</h6>
+              <h6 class="mb-0">Recent Booking</h6>
               <div class="fs-5 ms-auto dropdown">
                 <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown"><i
                     class="bi bi-three-dots"></i></div>
@@ -643,50 +643,55 @@ include('components/designer_sidebar.php');
               <table class="table align-middle mb-0">
                 <thead class="table-light">
                   <tr>
-                    <th>#ID</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Date</th>
-                    <th>Status</th>
+                    <th>Design Name</th>
+                    <th>User Name</th>
+                    <th>Booking  Time</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+                  $dId = $_SESSION['designerId'];
+                  // $sub_Query = $pdo->prepare("select user.name where id =:id");
+                  // $sub_Query->bindParam('id',$dId);
+                  // $sub_Query->execute();
+                  // $designer = $sub_Query->fetch(PDO:: FETCH_ASSOC);
+                  // print_r($designer);
+                  $query = $pdo->prepare("select  saveddesigns.design_name as design_name , consultations.*,  users.name  as uName from consultations inner join saveddesigns on saveddesigns.id = consultations.design_id  inner JOIN users ON users.id = consultations.user_id where designer_id = :dId");
+                  $query->bindParam('dId',$dId );
+                  $query->execute();
+                  $allBooking = $query->fetchAll(PDO::FETCH_ASSOC);
+                 
+                  
+                  ?>
+                  <?php
+                  foreach($allBooking as $book){
+
+                  
+                  ?>
                   <tr>
-                    <td>#89742</td>
+                    <td><?php echo $book['design_name']?></td>
                     <td>
                       <div class="d-flex align-items-center gap-3">
-                        <div class="product-box border">
-                          <img src="assets/images/products/11.png" alt="">
-                        </div>
                         <div class="product-info">
-                          <h6 class="product-name mb-1">Smart Mobile Phone</h6>
+                          <h6 class="product-name mb-1"><?php echo $book['uName']?></h6>
                         </div>
                       </div>
                     </td>
-                    <td>2</td>
-                    <td>$214</td>
-                    <td><span class="badge bg-success">Completed</span></td>
-                    <td>Apr 8, 2021</td>
+                    <td><?php echo $book['consultation_date']?></td>
+                    <td><span class="badge bg-success"><?php echo $book['created_at']?></span></td>
+                    <td><?php echo $book['status']?></td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 fs-6">
-                        <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                          title="" data-bs-original-title="View detail" aria-label="Views">
-                          <ion-icon name="eye-outline"></ion-icon>
-                        </a>
-                        <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                          title="" data-bs-original-title="Edit info" aria-label="Edit">
-                          <ion-icon name="pencil-outline"></ion-icon>
-                        </a>
-                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                          title="" data-bs-original-title="Delete" aria-label="Delete">
-                          <ion-icon name="trash-outline"></ion-icon>
-                        </a>
-                      </div>
+
                     </td>
                   </tr>
-                  <tr>
+                <?php
+                }
+                ?>
+                  <?php
+                  
+                  ?>
+                  <!-- <tr>
                     <td>#68570</td>
                     <td>
                       <div class="d-flex align-items-center gap-3">
@@ -850,7 +855,7 @@ include('components/designer_sidebar.php');
                         </a>
                       </div>
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>

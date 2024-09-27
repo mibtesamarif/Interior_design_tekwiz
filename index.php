@@ -83,33 +83,23 @@ include("header.php");
                             <div class="separator"><span><i class="fa fa-circle"></i></span></div>
                             <div class="spacer-single"></div>
                         </div>
-
+                        <?php
+					$query = $pdo->query("select * from design_category ");
+					$allCategories = $query->fetchAll(PDO::FETCH_ASSOC);
+					foreach($allCategories as $category){
+					?>
 
                         <div class="col-md-4 wow fadeInLeft">
-                            <h3><span class="id-color">Residential</span> Design</h3>
-                           The art and science of creating functional, aesthetically pleasing living spaces within homes. It involves carefully planning and organizing the layout, selecting and arranging furniture, choosing color schemes, and incorporating decorative elements to create an inviting environment.
+                            <h3><span class="id-color"><?php echo $category['category_name']?></span> Design</h3>
+                           <?php echo $category['des']?>
                             <div class="spacer-single"></div>
-                            <a class="image-popup-no-margins" href="images/misc/pic_1.jpg">
-                                <img src="images/misc/pic_1.jpg" class="img-responsive" alt="">
+                            <a class="image-popup-no-margins" href="dashmin_panel/img/<?php echo $category['image']?>">
+                                <img src="dashmin_panel/img/<?php echo $category['image']?>" class="img-responsive" alt="">
                             </a>
                         </div>
-                        <div class="col-md-4 wow fadeInUp" data-wow-delay=".2s">
-                            <h3><span class="id-color">Office</span> Design</h3>
-                            Establishing a conducive and efficient workspace that aligns with the organization's objectives. It encompasses creating a functional and well-organized environment that enhances productivity, supports effective collaboration, and prioritizes employee well-being and motivation.
-                            <div class="spacer-single"></div>
-                            <a class="image-popup-no-margins" href="images/misc/pic_2.jpg">
-                                <img src="images/misc/pic_2.jpg" class="img-responsive" alt="">
-                            </a>
-                        </div>
-
-                        <div class="col-md-4 wow fadeInRight">
-                            <h3><span class="id-color">Commercial</span> Design</h3>
-                            Creating functional and visually appealing spaces for businesses, retail stores, and other commercial establishments. It involves understanding the unique needs and goals of the business and translating them into a well-designed space that enhances the customer experience. 
-                            <div class="spacer-single"></div>
-                            <a class="image-popup-no-margins" href="images/misc/pic_3.jpg">
-                                <img src="images/misc/pic_3.jpg" class="img-responsive" alt="">
-                            </a>
-                        </div>
+<?php
+}
+?>
 
                     </div>
                 </div>
@@ -310,10 +300,16 @@ include("header.php");
                         <div class="col-md-12 text-center">
                             <ul id="filters" class="wow fadeInUp" data-wow-delay="0s">
                                 <li><a href="#" data-filter="*" class="selected">All Projects</a></li>
-                                <li><a href="#" data-filter=".residential">Residential</a></li>
-                                <li><a href="#" data-filter=".hospitaly">Hospitaly</a></li>
-                                <li><a href="#" data-filter=".office">Office</a></li>
-                                <li><a href="#" data-filter=".commercial">Commercial</a></li>
+                                <?php
+					$query = $pdo->query("select * from design_category");
+					$allCategories = $query->fetchAll(PDO::FETCH_ASSOC);
+					foreach($allCategories as $category){
+					?>
+                                <li><a href="#" data-filter=".<?php echo $category['c_id']?>"><?php echo $category['category_name']?></a></li>
+
+                                <?php
+                    }
+                                ?>
                             </ul>
 
                         </div>
@@ -324,128 +320,30 @@ include("header.php");
 
                 <div id="gallery" class="row g-0 wow fadeInUp" data-wow-delay=".3s">
 
+                <?php
+                $query = $pdo->query("select * from saveddesigns");
+                $allProducts = $query->fetchAll(PDO::FETCH_ASSOC);
+                foreach($allProducts as $product){
+                ?>	
+
                     <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item residential">
+                    <div class="col-md-3 col-sm-6 col-12 item <?php echo $product['c_id']?>">
                         <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-1.html">
+                            <a class="" href="projectdetail.php?dId=<?php echo $product['id']; ?>">
                                 <span class="overlay">
                                     <span class="pf_text">
-                                        <span class="project-name">Eco Green Interior</span>
+                                        <span class="project-name"><?php echo $product['design_name']?></span>
                                     </span>
                                 </span>
                             </a>
-                            <img src="images/portfolio/cols-4/pf%20(1).jpg" alt="" />
+                            <img src="dashmin_panel/assets/images/addportfoliodesign/<?php echo $product['design_card_image']?>" alt="" />
                         </div>
                     </div>
+                    <?php 
+                }
+                    ?>
                     <!-- close gallery item -->
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-2.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Modern Elegance Suite</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(2).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item hospitaly">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-3.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Apartment Renovation</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(3).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item residential">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Youtube Video</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(4).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item office">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Vimeo Video</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(5).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item commercial">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Restaurant In Texas</span>
-                                    </span>
-                                </span>
-                            </a>
-                            <img src="images/portfolio/cols-4/pf%20(6).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item residential">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-youtube.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Summer House</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(7).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
-
-                    <!-- gallery item -->
-                    <div class="col-md-3 col-sm-6 col-12 item office">
-                        <div class="picframe">
-                            <a class="simple-ajax-popup-align-top" href="project-details-vimeo.html">
-                                <span class="overlay">
-                                    <span class="pf_text">
-                                        <span class="project-name">Office On Space</span>
-                                    </span>
-                                </span>
-                            </a>
-
-                            <img src="images/portfolio/cols-4/pf%20(8).jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- close gallery item -->
+                  
                 </div>
 
                 <div id="loader-area">

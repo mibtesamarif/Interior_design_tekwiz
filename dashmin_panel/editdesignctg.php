@@ -3,7 +3,10 @@ include('php/query.php');
 include('components/sidebar.php');
 include('components/navbar.php');
 
-// Fetch category details if 'cid' is passed in URL
+// Initialize error variables
+$catNameErr = $catDesErr = $catImgErr = '';
+
+// Fetch category details if 'dgcid' is passed in the URL
 if (isset($_GET['dgcid'])) {
     $id = $_GET['dgcid'];
     // Prepare the query to fetch the category
@@ -42,7 +45,7 @@ if (isset($_GET['dgcid'])) {
             <div class="border p-3 rounded">
               <h6 class="mb-0 text-uppercase">Edit Design Category</h6>
               <hr>
-              <form class="row g-3" method="post">
+              <form class="row g-3" method="post" enctype="multipart/form-data">
                 <div class="col-12">
                   <label class="form-label">Design Name</label>
                   <input type="text" value="<?php echo isset($cat['category_name']) ? $cat['category_name'] : ''; ?>" name="ctgName" class="form-control" required>
@@ -54,8 +57,15 @@ if (isset($_GET['dgcid'])) {
                   <small class="text-danger"><?php echo $catDesErr; ?></small>
                 </div>
                 <div class="col-12">
-                  <label class="form-label">Design Image</label>
-                  <input type="text" value="<?php echo isset($cat['image']) ? $cat['image'] : ''; ?>" name="ctgimg" class="form-control" required>
+                  <label class="form-label">Current Image</label><br>
+                  <!-- Display the current image if exists -->
+                  <?php if (!empty($cat['image'])): ?>
+                    <img src="img/<?php echo $cat['image']; ?>" alt="Category Image" width="100">
+                  <?php endif; ?>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Upload New Design Image</label>
+                  <input type="file" name="ctgimg" class="form-control">
                   <small class="text-danger"><?php echo $catImgErr; ?></small>
                 </div>
                 <div class="col-12">
