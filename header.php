@@ -1,7 +1,5 @@
 <?php
-include("php/query.php");
-// include("php\query.php");
-// include("php\query.php");
+include("login_php\query.php");
 ?>
 
 <!DOCTYPE html>
@@ -132,14 +130,14 @@ include("php/query.php");
 if (isset($_SESSION['userEmail'])) {
     // General user dashboard and logout link
     ?>
-    <li><a href="dashmin_panel/user.php">User Dashboard</a></li>
-    <li><a href="dashmin_panel/userLogout.php"><span>Logout</span></a></li>
+    <li><a href="dashmin_panel/user_dashboard/user.php">User Dashboard</a></li>
+    <li><a href="dashmin_panel/user_dashboard/userLogout.php"><span>Logout</span></a></li>
     <?php
 } elseif (isset($_SESSION['designerEmail'])) {
     // Designer dashboard and logout link
     ?>
-    <li><a href="dashmin_panel/designer.php">Designer Dashboard</a></li>  
-    <li><a href="dashmin_panel/designer_logout.php"><span>Logout</span></a></li>
+    <li><a href="dashmin_panel/designer_dashboard/designer.php">Designer Dashboard</a></li>  
+    <li><a href="dashmin_panel/designer_dashboard/designer_logout.php"><span>Logout</span></a></li>
     <?php
 } else {
     // Show login link if neither user nor designer is logged in
