@@ -67,7 +67,7 @@ include('components/navbar.php');
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <!-- Blog Image Upload -->
                                 <div class="card-body mt-5">
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">

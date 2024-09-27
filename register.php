@@ -42,7 +42,7 @@
                     <h5 class="mb-0">jQuery Validation</h5>
                   </div>
                   <div class="card-body p-4">
-                    <form id="jQueryValidationForm" method="post3" action="#">
+                    <form id="jQueryValidationForm" method="post3" action="login_php\query.php">
                       <div class="row mb-3">
                         <label for="input35" class="col-sm-3 col-form-label">Enter Your Name</label>
                         <div class="col-sm-9">
