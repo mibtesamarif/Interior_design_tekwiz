@@ -1,5 +1,10 @@
 <?php
+<<<<<<< HEAD:login_php/query.php
 include('Database_connection/dbcon.php');
+=======
+
+include('dashmin_panel/php/dbcon.php');
+>>>>>>> c60664e13d82be9a2800fc7ee778c484e8856af9:php/query.php
 
 $nameErr = "";
 $emailErr = "";
@@ -82,7 +87,7 @@ if(isset($_POST['signUp'])){
 
 
 
-// unset($user);
+ unset($user);
 
 //login
 
