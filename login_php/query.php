@@ -1,10 +1,6 @@
 <?php
-<<<<<<< HEAD:login_php/query.php
-include('Database_connection/dbcon.php');
-=======
 
 include('dashmin_panel/php/dbcon.php');
->>>>>>> c60664e13d82be9a2800fc7ee778c484e8856af9:php/query.php
 
 $nameErr = "";
 $emailErr = "";
@@ -178,16 +174,12 @@ if (isset($_POST['consultationBookweb'])) {
             $errorInfo = $query->errorInfo();
             echo "Error booking the consultation: " . $errorInfo[2];
         }
-<<<<<<< HEAD:php/query.php
-    } 
-=======
 
     } 
 
 
 
 
->>>>>>> 67314bb7377a52259bc4c25697cfe15bf8aa6408:login_php/query.php
 
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-include("login_php\query.php");
+include("login_php/query.php");
 ?>
 
 <!DOCTYPE html>

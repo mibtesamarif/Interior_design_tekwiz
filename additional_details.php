@@ -1,5 +1,5 @@
 <?php
-include('php\query.php');
+include('php/query.php');
 ?>
 <!DOCTYPE html>
 <!-- Coding By CodingNepal - codingnepalweb.com -->

@@ -1,12 +1,6 @@
 <?php
-<<<<<<< HEAD
-
-include('dbcon.php');
-// session_start();
-=======
 // include('../login_php/query.php');
 
->>>>>>> 67314bb7377a52259bc4c25697cfe15bf8aa6408
 $catNameErr = '';
 $catDesErr = '';
 $catImgErr = '';
